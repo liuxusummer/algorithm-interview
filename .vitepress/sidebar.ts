@@ -118,6 +118,13 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       { text: '718 最长重复子数组', link: '/problems/718-maximum-length-of-repeated-subarray' },
       { text: '912 排序数组', link: '/problems/912-sort-an-array' },
       { text: '1143 最长公共子序列', link: '/problems/1143-longest-common-subsequence' },
+      {
+        text: '原创面试题',
+        collapsed: true,
+        items: [
+          { text: '原创 01 带过期时间的 LRU 缓存', link: '/problems/original-001-expiring-lru-cache' }
+        ]
+      },
       { text: '题解模板', link: '/problems/TEMPLATE' },
       { text: '高频面试题单', link: '/tracks/top-interview' }
     ]

@@ -97,6 +97,7 @@
 | [718 · 最长重复子数组](/problems/718-maximum-length-of-repeated-subarray) | 连续匹配 DP | 高频 | 已有题解 |
 | [912 · 排序数组](/problems/912-sort-an-array) | 归并排序 | 高频 | 已有题解 |
 | [1143 · 最长公共子序列](/problems/1143-longest-common-subsequence) | 二维 DP | 必做 | 已有题解 |
+| [原创 01 · 带过期时间的 LRU 缓存](/problems/original-001-expiring-lru-cache) | 缓存设计 | 高频 | 已有题解 |
 
 每道题使用三种状态：
 
