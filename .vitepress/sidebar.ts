@@ -1,4 +1,5 @@
 import type { DefaultTheme } from 'vitepress'
+import { meituanWrittenTests } from './theme/data/meituanWrittenTests'
 
 const moduleGroup = (
   number: string,
@@ -160,6 +161,18 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
             { text: '03 字符串等频递增变换', link: '/written-tests/alibaba-ai-20260530#problem-03' }
           ])
         ]
+      },
+      {
+        text: '美团',
+        collapsed: false,
+        items: meituanWrittenTests.map((session) => writtenTestSession(
+          session.date,
+          session.role,
+          session.questions.map((question, index) => ({
+            text: `${String(index + 1).padStart(2, '0')} ${question}`,
+            link: `${session.href}#problem-${String(index + 1).padStart(2, '0')}`
+          }))
+        ))
       },
       {
         text: '蚂蚁集团',
