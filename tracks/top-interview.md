@@ -113,6 +113,8 @@
 | [腾讯原创 03 · 蓄水池抽样](/problems/original-003-reservoir-sampling) | 随机算法 | 高频 | 已有题解 |
 | [腾讯原创 04 · 错排问题](/problems/original-004-derangement) | 组合数学 + DP | 高频 | 已有题解 |
 | [腾讯原创 05 · 微信红包随机分配](/problems/original-005-random-red-packet-allocation) | 随机模拟 | 高频 | 已有题解 |
+| [腾讯原创 06 · 单源最短路径](/problems/original-006-single-source-shortest-path) | 堆优化 Dijkstra | 高频 | 已有题解 |
+| [腾讯原创 07 · 迷宫最短路径](/problems/original-007-maze-shortest-path) | 网格 BFS | 高频 | 已有题解 |
 
 每道题使用三种状态：
 
