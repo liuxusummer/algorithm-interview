@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', 'DFS']"
   difficulty="medium"
-  :appearances="50"
+  :appearances="65"
   pass-rate="30%"
   source-url="https://leetcode.cn/problems/number-of-islands/"
   source-label="力扣原题"

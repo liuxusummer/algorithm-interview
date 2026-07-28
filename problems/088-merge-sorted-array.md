@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '双指针', '普通数组']"
   difficulty="medium"
-  :appearances="48"
+  :appearances="62"
   pass-rate="33%"
   source-url="https://leetcode.cn/problems/merge-sorted-array/"
   source-label="力扣原题"

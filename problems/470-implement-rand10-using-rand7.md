@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['腾讯面试题', '技巧', '拒绝采样']"
   difficulty="medium"
-  :appearances="14"
+  :appearances="23"
   pass-rate="54%"
   source-url="https://leetcode.cn/problems/implement-rand10-using-rand7/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '双指针', '滑动窗口']"
   difficulty="medium"
-  :appearances="16"
+  :appearances="36"
   pass-rate="45%"
   source-url="https://leetcode.cn/problems/minimum-size-subarray-sum/"
   source-label="力扣原题"

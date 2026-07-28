@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '双指针']"
   difficulty="hard"
-  :appearances="38"
+  :appearances="53"
   pass-rate="63%"
   source-url="https://leetcode.cn/problems/trapping-rain-water/"
   source-label="力扣原题"

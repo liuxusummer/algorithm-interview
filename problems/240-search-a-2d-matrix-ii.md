@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '矩阵']"
   difficulty="medium"
-  :appearances="10"
+  :appearances="26"
   pass-rate="39%"
   source-url="https://leetcode.cn/problems/search-a-2d-matrix-ii/"
   source-label="力扣原题"

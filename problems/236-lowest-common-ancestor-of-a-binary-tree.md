@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '递归']"
   difficulty="medium"
-  :appearances="41"
+  :appearances="55"
   pass-rate="47%"
   source-url="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '分组反转']"
   difficulty="hard"
-  :appearances="55"
+  :appearances="79"
   pass-rate="51%"
   source-url="https://leetcode.cn/problems/reverse-nodes-in-k-group/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '动态规划', '连续匹配']"
   difficulty="medium"
-  :appearances="17"
+  :appearances="28"
   pass-rate="65%"
   source-url="https://leetcode.cn/problems/maximum-length-of-repeated-subarray/"
   source-label="力扣原题"

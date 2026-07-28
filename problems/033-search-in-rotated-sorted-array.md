@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '旋转数组']"
   difficulty="medium"
-  :appearances="36"
+  :appearances="52"
   pass-rate="44%"
   source-url="https://leetcode.cn/problems/search-in-rotated-sorted-array/"
   source-label="力扣原题"

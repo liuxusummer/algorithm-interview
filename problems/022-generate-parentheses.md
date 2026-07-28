@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '回溯']"
   difficulty="medium"
-  :appearances="11"
+  :appearances="30"
   pass-rate="63%"
   source-url="https://leetcode.cn/problems/generate-parentheses/"
   source-label="力扣原题"

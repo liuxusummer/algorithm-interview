@@ -38,6 +38,7 @@
 |---|---|---|
 | [215 · 数组中的第 K 个最大元素](/problems/215-kth-largest-element-in-an-array) | 大小为 `k` 的最小堆 | 只保留最大的 `k` 个 |
 | [239 · 滑动窗口最大值](/problems/239-sliding-window-maximum) | 单调双端队列 | 窗口移动中反复查询最值 |
+| [347 · 前 K 个高频元素](/problems/347-top-k-frequent-elements) | 哈希表 + 频次桶 | 按频次从高到低收集 |
 
 ### 4. 结构解析
 
@@ -45,6 +46,7 @@
 |---|---|---|
 | [394 · 字符串解码](/problems/394-decode-string) | 外层前缀 + 重复次数 | 左括号压栈，右括号归约 |
 | [331 · 验证二叉树的前序序列化](/problems/331-verify-preorder-serialization-of-a-binary-tree) | 待填槽位数量 | 用出入度思想替代建树 |
+| [224 · 基本计算器](/problems/224-basic-calculator) | 外层结果 + 括号前符号 | 括号内求值后合并回外层 |
 
 ## LRU 的职责拆分
 

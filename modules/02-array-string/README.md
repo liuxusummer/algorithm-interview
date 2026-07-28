@@ -52,6 +52,7 @@
 |---|---|---|
 | [912 · 排序数组](/problems/912-sort-an-array) | 自底向上归并排序 | 最坏 `O(n log n)`、稳定、无递归栈 |
 | [088 · 合并两个有序数组](/problems/088-merge-sorted-array) | 逆向双指针归并 | 利用目标数组尾部空间 |
+| [075 · 颜色分类](/problems/075-sort-colors) | 荷兰国旗三指针 | 原地维护 0、1、2 三段区域 |
 
 ## 其他核心模式
 
@@ -61,7 +62,8 @@
 | 排序 + 双指针 | [015 · 三数之和](/problems/015-three-sum)、[042 · 接雨水](/problems/042-trapping-rain-water) |
 | 边界模拟 | [054 · 螺旋矩阵](/problems/054-spiral-matrix)、[056 · 合并区间](/problems/056-merge-intervals) |
 | 单调矩阵搜索 | [240 · 搜索二维矩阵 II](/problems/240-search-a-2d-matrix-ii) |
-| 字符串模拟 | [165 · 比较版本号](/problems/165-compare-version-numbers)、[415 · 字符串相加](/problems/415-add-strings) |
+| 字符串模拟 | [043 · 字符串相乘](/problems/043-multiply-strings)、[165 · 比较版本号](/problems/165-compare-version-numbers)、[415 · 字符串相加](/problems/415-add-strings)、[443 · 压缩字符串](/problems/443-string-compression) |
+| 值域映射 | [442 · 数组中重复的数据](/problems/442-find-all-duplicates-in-an-array) |
 
 ## 二分实现检查表
 

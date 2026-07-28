@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '快慢指针']"
   difficulty="medium"
-  :appearances="13"
+  :appearances="23"
   pass-rate="39%"
   source-url="https://leetcode.cn/problems/linked-list-cycle-ii/"
   source-label="力扣原题"

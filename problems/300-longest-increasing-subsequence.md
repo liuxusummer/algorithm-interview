@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '二分优化']"
   difficulty="easy"
-  :appearances="43"
+  :appearances="99"
   pass-rate="59%"
   source-url="https://leetcode.cn/problems/longest-increasing-subsequence/"
   source-label="力扣原题"

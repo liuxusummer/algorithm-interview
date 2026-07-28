@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '索引栈']"
   difficulty="easy"
-  :appearances="12"
+  :appearances="22"
   pass-rate="46%"
   source-url="https://leetcode.cn/problems/longest-valid-parentheses/"
   source-label="力扣原题"

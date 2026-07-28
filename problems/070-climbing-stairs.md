@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '线性 DP']"
   difficulty="easy"
-  :appearances="12"
+  :appearances="29"
   pass-rate="53%"
   source-url="https://leetcode.cn/problems/climbing-stairs/"
   source-label="力扣原题"

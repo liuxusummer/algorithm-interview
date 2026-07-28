@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', 'BFS']"
   difficulty="medium"
-  :appearances="27"
+  :appearances="48"
   pass-rate="48%"
   source-url="https://leetcode.cn/problems/binary-tree-level-order-traversal/"
   source-label="力扣原题"

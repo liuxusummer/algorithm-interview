@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '归并']"
   difficulty="easy"
-  :appearances="29"
+  :appearances="57"
   pass-rate="58%"
   source-url="https://leetcode.cn/problems/merge-two-sorted-lists/"
   source-label="力扣原题"

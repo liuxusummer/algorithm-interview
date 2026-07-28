@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '快慢指针']"
   difficulty="medium"
-  :appearances="43"
+  :appearances="60"
   pass-rate="49%"
   source-url="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/"
   source-label="力扣原题"

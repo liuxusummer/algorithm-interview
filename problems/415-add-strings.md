@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '模拟', '字符串']"
   difficulty="medium"
-  :appearances="17"
+  :appearances="49"
   pass-rate="42%"
   source-url="https://leetcode.cn/problems/add-strings/"
   source-label="力扣原题"

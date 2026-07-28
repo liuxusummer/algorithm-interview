@@ -24,6 +24,7 @@ class TreeNode:
 ### 1. 遍历框架
 
 - [094 · 二叉树的中序遍历](/problems/094-binary-tree-inorder-traversal)：显式栈模拟递归。
+- [230 · 二叉搜索树中第 K 小的元素](/problems/230-kth-smallest-element-in-a-bst)：利用 BST 中序递增并提前停止。
 - [102 · 二叉树的层序遍历](/problems/102-binary-tree-level-order-traversal)：BFS 队列与层大小。
 - [103 · 二叉树的锯齿形层序遍历](/problems/103-binary-tree-zigzag-level-order-traversal)：分层与输出方向解耦。
 - [199 · 二叉树的右视图](/problems/199-binary-tree-right-side-view)：提取每层最后结点。

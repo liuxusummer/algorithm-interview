@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '边界二分']"
   difficulty="medium"
-  :appearances="27"
+  :appearances="39"
   pass-rate="40%"
   source-url="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '二维 DP']"
   difficulty="medium"
-  :appearances="23"
+  :appearances="36"
   pass-rate="63%"
   source-url="https://leetcode.cn/problems/longest-common-subsequence/"
   source-label="力扣原题"

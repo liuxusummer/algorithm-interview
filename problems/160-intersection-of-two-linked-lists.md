@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '双指针']"
   difficulty="easy"
-  :appearances="14"
+  :appearances="25"
   pass-rate="45%"
   source-url="https://leetcode.cn/problems/intersection-of-two-linked-lists/"
   source-label="力扣原题"

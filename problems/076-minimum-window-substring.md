@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '滑动窗口']"
   difficulty="hard"
-  :appearances="10"
+  :appearances="25"
   pass-rate="41%"
   source-url="https://leetcode.cn/problems/minimum-window-substring/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '矩阵']"
   difficulty="medium"
-  :appearances="23"
+  :appearances="34"
   pass-rate="47%"
   source-url="https://leetcode.cn/problems/spiral-matrix/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '二分查找', '模板']"
   difficulty="medium"
-  :appearances="14"
+  :appearances="26"
   pass-rate="55%"
   source-url="https://leetcode.cn/problems/binary-search/"
   source-label="力扣原题"

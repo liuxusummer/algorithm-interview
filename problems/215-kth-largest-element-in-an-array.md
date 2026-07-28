@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '最小堆']"
   difficulty="medium"
-  :appearances="64"
+  :appearances="128"
   pass-rate="53%"
   source-url="https://leetcode.cn/problems/kth-largest-element-in-an-array/"
   source-label="力扣原题"

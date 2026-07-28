@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '二分查找', '答案二分']"
   difficulty="easy"
-  :appearances="14"
+  :appearances="24"
   pass-rate="42%"
   source-url="https://leetcode.cn/problems/sqrtx/"
   source-label="力扣原题"

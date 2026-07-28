@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['模板题', '线性 DP', '普通数组']"
   difficulty="medium"
-  :appearances="46"
+  :appearances="110"
   pass-rate="67%"
   source-url="https://leetcode.cn/problems/maximum-subarray/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '数据结构设计']"
   difficulty="medium"
-  :appearances="72"
+  :appearances="209"
   pass-rate="54%"
   source-url="https://leetcode.cn/problems/lru-cache/"
   source-label="力扣原题"

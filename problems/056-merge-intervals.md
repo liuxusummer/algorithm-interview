@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '排序']"
   difficulty="medium"
-  :appearances="27"
+  :appearances="57"
   pass-rate="50%"
   source-url="https://leetcode.cn/problems/merge-intervals/"
   source-label="力扣原题"

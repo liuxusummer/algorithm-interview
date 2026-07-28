@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '链表', '综合指针']"
   difficulty="medium"
-  :appearances="10"
+  :appearances="22"
   pass-rate="42%"
   source-url="https://leetcode.cn/problems/reorder-list/"
   source-label="力扣原题"

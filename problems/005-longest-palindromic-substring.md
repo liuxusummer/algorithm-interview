@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '区间 DP']"
   difficulty="medium"
-  :appearances="46"
+  :appearances="72"
   pass-rate="52%"
   source-url="https://leetcode.cn/problems/longest-palindromic-substring/"
   source-label="力扣原题"

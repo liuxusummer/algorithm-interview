@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['DFS', '华为面试题', '回溯']"
   difficulty="medium"
-  :appearances="12"
+  :appearances="22"
   pass-rate="48%"
   source-url="https://leetcode.cn/problems/restore-ip-addresses/"
   source-label="力扣原题"

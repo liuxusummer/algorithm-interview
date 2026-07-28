@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '哈希表']"
   difficulty="easy"
-  :appearances="21"
+  :appearances="41"
   pass-rate="27%"
   source-url="https://leetcode.cn/problems/two-sum/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '滑动窗口']"
   difficulty="medium"
-  :appearances="174"
+  :appearances="263"
   pass-rate="24%"
   source-url="https://leetcode.cn/problems/longest-substring-without-repeating-characters/"
   source-label="力扣原题"

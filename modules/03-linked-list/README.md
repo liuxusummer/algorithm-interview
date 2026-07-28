@@ -25,6 +25,7 @@ class ListNode:
 
 - [206 · 反转链表](/problems/206-reverse-linked-list)：保存后继、反转指向、整体推进。
 - [021 · 合并两个有序链表](/problems/021-merge-two-sorted-lists)：虚拟头结点与尾指针。
+- [024 · 两两交换链表中的节点](/problems/024-swap-nodes-in-pairs)：虚拟头结点与成对重连。
 - [002 · 两数相加](/problems/002-add-two-numbers)：同步遍历、进位与结果构造。
 - [082 · 删除排序链表中的重复元素 II](/problems/082-remove-duplicates-from-sorted-list-ii)：跳过整段重复值。
 
@@ -34,6 +35,7 @@ class ListNode:
 - [141 · 环形链表](/problems/141-linked-list-cycle)：Floyd 判圈。
 - [142 · 环形链表 II](/problems/142-linked-list-cycle-ii)：由相遇点定位环入口。
 - [160 · 相交链表](/problems/160-intersection-of-two-linked-lists)：切换链表抵消长度差。
+- [234 · 回文链表](/problems/234-palindrome-linked-list)：找中点、反转后半段并比较。
 
 ### 3. 局部反转与重排
 

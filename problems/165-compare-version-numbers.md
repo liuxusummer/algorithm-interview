@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '模拟', '字符串']"
   difficulty="medium"
-  :appearances="13"
+  :appearances="35"
   pass-rate="48%"
   source-url="https://leetcode.cn/problems/compare-version-numbers/"
   source-label="力扣原题"

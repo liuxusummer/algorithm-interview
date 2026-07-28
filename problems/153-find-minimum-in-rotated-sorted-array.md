@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '旋转数组']"
   difficulty="medium"
-  :appearances="10"
+  :appearances="21"
   pass-rate="59%"
   source-url="https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/"
   source-label="力扣原题"

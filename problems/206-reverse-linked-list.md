@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '链表']"
   difficulty="easy"
-  :appearances="55"
+  :appearances="100"
   pass-rate="39%"
   source-url="https://leetcode.cn/problems/reverse-linked-list/"
   source-label="力扣原题"

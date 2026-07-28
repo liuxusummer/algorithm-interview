@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', 'Floyd 判圈']"
   difficulty="medium"
-  :appearances="17"
+  :appearances="32"
   pass-rate="67%"
   source-url="https://leetcode.cn/problems/find-the-duplicate-number/"
   source-label="力扣原题"

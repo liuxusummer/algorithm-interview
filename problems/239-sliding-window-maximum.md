@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '单调队列']"
   difficulty="medium"
-  :appearances="15"
+  :appearances="32"
   pass-rate="40%"
   source-url="https://leetcode.cn/problems/sliding-window-maximum/"
   source-label="力扣原题"

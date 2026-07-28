@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '双指针']"
   difficulty="medium"
-  :appearances="44"
+  :appearances="70"
   pass-rate="43%"
   source-url="https://leetcode.cn/problems/3sum/"
   source-label="力扣原题"

@@ -25,11 +25,13 @@
 | [021 · 合并两个有序链表](/problems/021-merge-two-sorted-lists) | 归并 | 必做 | 已有题解 |
 | [022 · 括号生成](/problems/022-generate-parentheses) | 回溯 | 必做 | 已有题解 |
 | [023 · 合并 K 个升序链表](/problems/023-merge-k-sorted-lists) | 最小堆 | 必做 | 已有题解 |
+| [024 · 两两交换链表中的节点](/problems/024-swap-nodes-in-pairs) | 成对重连 | 高频 | 已有题解 |
 | [025 · K 个一组翻转链表](/problems/025-reverse-nodes-in-k-group) | 分组反转 | 必做 | 已有题解 |
 | [032 · 最长有效括号](/problems/032-longest-valid-parentheses) | 索引栈 | 高频 | 已有题解 |
 | [033 · 搜索旋转排序数组](/problems/033-search-in-rotated-sorted-array) | 旋转数组二分 | 必做 | 已有题解 |
 | [034 · 查找元素的第一个和最后一个位置](/problems/034-find-first-and-last-position-of-element-in-sorted-array) | 边界二分 | 必做 | 已有题解 |
 | [042 · 接雨水](/problems/042-trapping-rain-water) | 双指针 | 必做 | 已有题解 |
+| [043 · 字符串相乘](/problems/043-multiply-strings) | 竖式乘法模拟 | 高频 | 已有题解 |
 | [046 · 全排列](/problems/046-permutations) | 回溯 | 必做 | 已有题解 |
 | [053 · 最大子数组和](/problems/053-maximum-subarray) | 线性 DP | 必做 | 已有题解 |
 | [054 · 螺旋矩阵](/problems/054-spiral-matrix) | 边界模拟 | 必做 | 已有题解 |
@@ -38,6 +40,7 @@
 | [069 · x 的平方根](/problems/069-sqrtx) | 答案二分 | 高频 | 已有题解 |
 | [070 · 爬楼梯](/problems/070-climbing-stairs) | 滚动 DP | 必做 | 已有题解 |
 | [072 · 编辑距离](/problems/072-edit-distance) | 二维 DP | 必做 | 已有题解 |
+| [075 · 颜色分类](/problems/075-sort-colors) | 荷兰国旗三指针 | 高频 | 已有题解 |
 | [076 · 最小覆盖子串](/problems/076-minimum-window-substring) | 滑动窗口 | 必做 | 已有题解 |
 | [078 · 子集](/problems/078-subsets) | 回溯 | 必做 | 已有题解 |
 | [079 · 单词搜索](/problems/079-word-search) | 网格回溯 | 必做 | 已有题解 |
@@ -61,6 +64,7 @@
 | [143 · 重排链表](/problems/143-reorder-list) | 综合指针 | 高频 | 已有题解 |
 | [146 · LRU 缓存](/problems/146-lru-cache) | 哈希表 + 双向链表 | 必做 | 已有题解 |
 | [148 · 排序链表](/problems/148-sort-list) | 归并排序 | 必做 | 已有题解 |
+| [152 · 乘积最大子数组](/problems/152-maximum-product-subarray) | 双状态 DP | 高频 | 已有题解 |
 | [153 · 寻找旋转排序数组中的最小值](/problems/153-find-minimum-in-rotated-sorted-array) | 旋转数组二分 | 必做 | 已有题解 |
 | [155 · 最小栈](/problems/155-min-stack) | 辅助栈 | 必做 | 已有题解 |
 | [160 · 相交链表](/problems/160-intersection-of-two-linked-lists) | 双指针 | 必做 | 已有题解 |
@@ -73,8 +77,11 @@
 | [209 · 长度最小的子数组](/problems/209-minimum-size-subarray-sum) | 滑动窗口 | 必做 | 已有题解 |
 | [215 · 数组中的第 K 个最大元素](/problems/215-kth-largest-element-in-an-array) | 最小堆 | 必做 | 已有题解 |
 | [221 · 最大正方形](/problems/221-maximal-square) | 矩阵 DP | 高频 | 已有题解 |
+| [224 · 基本计算器](/problems/224-basic-calculator) | 表达式栈 | 高频 | 已有题解 |
 | [226 · 翻转二叉树](/problems/226-invert-binary-tree) | 递归 | 必做 | 已有题解 |
+| [230 · 二叉搜索树中第 K 小的元素](/problems/230-kth-smallest-element-in-a-bst) | BST 中序遍历 | 高频 | 已有题解 |
 | [232 · 用栈实现队列](/problems/232-implement-queue-using-stacks) | 双栈 | 高频 | 已有题解 |
+| [234 · 回文链表](/problems/234-palindrome-linked-list) | 快慢指针 + 反转 | 高频 | 已有题解 |
 | [236 · 二叉树的最近公共祖先](/problems/236-lowest-common-ancestor-of-a-binary-tree) | 递归 | 必做 | 已有题解 |
 | [239 · 滑动窗口最大值](/problems/239-sliding-window-maximum) | 单调队列 | 必做 | 已有题解 |
 | [240 · 搜索二维矩阵 II](/problems/240-search-a-2d-matrix-ii) | 阶梯搜索 | 必做 | 已有题解 |
@@ -83,10 +90,13 @@
 | [322 · 零钱兑换](/problems/322-coin-change) | 完全背包 | 必做 | 已有题解 |
 | [328 · 奇偶链表](/problems/328-odd-even-linked-list) | 指针分组 | 高频 | 已有题解 |
 | [331 · 验证二叉树的前序序列化](/problems/331-verify-preorder-serialization-of-a-binary-tree) | 槽位计数 | 高频 | 已有题解 |
+| [347 · 前 K 个高频元素](/problems/347-top-k-frequent-elements) | 哈希表 + 桶排序 | 高频 | 已有题解 |
 | [394 · 字符串解码](/problems/394-decode-string) | 栈 | 必做 | 已有题解 |
 | [402 · 移掉 K 位数字](/problems/402-remove-k-digits) | 单调栈 + 贪心 | 高频 | 已有题解 |
 | [415 · 字符串相加](/problems/415-add-strings) | 字符串模拟 | 高频 | 已有题解 |
 | [416 · 分割等和子集](/problems/416-partition-equal-subset-sum) | 0/1 背包 | 必做 | 已有题解 |
+| [442 · 数组中重复的数据](/problems/442-find-all-duplicates-in-an-array) | 原地符号标记 | 高频 | 已有题解 |
+| [443 · 压缩字符串](/problems/443-string-compression) | 读写双指针 | 高频 | 已有题解 |
 | [470 · 用 Rand7() 实现 Rand10()](/problems/470-implement-rand10-using-rand7) | 拒绝采样 | 高频 | 已有题解 |
 | [543 · 二叉树的直径](/problems/543-diameter-of-binary-tree) | 树形 DP | 必做 | 已有题解 |
 | [560 · 和为 K 的子数组](/problems/560-subarray-sum-equals-k) | 前缀和 + 哈希表 | 必做 | 已有题解 |
@@ -97,6 +107,7 @@
 | [718 · 最长重复子数组](/problems/718-maximum-length-of-repeated-subarray) | 连续匹配 DP | 高频 | 已有题解 |
 | [912 · 排序数组](/problems/912-sort-an-array) | 归并排序 | 高频 | 已有题解 |
 | [1143 · 最长公共子序列](/problems/1143-longest-common-subsequence) | 二维 DP | 必做 | 已有题解 |
+| [1262 · 可被三整除的最大和](/problems/1262-greatest-sum-divisible-by-three) | 余数 DP | 高频 | 已有题解 |
 | [原创 01 · 带过期时间的 LRU 缓存](/problems/original-001-expiring-lru-cache) | 缓存设计 | 高频 | 已有题解 |
 | [原创题单 02 · 最小整数 I](/problems/original-002-minimum-integer-i) | 贪心 + 树状数组 | 高频 | 已有题解 |
 

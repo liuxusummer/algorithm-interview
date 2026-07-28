@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '二维 DP']"
   difficulty="medium"
-  :appearances="34"
+  :appearances="59"
   pass-rate="42%"
   source-url="https://leetcode.cn/problems/edit-distance/"
   source-label="力扣原题"

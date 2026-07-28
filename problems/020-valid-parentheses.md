@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '栈']"
   difficulty="easy"
-  :appearances="36"
+  :appearances="78"
   pass-rate="44%"
   source-url="https://leetcode.cn/problems/valid-parentheses/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '贪心']"
   difficulty="easy"
-  :appearances="34"
+  :appearances="48"
   pass-rate="66%"
   source-url="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/"
   source-label="力扣原题"

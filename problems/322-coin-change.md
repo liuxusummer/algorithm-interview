@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['Hot100', '大厂面试', '完全背包']"
   difficulty="medium"
-  :appearances="17"
+  :appearances="45"
   pass-rate="53%"
   source-url="https://leetcode.cn/problems/coin-change/"
   source-label="力扣原题"

@@ -3,7 +3,7 @@
 <ProblemMeta
   :tags="['字节面试题', '链表', '去重']"
   difficulty="medium"
-  :appearances="13"
+  :appearances="28"
   pass-rate="45%"
   source-url="https://leetcode.cn/problems/remove-duplicates-from-sorted-list-ii/"
   source-label="力扣原题"
