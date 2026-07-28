@@ -645,6 +645,44 @@ body {
   font-size: 12px;
 }
 
+.written-test-hierarchy {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  align-items: center;
+  gap: 14px;
+  margin: -18px 0 52px;
+}
+
+.written-test-hierarchy > span {
+  display: grid;
+  min-height: 92px;
+  padding: 17px 19px;
+  border: 1px solid var(--vp-c-text-1);
+  background:
+    linear-gradient(135deg, transparent 0 72%, var(--exam-blue-soft) 72% 100%),
+    var(--vp-c-bg);
+}
+
+.written-test-hierarchy small {
+  color: var(--exam-blue);
+  font-family: var(--vp-font-family-mono);
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.written-test-hierarchy strong {
+  align-self: end;
+  font-size: 18px;
+}
+
+.written-test-hierarchy i {
+  color: var(--exam-blue);
+  font-family: var(--vp-font-family-mono);
+  font-style: normal;
+  font-weight: 900;
+}
+
 .written-test-session {
   margin: 22px 0 54px;
   border: 2px solid var(--vp-c-text-1);
@@ -931,6 +969,21 @@ body {
 }
 
 @media (max-width: 760px) {
+  .written-test-hierarchy {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: -22px;
+  }
+
+  .written-test-hierarchy > span {
+    min-height: 72px;
+  }
+
+  .written-test-hierarchy i {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
   .written-test-hero {
     grid-template-columns: 1fr;
     min-height: 0;

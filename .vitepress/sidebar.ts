@@ -12,6 +12,16 @@ const moduleGroup = (
   ]
 })
 
+const writtenTestSession = (
+  date: string,
+  role: string,
+  items: DefaultTheme.SidebarItem[]
+): DefaultTheme.SidebarItem => ({
+  text: `${date} · ${role}`,
+  collapsed: true,
+  items
+})
+
 export const sidebar: DefaultTheme.SidebarItem[] = [
   {
     text: '训练入口',
@@ -36,25 +46,173 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     items: [
       { text: '模块说明与 ACM 规范', link: '/written-tests/README' },
       {
-        text: '蔚来通用岗 · 2026-07-26',
-        collapsed: true,
+        text: '阿里巴巴',
+        collapsed: false,
         items: [
-          { text: '01 阶乘平方数', link: '/written-tests/nio-20260726-factorial-square' },
-          { text: '02 线性组合计数', link: '/written-tests/nio-20260726-linear-combination-count' }
+          writtenTestSession('2026-03-25', '研发岗', [
+            { text: '01 圣诞老人分糖果', link: '/written-tests/alibaba-dev-20260325#problem-01' },
+            { text: '02 公共子序列', link: '/written-tests/alibaba-dev-20260325#problem-02' },
+            { text: '03 喜欢的正整数', link: '/written-tests/alibaba-dev-20260325#problem-03' }
+          ]),
+          writtenTestSession('2026-03-25', '算法岗', [
+            { text: '01 三星数字', link: '/written-tests/alibaba-algo-20260325#problem-01' },
+            { text: '02 该博弈了', link: '/written-tests/alibaba-algo-20260325#problem-02' },
+            { text: '03 铁路修建', link: '/written-tests/alibaba-algo-20260325#problem-03' }
+          ]),
+          writtenTestSession('2026-03-28', '研发岗', [
+            { text: '01 值', link: '/written-tests/alibaba-dev-20260328#problem-01' },
+            { text: '02 不稳定 or 相似', link: '/written-tests/alibaba-dev-20260328#problem-02' },
+            { text: '03 递增', link: '/written-tests/alibaba-dev-20260328#problem-03' }
+          ]),
+          writtenTestSession('2026-03-28', '算法岗', [
+            { text: '01 回合制游戏', link: '/written-tests/alibaba-algo-20260328#problem-01' },
+            { text: '02 完全平方数', link: '/written-tests/alibaba-algo-20260328#problem-02' },
+            { text: '03 弦上生花', link: '/written-tests/alibaba-algo-20260328#problem-03' }
+          ]),
+          writtenTestSession('2026-03-28', '后端开发岗', [
+            { text: '01 列车相对静止', link: '/written-tests/alibaba-backend-20260328#problem-01' },
+            { text: '02 隐式素数', link: '/written-tests/alibaba-backend-20260328#problem-02' },
+            { text: '03 二进制操作', link: '/written-tests/alibaba-backend-20260328#problem-03' }
+          ]),
+          writtenTestSession('2026-04-01', '研发岗', [
+            { text: '01 数组对齐', link: '/written-tests/alibaba-dev-20260401#problem-01' },
+            { text: '02 约束差值数组', link: '/written-tests/alibaba-dev-20260401#problem-02' },
+            { text: '03 中，太中了', link: '/written-tests/alibaba-dev-20260401#problem-03' }
+          ]),
+          writtenTestSession('2026-04-01', '算法岗', [
+            { text: '01 等步长交换', link: '/written-tests/alibaba-algo-20260401#problem-01' },
+            { text: '02 找质数', link: '/written-tests/alibaba-algo-20260401#problem-02' },
+            { text: '03 字符串分段压缩', link: '/written-tests/alibaba-algo-20260401#problem-03' }
+          ]),
+          writtenTestSession('2026-04-08', '研发岗', [
+            { text: '01 可删去的字符串', link: '/written-tests/alibaba-dev-20260408#problem-01' },
+            { text: '02 网格路径最大和', link: '/written-tests/alibaba-dev-20260408#problem-02' },
+            { text: '03 相邻等值对贡献和', link: '/written-tests/alibaba-dev-20260408#problem-03' }
+          ]),
+          writtenTestSession('2026-04-11', 'AI 研发岗', [
+            { text: '01 模乘循环数', link: '/written-tests/alibaba-ai-20260411#problem-01' },
+            { text: '02 逆转', link: '/written-tests/alibaba-ai-20260411#problem-02' },
+            { text: '03 果酱平衡', link: '/written-tests/alibaba-ai-20260411#problem-03' }
+          ]),
+          writtenTestSession('2026-04-11', '算法岗', [
+            { text: '01 轮转', link: '/written-tests/alibaba-algo-20260411#problem-01' },
+            { text: '02 凑对', link: '/written-tests/alibaba-algo-20260411#problem-02' },
+            { text: '03 模 k 最大子序列', link: '/written-tests/alibaba-algo-20260411#problem-03' }
+          ]),
+          writtenTestSession('2026-04-15', 'AI 算法岗', [
+            { text: '01 富豪', link: '/written-tests/alibaba-ai-20260415#problem-01' },
+            { text: '02 何物为真', link: '/written-tests/alibaba-ai-20260415#problem-02' },
+            { text: '03 连连看', link: '/written-tests/alibaba-ai-20260415#problem-03' }
+          ]),
+          writtenTestSession('2026-04-18', '算法岗', [
+            { text: '01 这是什么博弈', link: '/written-tests/alibaba-algo-20260418#problem-01' },
+            { text: '02 最短就餐距离', link: '/written-tests/alibaba-algo-20260418#problem-02' },
+            { text: '03 最大权值', link: '/written-tests/alibaba-algo-20260418#problem-03' }
+          ]),
+          writtenTestSession('2026-04-25', 'AI 研发岗', [
+            { text: '01 蝴蝶乐园', link: '/written-tests/alibaba-ai-20260425#problem-01' },
+            { text: '02 按位与', link: '/written-tests/alibaba-ai-20260425#problem-02' },
+            { text: '03 区间第 k 小', link: '/written-tests/alibaba-ai-20260425#problem-03' }
+          ]),
+          writtenTestSession('2026-04-25', '算法岗', [
+            { text: '01 插入顺序', link: '/written-tests/alibaba-algo-20260425#problem-01' },
+            { text: '02 矩阵计数', link: '/written-tests/alibaba-algo-20260425#problem-02' },
+            { text: '03 取模仪式', link: '/written-tests/alibaba-algo-20260425#problem-03' }
+          ]),
+          writtenTestSession('2026-05-09', '算法岗', [
+            { text: '01 有符号型排列', link: '/written-tests/alibaba-algo-20260509#problem-01' },
+            { text: '02 迷宫指示牌', link: '/written-tests/alibaba-algo-20260509#problem-02' },
+            { text: '03 xab', link: '/written-tests/alibaba-algo-20260509#problem-03' }
+          ]),
+          writtenTestSession('2026-05-09', 'AI 研发岗', [
+            { text: '01 最大数位之和', link: '/written-tests/alibaba-ai-20260509#problem-01' },
+            { text: '02 充电桩阈值', link: '/written-tests/alibaba-ai-20260509#problem-02' },
+            { text: '03 游历 n 个城市', link: '/written-tests/alibaba-ai-20260509#problem-03' }
+          ]),
+          writtenTestSession('2026-05-13', '工程岗', [
+            { text: '01 二次幂变换', link: '/written-tests/alibaba-dev-20260513#problem-01' },
+            { text: '02 字符串计数', link: '/written-tests/alibaba-dev-20260513#problem-02' },
+            { text: '03 迷宫', link: '/written-tests/alibaba-dev-20260513#problem-03' }
+          ]),
+          writtenTestSession('2026-05-16', '工程岗', [
+            { text: '01 逆序对构造', link: '/written-tests/alibaba-dev-20260516#problem-01' },
+            { text: '02 传送门最短路', link: '/written-tests/alibaba-dev-20260516#problem-02' },
+            { text: '03 子区间最小值和', link: '/written-tests/alibaba-dev-20260516#problem-03' }
+          ]),
+          writtenTestSession('2026-05-16', '算法岗', [
+            { text: '01 分组计数', link: '/written-tests/alibaba-algo-20260516#problem-01' },
+            { text: '02 坏掉的键盘', link: '/written-tests/alibaba-algo-20260516#problem-02' },
+            { text: '03 小红的 01 串操作', link: '/written-tests/alibaba-algo-20260516#problem-03' }
+          ]),
+          writtenTestSession('2026-05-16', 'AI 研发岗', [
+            { text: '01 密钥密码', link: '/written-tests/alibaba-ai-20260516#problem-01' },
+            { text: '02 按位或最大化', link: '/written-tests/alibaba-ai-20260516#problem-02' },
+            { text: '03 最小陡峭值', link: '/written-tests/alibaba-ai-20260516#problem-03' }
+          ]),
+          writtenTestSession('2026-05-23', '算法岗', [
+            { text: '01 荆棘林的最优砍断计划', link: '/written-tests/alibaba-algo-20260523#problem-01' },
+            { text: '02 多约束条件下的元素匹配统计', link: '/written-tests/alibaba-algo-20260523#problem-02' },
+            { text: '03 寻找满足条件的最优子序列', link: '/written-tests/alibaba-algo-20260523#problem-03' }
+          ]),
+          writtenTestSession('2026-05-30', 'AI 研发岗', [
+            { text: '01 数组中的沉默元素计数', link: '/written-tests/alibaba-ai-20260530#problem-01' },
+            { text: '02 矩阵两次取线最大收益', link: '/written-tests/alibaba-ai-20260530#problem-02' },
+            { text: '03 字符串等频递增变换', link: '/written-tests/alibaba-ai-20260530#problem-03' }
+          ])
         ]
       },
       {
-        text: '蚂蚁集团 · 2026 春招',
+        text: '蚂蚁集团',
         collapsed: false,
         items: [
-          { text: '03-26 研发岗', link: '/written-tests/ant-20260326-dev' },
-          { text: '03-29 研发岗', link: '/written-tests/ant-20260329-dev' },
-          { text: '03-29 AI Coding · 重点', link: '/written-tests/ant-20260329-ai-coding' },
-          { text: '04-02 研发岗', link: '/written-tests/ant-20260402-dev' },
-          { text: '04-09 算法岗', link: '/written-tests/ant-20260409-algo' },
-          { text: '04-16 研发岗', link: '/written-tests/ant-20260416-dev' },
-          { text: '04-19 研发岗', link: '/written-tests/ant-20260419-dev' },
-          { text: '05-07 开发岗', link: '/written-tests/ant-20260507-dev' }
+          writtenTestSession('2026-03-26', '研发岗', [
+            { text: '01 排列拼接', link: '/written-tests/ant-20260326-dev#problem-01' },
+            { text: '02 该回家了', link: '/written-tests/ant-20260326-dev#problem-02' },
+            { text: '03 破译者', link: '/written-tests/ant-20260326-dev#problem-03' }
+          ]),
+          writtenTestSession('2026-03-29', '研发岗', [
+            { text: '01 巴巴博弈', link: '/written-tests/ant-20260329-dev#problem-01' },
+            { text: '02 质数合数', link: '/written-tests/ant-20260329-dev#problem-02' },
+            { text: '03 位运算权值', link: '/written-tests/ant-20260329-dev#problem-03' }
+          ]),
+          writtenTestSession('2026-03-29', 'AI Coding', [
+            { text: '01 终端早餐店系统 · 重点', link: '/written-tests/ant-20260329-ai-coding' }
+          ]),
+          writtenTestSession('2026-04-02', '研发岗', [
+            { text: '01 也许互质序列', link: '/written-tests/ant-20260402-dev#problem-01' },
+            { text: '02 按位与权值和', link: '/written-tests/ant-20260402-dev#problem-02' },
+            { text: '03 平方串', link: '/written-tests/ant-20260402-dev#problem-03' }
+          ]),
+          writtenTestSession('2026-04-09', '算法岗', [
+            { text: '01 穿过黑暗之门', link: '/written-tests/ant-20260409-algo#problem-01' },
+            { text: '02 离散型马尔可夫模型预测', link: '/written-tests/ant-20260409-algo#problem-02' },
+            { text: '03 公倍数对和', link: '/written-tests/ant-20260409-algo#problem-03' }
+          ]),
+          writtenTestSession('2026-04-16', '研发岗', [
+            { text: '01 仅含 1 和合数的数组', link: '/written-tests/ant-20260416-dev#problem-01' },
+            { text: '02 剪绳子', link: '/written-tests/ant-20260416-dev#problem-02' },
+            { text: '03 不互质元素下标', link: '/written-tests/ant-20260416-dev#problem-03' }
+          ]),
+          writtenTestSession('2026-04-19', '研发岗', [
+            { text: '01 拼好房', link: '/written-tests/ant-20260419-dev#problem-01' },
+            { text: '02 不降序序列', link: '/written-tests/ant-20260419-dev#problem-02' },
+            { text: '03 二次幂变换 2', link: '/written-tests/ant-20260419-dev#problem-03' }
+          ]),
+          writtenTestSession('2026-05-07', '开发岗', [
+            { text: '01 好看的二进制字符串', link: '/written-tests/ant-20260507-dev#problem-01' },
+            { text: '02 地图上的最短别墅距离', link: '/written-tests/ant-20260507-dev#problem-02' },
+            { text: '03 最大化打铁次数的期望', link: '/written-tests/ant-20260507-dev#problem-03' }
+          ])
+        ]
+      },
+      {
+        text: '蔚来',
+        collapsed: true,
+        items: [
+          writtenTestSession('2026-07-26', '通用岗', [
+            { text: '01 阶乘平方数', link: '/written-tests/nio-20260726-factorial-square' },
+            { text: '02 线性组合计数', link: '/written-tests/nio-20260726-linear-combination-count' }
+          ])
         ]
       }
     ]

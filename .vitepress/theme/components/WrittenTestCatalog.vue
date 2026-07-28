@@ -11,6 +11,7 @@ import {
 } from '@phosphor-icons/vue'
 import { withBase } from 'vitepress'
 import { computed, ref } from 'vue'
+import { alibabaWrittenTests } from '../data/alibabaWrittenTests'
 
 type SortOrder = 'date-desc' | 'date-asc' | 'company'
 
@@ -25,10 +26,15 @@ interface WrittenTestSession {
   difficulty: string
   topics: string[]
   questions: string[]
+  questionHrefs?: string[]
   featured?: boolean
 }
 
 const sessions: WrittenTestSession[] = [
+  ...alibabaWrittenTests.map((session) => ({
+    ...session,
+    type: '算法笔试' as const
+  })),
   {
     id: 'ANT-AI-20260329',
     company: '蚂蚁集团',
@@ -40,6 +46,7 @@ const sessions: WrittenTestSession[] = [
     difficulty: '工程综合',
     topics: ['系统设计', '状态机', 'API', '测试交付'],
     questions: ['终端早餐店系统'],
+    questionHrefs: ['/written-tests/ant-20260329-ai-coding'],
     featured: true
   },
   {
@@ -52,7 +59,11 @@ const sessions: WrittenTestSession[] = [
     href: '/written-tests/nio-20260726-factorial-square',
     difficulty: '中等偏易',
     topics: ['数论', '预处理', '裴蜀定理'],
-    questions: ['阶乘平方数', '线性组合计数']
+    questions: ['阶乘平方数', '线性组合计数'],
+    questionHrefs: [
+      '/written-tests/nio-20260726-factorial-square',
+      '/written-tests/nio-20260726-linear-combination-count'
+    ]
   },
   {
     id: 'ANT-DEV-20260326',
@@ -205,6 +216,14 @@ function clearFilters() {
   selectedType.value = '全部类型'
   selectedYear.value = '全部年份'
 }
+
+function getQuestionHref(session: WrittenTestSession, index: number) {
+  if (session.questionHrefs?.[index]) {
+    return session.questionHrefs[index]
+  }
+
+  return `${session.href}#problem-${String(index + 1).padStart(2, '0')}`
+}
 </script>
 
 <template>
@@ -324,9 +343,13 @@ function clearFilters() {
           </h3>
 
           <div class="written-session-card__questions">
-            <span v-for="(question, index) in session.questions" :key="question">
+            <a
+              v-for="(question, index) in session.questions"
+              :key="question"
+              :href="withBase(getQuestionHref(session, index))"
+            >
               {{ String(index + 1).padStart(2, '0') }} {{ question }}
-            </span>
+            </a>
           </div>
 
           <footer>
@@ -599,7 +622,7 @@ function clearFilters() {
 }
 
 .written-session-card__meta span,
-.written-session-card__questions span,
+.written-session-card__questions a,
 .written-session-card footer div span {
   padding: 4px 7px;
   border: 1px solid var(--vp-c-divider);
@@ -635,9 +658,17 @@ function clearFilters() {
   margin-top: 14px;
 }
 
-.written-session-card__questions span {
+.written-session-card__questions a {
   border-color: color-mix(in srgb, var(--exam-blue) 32%, var(--vp-c-divider));
   color: var(--exam-blue);
+  text-decoration: none;
+  transition: border-color 140ms ease, background 140ms ease, transform 140ms ease;
+}
+
+.written-session-card__questions a:hover {
+  border-color: var(--exam-blue);
+  background: var(--exam-blue-soft);
+  transform: translateY(-1px);
 }
 
 .written-session-card footer {
