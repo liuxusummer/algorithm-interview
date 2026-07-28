@@ -53,6 +53,7 @@ class Solution:
         dp = [unreachable] * (amount + 1)
         dp[0] = 0
 
+        # dp[current] 表示凑出 current 的最少硬币数。
         for current in range(1, amount + 1):
             for coin in coins:
                 if coin <= current:

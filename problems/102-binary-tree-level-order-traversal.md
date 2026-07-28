@@ -50,6 +50,7 @@ class Solution:
         levels: list[list[int]] = []
 
         while queue:
+            # 固定本层长度，循环中新入队的结点留给下一层。
             level_size = len(queue)
             level_values: list[int] = []
 

@@ -45,6 +45,7 @@ class Solution:
         if not left or not right:
             return False
 
+        # 镜像位置需要值相等，并交叉比较左右子树。
         return (
             left.val == right.val
             and self._is_mirror(left.left, right.right)

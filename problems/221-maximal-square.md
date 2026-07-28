@@ -59,6 +59,7 @@ class Solution:
         maximum_side = 0
 
         for row in matrix:
+            # dp[column] 是上方，dp[column - 1] 是左侧，top_left 是左上角。
             top_left = 0
 
             for column in range(1, columns + 1):

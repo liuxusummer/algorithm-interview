@@ -41,6 +41,7 @@ class Solution:
         if not root:
             return False
 
+        # 当前结点先尝试整树匹配，失败后再搜索左右子树。
         return (
             self._same_tree(root, subRoot)
             or self.isSubtree(root.left, subRoot)

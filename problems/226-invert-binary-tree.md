@@ -41,6 +41,7 @@ class Solution:
         if not root:
             return None
 
+        # 先递归翻转两个子树，再交换它们在当前结点的位置。
         inverted_left = self.invertTree(root.left)
         inverted_right = self.invertTree(root.right)
         root.left = inverted_right

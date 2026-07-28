@@ -52,6 +52,7 @@ class Solution:
         target: int,
     ) -> list[int]:
         def lower_bound(value: int) -> int:
+            # 在左闭右开区间中查找第一个大于等于 value 的位置。
             left = 0
             right = len(nums)
 
@@ -70,6 +71,7 @@ class Solution:
         if first == len(nums) or nums[first] != target:
             return [-1, -1]
 
+        # target + 1 的下界减一，就是最后一个 target 的位置。
         last = lower_bound(target + 1) - 1
         return [first, last]
 ```

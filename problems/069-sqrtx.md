@@ -55,6 +55,7 @@ class Solution:
         right = x // 2
         answer = 1
 
+        # 在闭区间中二分，并记录所有平方不超过 x 的候选答案。
         while left <= right:
             middle = left + (right - left) // 2
 

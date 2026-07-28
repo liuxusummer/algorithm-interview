@@ -63,6 +63,7 @@ class Solution:
 
             for _ in range(level_size):
                 node, position = queue.popleft()
+                # 按完全二叉树编号，并减去本层起点避免编号无限膨胀。
                 normalized = position - level_start
                 last_position = normalized
 

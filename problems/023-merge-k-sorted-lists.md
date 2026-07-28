@@ -53,8 +53,10 @@ class Solution:
         lists: list[Optional[ListNode]],
     ) -> Optional[ListNode]:
         heap = []
+        # 唯一序号用于打破相同结点值的平局，避免直接比较 ListNode。
         sequence = count()
 
+        # 堆中每条非空链表最多保留一个当前候选结点。
         for node in lists:
             if node:
                 heapq.heappush(

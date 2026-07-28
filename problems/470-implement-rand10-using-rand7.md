@@ -48,6 +48,7 @@ value = row * 7 + column
 class Solution:
     def rand10(self) -> int:
         while True:
+            # 两次 rand7 等概率生成 1～49，只接受可被 10 均分的前 40 个值。
             value = (rand7() - 1) * 7 + rand7()
 
             if value <= 40:

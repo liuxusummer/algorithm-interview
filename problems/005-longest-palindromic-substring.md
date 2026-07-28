@@ -65,6 +65,7 @@ class Solution:
         best_start = 0
         best_length = 1
 
+        # 按右端点递增填表，访问内部区间时其状态已经计算完成。
         for right in range(length):
             for left in range(right + 1):
                 if (

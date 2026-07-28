@@ -65,6 +65,7 @@ class Solution:
         best_length = 0
 
         for right, char in enumerate(s):
+            # 重复字符仍在当前窗口内时，左边界才能越过它上次的位置。
             if char in last_seen and last_seen[char] >= left:
                 left = last_seen[char] + 1
 

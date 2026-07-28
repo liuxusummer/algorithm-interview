@@ -50,6 +50,7 @@ class Solution:
         reachable = [False] * (len(s) + 1)
         reachable[0] = True
 
+        # reachable[end] 表示前 end 个字符能否被词典完整拆分。
         for end in range(1, len(s) + 1):
             for length in range(
                 1,

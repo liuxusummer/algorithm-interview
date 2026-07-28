@@ -63,6 +63,7 @@ class Solution:
         second = n - 1
         write = m + n - 1
 
+        # 从尾部写入，避免覆盖 nums1 中尚未比较的有效元素。
         while second >= 0:
             if first >= 0 and nums1[first] > nums2[second]:
                 nums1[write] = nums1[first]

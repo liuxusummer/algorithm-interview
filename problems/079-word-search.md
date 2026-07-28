@@ -60,6 +60,7 @@ class Solution:
         )
         word_frequency = Counter(word)
 
+        # 先按字符数量剪枝，并从棋盘中更稀缺的一端开始搜索。
         if any(
             board_frequency[char] < needed
             for char, needed in word_frequency.items()
@@ -76,6 +77,7 @@ class Solution:
                 return True
 
             saved = board[row][column]
+            # 临时标记为已访问，回溯时恢复现场。
             board[row][column] = "#"
 
             for row_step, column_step in ((1, 0), (-1, 0), (0, 1), (0, -1)):

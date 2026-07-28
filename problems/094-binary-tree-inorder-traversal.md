@@ -56,6 +56,7 @@ class Solution:
         stack: list[TreeNode] = []
         current = root
 
+        # 先一路压入左链；弹栈访问后再转向右子树。
         while current or stack:
             while current:
                 stack.append(current)

@@ -49,6 +49,7 @@ class Solution:
         left_depth = self._depth(node.left)
         right_depth = self._depth(node.right)
 
+        # 左右最大深度之和，就是以当前结点为拐点的直径。
         self.longest_diameter = max(
             self.longest_diameter,
             left_depth + right_depth,

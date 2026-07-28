@@ -46,6 +46,7 @@ class Solution:
                 answer.append(path.copy())
                 return
 
+            # used 按下标标记，path 始终保存当前排列的前缀。
             for index, value in enumerate(nums):
                 if used[index]:
                     continue

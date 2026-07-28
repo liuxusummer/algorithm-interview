@@ -59,6 +59,7 @@ class Solution:
         triplets: list[list[int]] = []
         length = len(numbers)
 
+        # 固定最左元素后，在其右侧用双指针让三数之和逼近 0。
         for index in range(length - 2):
             if numbers[index] > 0:
                 break

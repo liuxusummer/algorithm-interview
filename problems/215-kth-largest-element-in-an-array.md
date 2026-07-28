@@ -49,6 +49,7 @@ class Solution:
     def findKthLargest(self, nums: list[int], k: int) -> int:
         heap: list[int] = []
 
+        # 小根堆只保留当前最大的 k 个数，堆顶即第 k 大。
         for value in nums:
             if len(heap) < k:
                 heapq.heappush(heap, value)

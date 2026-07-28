@@ -43,6 +43,7 @@ class Solution:
         if not root or root is p or root is q:
             return root
 
+        # 后序搜索：若 p、q 分居两侧，当前结点就是最近公共祖先。
         left_result = self.lowestCommonAncestor(root.left, p, q)
         right_result = self.lowestCommonAncestor(root.right, p, q)
 

@@ -46,6 +46,7 @@ class Solution:
         left = 0
         right = len(nums) - 1
 
+        # 在闭区间 [left, right] 内二分，每次排除中点及一侧。
         while left <= right:
             middle = left + (right - left) // 2
 

@@ -40,6 +40,7 @@ class Solution:
         view: list[int] = []
 
         while queue:
+            # 每层最后出队的结点就是从右侧看到的结点。
             level_size = len(queue)
 
             for index in range(level_size):

@@ -47,6 +47,7 @@ class Solution:
         left = 0
         right = len(nums) - 1
 
+        # 与右端点比较即可判断最小值位于哪一半。
         while left < right:
             middle = left + (right - left) // 2
 

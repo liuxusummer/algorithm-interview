@@ -70,6 +70,7 @@ class Solution:
         best_start = 0
         best_length = len(s) + 1
 
+        # 扩张右边界直到覆盖 t，再收缩左边界寻找最短窗口。
         for right, char in enumerate(s):
             if char in required_frequency:
                 window_frequency[char] = window_frequency.get(char, 0) + 1

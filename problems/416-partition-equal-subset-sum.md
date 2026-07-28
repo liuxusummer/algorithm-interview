@@ -55,6 +55,7 @@ class Solution:
             if number > target:
                 return False
 
+            # 倒序更新，确保每个数字在 0/1 背包中只使用一次。
             for current_sum in range(target, number - 1, -1):
                 reachable[current_sum] = (
                     reachable[current_sum]

@@ -60,6 +60,7 @@ class Solution:
         for right, value in enumerate(nums):
             window_sum += value
 
+            # 元素均为正，窗口达标后可安全收缩以寻找更短答案。
             while window_sum >= target:
                 minimum_length = min(
                     minimum_length,

@@ -52,6 +52,7 @@ class Solution:
         if len(word1) < len(word2):
             word1, word2 = word2, word1
 
+        # previous 表示上一行状态；current 逐格构造当前行。
         previous = list(range(len(word2) + 1))
 
         for row, char1 in enumerate(word1, start=1):
@@ -61,6 +62,7 @@ class Solution:
                 if char1 == char2:
                     current[column] = previous[column - 1]
                 else:
+                    # 三个来源依次对应删除、插入和替换。
                     current[column] = 1 + min(
                         previous[column],
                         current[column - 1],

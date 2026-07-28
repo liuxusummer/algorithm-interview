@@ -48,6 +48,7 @@ def subarray_sum_brute_force(nums: list[int], k: int) -> int:
     count = 0
 
     for start in range(len(nums)):
+        # 固定左端点后累加右端点，枚举所有连续子数组。
         current_sum = 0
 
         for end in range(start, len(nums)):
@@ -89,6 +90,7 @@ class Solution:
         for value in nums:
             prefix_sum += value
 
+            # 若之前出现过 prefix_sum - k，就形成一个和为 k 的子数组。
             required_prefix = prefix_sum - k
             count += prefix_frequency.get(required_prefix, 0)
 

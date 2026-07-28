@@ -53,6 +53,7 @@ class Solution:
     def maxProfit(self, prices: list[int]) -> int:
         total_profit = 0
 
+        # 每段正向涨幅都可独立兑现，累加等价于抓住整段上涨。
         for previous, current in zip(prices, prices[1:]):
             if current > previous:
                 total_profit += current - previous

@@ -49,6 +49,7 @@ class Solution:
             if slow is fast:
                 finder = head
 
+                # 从头结点和相遇点同速前进，交点就是环入口。
                 while finder is not slow:
                     finder = finder.next
                     slow = slow.next

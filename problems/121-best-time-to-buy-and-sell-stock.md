@@ -47,6 +47,7 @@ class Solution:
         minimum_price = prices[0]
         maximum_profit = 0
 
+        # minimum_price 只来自当前卖出日之前，确保买入早于卖出。
         for price in prices[1:]:
             maximum_profit = max(
                 maximum_profit,

@@ -42,6 +42,7 @@ class Solution:
         slow = head
         fast = head.next
 
+        # 快慢指针断开链表，递归排序后再线性归并。
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next

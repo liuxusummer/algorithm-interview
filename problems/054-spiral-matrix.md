@@ -80,6 +80,7 @@ class Solution:
         right = len(matrix[0]) - 1
         order: list[int] = []
 
+        # 每轮按上、右、下、左收缩一圈；后两边需要再次检查边界。
         while top <= bottom and left <= right:
             for column in range(left, right + 1):
                 order.append(matrix[top][column])

@@ -50,6 +50,7 @@ class Solution:
         even = head.next
         even_head = even
 
+        # odd、even 分别维护奇偶位置链表尾部，最后再拼接。
         while even and even.next:
             odd.next = even.next
             odd = odd.next

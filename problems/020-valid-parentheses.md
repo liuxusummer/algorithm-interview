@@ -49,6 +49,7 @@ class Solution:
         }
         stack: list[str] = []
 
+        # 栈只保存尚未匹配的左括号，遇到右括号立即核对栈顶。
         for char in s:
             if char not in matching:
                 stack.append(char)

@@ -43,6 +43,7 @@ class Solution:
         dummy = ListNode()
         tail = dummy
 
+        # 每次接入较小头结点，tail 始终指向已合并链表的末尾。
         while list1 and list2:
             if list1.val <= list2.val:
                 tail.next = list1

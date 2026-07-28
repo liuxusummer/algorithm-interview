@@ -37,6 +37,7 @@ class MinStack:
     def push(self, value: int) -> None:
         self.values.append(value)
 
+        # minimums 与 values 等长，栈顶同步保存当前最小值。
         if not self.minimums:
             self.minimums.append(value)
         else:

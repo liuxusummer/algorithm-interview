@@ -55,6 +55,7 @@ class LRUCache:
         self.capacity = capacity
         self.nodes: dict[int, DoublyLinkedNode] = {}
 
+        # 头尾哨兵固定边界，真实结点按“新到旧”排列。
         self.head = DoublyLinkedNode()
         self.tail = DoublyLinkedNode()
         self.head.next = self.tail
@@ -82,6 +83,7 @@ class LRUCache:
         self._add_to_front(node)
 
         if len(self.nodes) > self.capacity:
+            # tail.previous 始终是最久未使用的结点。
             least_recent = self.tail.previous
             self._remove(least_recent)
             del self.nodes[least_recent.key]

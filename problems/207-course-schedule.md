@@ -73,6 +73,7 @@ class Solution:
         )
         completed = 0
 
+        # 入度为 0 的课程可立即学习；完成后释放其后继课程。
         while queue:
             prerequisite = queue.popleft()
             completed += 1

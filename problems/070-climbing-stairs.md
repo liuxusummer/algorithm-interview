@@ -53,6 +53,7 @@ class Solution:
         two_steps_before = 1
         one_step_before = 2
 
+        # 只保留前两级台阶方案数，将空间压缩为 O(1)。
         for _ in range(3, n + 1):
             current = one_step_before + two_steps_before
             two_steps_before = one_step_before

@@ -49,10 +49,12 @@ class Solution:
     def candy(self, ratings: list[int]) -> int:
         candies = [1] * len(ratings)
 
+        # 正向保证比左邻评分高的孩子糖果更多。
         for index in range(1, len(ratings)):
             if ratings[index] > ratings[index - 1]:
                 candies[index] = candies[index - 1] + 1
 
+        # 反向补齐右邻约束，取 max 保留已满足的左侧约束。
         for index in range(len(ratings) - 2, -1, -1):
             if ratings[index] > ratings[index + 1]:
                 candies[index] = max(

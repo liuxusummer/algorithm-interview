@@ -48,6 +48,7 @@ class Solution:
         previous = dummy
         current = head
 
+        # previous 始终指向确认保留的最后一个结点。
         while current:
             if current.next and current.val == current.next.val:
                 duplicate_value = current.val

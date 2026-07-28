@@ -68,6 +68,7 @@ class Solution:
         first_index = 0
         second_index = 0
 
+        # 逐段解析为整数，自动忽略前导零和末尾缺失的零段。
         while (
             first_index < len(version1)
             or second_index < len(version2)

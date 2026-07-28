@@ -45,6 +45,7 @@ def max_subarray_brute_force(nums: list[int]) -> int:
     for start in range(len(nums)):
         current_sum = 0
 
+        # 固定左端点后不断扩展右端点，复用已经计算的区间和。
         for end in range(start, len(nums)):
             current_sum += nums[end]
             best_sum = max(best_sum, current_sum)
@@ -83,6 +84,7 @@ class Solution:
         best_ending_here = nums[0]
         best_sum = nums[0]
 
+        # 当前状态必须以 value 结尾：要么从这里重开，要么延续前一段。
         for value in nums[1:]:
             best_ending_here = max(
                 value,

@@ -54,6 +54,7 @@ class Solution:
                 if grid[row][column] != 1:
                     continue
 
+                # 发现新岛屿后立即标记，DFS 统计该连通分量面积。
                 grid[row][column] = 0
                 stack = [(row, column)]
                 current_area = 0

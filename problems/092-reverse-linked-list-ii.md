@@ -49,6 +49,7 @@ class Solution:
 
         current = before.next
 
+        # 反复把 current 后面的结点摘下并插到区间头部。
         for _ in range(right - left):
             moving = current.next
             current.next = moving.next

@@ -52,6 +52,7 @@ class Solution:
                 answer.append("".join(path))
                 return
 
+            # 左括号不能超量；右括号只能闭合一个已经存在的左括号。
             if opened < n:
                 path.append("(")
                 backtrack(opened + 1, closed)

@@ -51,6 +51,7 @@ class Solution:
     def isValidSerialization(self, preorder: str) -> bool:
         slots = 1
 
+        # 每个结点先消耗一个槽位，非空结点再产生两个子槽位。
         for index, char in enumerate(preorder):
             if index > 0 and preorder[index - 1] != ",":
                 continue

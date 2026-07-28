@@ -63,6 +63,7 @@ class Solution:
         trapped_water = 0
 
         while left < right:
+            # 较矮一侧的蓄水上界已经确定，可安全结算后向内移动。
             if height[left] <= height[right]:
                 left_max = max(left_max, height[left])
                 trapped_water += left_max - height[left]

@@ -49,6 +49,7 @@ class Solution:
         two_houses_before = 0
         one_house_before = 0
 
+        # 两个状态分别表示处理到前两间、前一间时的最优收益。
         for money in nums:
             current = max(
                 one_house_before,

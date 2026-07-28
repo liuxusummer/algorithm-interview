@@ -45,6 +45,7 @@ class Solution:
         first = headA
         second = headB
 
+        # 两指针各走 A + B；相交时同步到交点，否则同时到 None。
         while first is not second:
             first = first.next if first else headB
             second = second.next if second else headA

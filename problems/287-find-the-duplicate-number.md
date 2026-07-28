@@ -53,6 +53,7 @@ class Solution:
         slow = nums[0]
         fast = nums[0]
 
+        # 把 nums[i] 看作 next 指针，重复值对应链表环入口。
         while True:
             slow = nums[slow]
             fast = nums[nums[fast]]
@@ -62,6 +63,7 @@ class Solution:
 
         finder = nums[0]
 
+        # 从起点与相遇点同步前进，交点就是重复值。
         while finder != slow:
             finder = nums[finder]
             slow = nums[slow]

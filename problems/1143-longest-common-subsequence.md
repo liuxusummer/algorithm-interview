@@ -67,6 +67,7 @@ class Solution:
 
         previous = [0] * (len(text2) + 1)
 
+        # current[column] 对应两个当前前缀的最长公共子序列。
         for char1 in text1:
             current = [0] * (len(text2) + 1)
 

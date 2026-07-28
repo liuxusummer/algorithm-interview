@@ -51,6 +51,7 @@ class Solution:
         fast = dummy
         slow = dummy
 
+        # 快指针先领先 n 步；随后同步移动，slow 会停在待删结点前。
         for _ in range(n):
             fast = fast.next
 

@@ -51,6 +51,7 @@ class Solution:
         nums1: list[int],
         nums2: list[int],
     ) -> float:
+        # 始终在较短数组上二分，缩小搜索范围并避免分割下标越界。
         if len(nums1) > len(nums2):
             return self.findMedianSortedArrays(nums2, nums1)
 
@@ -85,6 +86,7 @@ class Solution:
                 else float("inf")
             )
 
+            # 两侧最大值都不超过另一侧最小值时，当前分割才合法。
             if left1 <= right2 and left2 <= right1:
                 left_maximum = max(left1, left2)
 

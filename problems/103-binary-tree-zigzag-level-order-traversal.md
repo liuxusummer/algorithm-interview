@@ -61,6 +61,7 @@ class Solution:
             for _ in range(len(queue)):
                 node = queue.popleft()
 
+                # 只改变本层结果的插入方向，子结点仍按正常顺序入队。
                 if left_to_right:
                     level_values.append(node.val)
                 else:

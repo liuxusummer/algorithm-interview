@@ -50,6 +50,7 @@ class Solution:
             if nums[middle] == target:
                 return middle
 
+            # 旋转数组中至少有一半有序，再判断目标是否落在该半区。
             if nums[left] <= nums[middle]:
                 if nums[left] <= target < nums[middle]:
                     right = middle - 1

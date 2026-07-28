@@ -53,6 +53,7 @@ class Solution:
     def twoSum(self, nums: list[int], target: int) -> list[int]:
         seen: dict[int, int] = {}
 
+        # 哈希表只保存当前位置之前的值，先查补数可避免复用同一元素。
         for index, value in enumerate(nums):
             complement = target - value
 

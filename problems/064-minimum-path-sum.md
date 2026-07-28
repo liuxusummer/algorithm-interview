@@ -56,6 +56,7 @@ class Solution:
         dp = [float("inf")] * columns
         dp[0] = 0
 
+        # 更新前 dp[column] 来自上方，dp[column - 1] 来自左侧。
         for row in grid:
             for column, value in enumerate(row):
                 if column == 0:

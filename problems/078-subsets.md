@@ -37,6 +37,7 @@ class Solution:
         path: list[int] = []
 
         def backtrack(start: int) -> None:
+            # 每个搜索节点的 path 本身就是一个合法子集。
             answer.append(path.copy())
 
             for index in range(start, len(nums)):

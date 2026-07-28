@@ -56,9 +56,11 @@ class Solution:
         if not node:
             return 0
 
+        # 负贡献不如不选；返回父结点时只能携带一侧路径。
         left_gain = max(self._maximum_gain(node.left), 0)
         right_gain = max(self._maximum_gain(node.right), 0)
 
+        # 左右贡献可在当前结点汇合，但只用于更新全局答案。
         path_through_node = node.val + left_gain + right_gain
         self.best_sum = max(self.best_sum, path_through_node)
 

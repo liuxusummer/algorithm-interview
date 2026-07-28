@@ -46,6 +46,7 @@ class Solution:
         previous = None
         current = head
 
+        # 每轮先保存后继再反转指针，避免丢失剩余链表。
         while current:
             next_node = current.next
             current.next = previous

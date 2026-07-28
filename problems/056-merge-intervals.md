@@ -62,6 +62,7 @@ class Solution:
         )
         merged = [ordered_intervals[0][:]]
 
+        # 按起点排序后，只需与最后一个已合并区间比较。
         for start, end in ordered_intervals[1:]:
             last_interval = merged[-1]
 

@@ -53,6 +53,7 @@ class Solution:
         current: list[str] = []
         repeat = 0
 
+        # 栈保存进入当前方括号前的前缀和重复次数。
         for char in s:
             if char.isdigit():
                 repeat = repeat * 10 + int(char)

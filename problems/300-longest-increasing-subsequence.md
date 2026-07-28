@@ -58,6 +58,7 @@ class Solution:
     def lengthOfLIS(self, nums: list[int]) -> int:
         tails: list[int] = []
 
+        # tails[length - 1] 保存该长度递增子序列的最小尾值。
         for value in nums:
             position = bisect_left(tails, value)
 

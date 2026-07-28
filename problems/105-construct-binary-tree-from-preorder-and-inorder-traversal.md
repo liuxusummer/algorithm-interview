@@ -69,6 +69,7 @@ class Solution:
             root = TreeNode(root_value)
 
             middle = inorder_position[root_value]
+            # 前序给出根，中序位置把当前区间切成左右子树。
             root.left = build(inorder_left, middle - 1)
             root.right = build(middle + 1, inorder_right)
             return root

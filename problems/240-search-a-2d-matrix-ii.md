@@ -73,6 +73,7 @@ class Solution:
         row = 0
         column = len(matrix[0]) - 1
 
+        # 从右上角出发：过大左移，过小下移，每步排除一行或一列。
         while row < len(matrix) and column >= 0:
             value = matrix[row][column]
 

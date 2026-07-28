@@ -54,6 +54,7 @@ class Solution:
             remaining_characters = len(s) - start
             remaining_segments = 4 - len(segments)
 
+            # 剩余字符数必须能被剩余段数消耗，否则立即剪枝。
             if not (
                 remaining_segments
                 <= remaining_characters

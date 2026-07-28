@@ -55,6 +55,7 @@ class MyQueue:
         if self.output_stack:
             return
 
+        # 仅当输出栈为空时整体倒序，保证每个元素最多搬运一次。
         while self.input_stack:
             self.output_stack.append(self.input_stack.pop())
 ```

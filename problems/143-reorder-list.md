@@ -47,6 +47,7 @@ class Solution:
         slow = head
         fast = head
 
+        # 1. 快慢指针找到前半段尾部并断开链表。
         while fast.next and fast.next.next:
             slow = slow.next
             fast = fast.next.next
@@ -55,6 +56,7 @@ class Solution:
         slow.next = None
 
         previous = None
+        # 2. 原地反转后半段。
         while second:
             next_node = second.next
             second.next = previous
@@ -64,6 +66,7 @@ class Solution:
         first = head
         second = previous
 
+        # 3. 交替合并两段。
         while second:
             first_next = first.next
             second_next = second.next

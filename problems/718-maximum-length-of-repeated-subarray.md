@@ -59,6 +59,7 @@ class Solution:
         maximum_length = 0
 
         for value1 in nums1:
+            # 倒序更新，避免本行覆盖 dp[column - 1] 的上一行值。
             for column in range(len(nums2), 0, -1):
                 if value1 == nums2[column - 1]:
                     dp[column] = dp[column - 1] + 1

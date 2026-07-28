@@ -46,6 +46,7 @@ class Solution:
         target = [0] * length
         width = 1
 
+        # width 表示当前有序段长度，每轮两两归并后翻倍。
         while width < length:
             for left in range(0, length, width * 2):
                 middle = min(left + width, length)
@@ -73,6 +74,7 @@ class Solution:
                     second += 1
                     write += 1
 
+            # 交换源/目标缓冲区，避免每轮重新分配数组。
             source, target = target, source
             width *= 2
 

@@ -58,10 +58,12 @@ class Solution:
         nums: list[int],
         k: int,
     ) -> list[int]:
+        # 队列保存下标，队首始终是当前窗口最大值。
         candidates = deque()
         maximums: list[int] = []
 
         for right, value in enumerate(nums):
+            # 先移除窗口外下标，再删除不可能成为最大值的较小候选。
             while candidates and candidates[0] <= right - k:
                 candidates.popleft()
 

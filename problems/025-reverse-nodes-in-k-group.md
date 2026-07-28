@@ -55,6 +55,7 @@ class Solution:
                 return dummy.next
 
             group_next = kth.next
+            # 从 group_next 开始反转，可让新尾结点直接接回后续链表。
             previous = group_next
             current = group_previous.next
 

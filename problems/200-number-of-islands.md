@@ -64,6 +64,7 @@ class Solution:
                     continue
 
                 island_count += 1
+                # 发现新陆地后立即染色，并遍历整个连通分量。
                 grid[row][column] = "0"
                 stack = [(row, column)]
 

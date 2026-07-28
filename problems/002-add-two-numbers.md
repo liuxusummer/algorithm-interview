@@ -53,6 +53,7 @@ class Solution:
         tail = dummy
         carry = 0
 
+        # 两条链表视为倒序数字；循环条件保留最后可能产生的一位进位。
         while l1 or l2 or carry:
             first_digit = l1.val if l1 else 0
             second_digit = l2.val if l2 else 0

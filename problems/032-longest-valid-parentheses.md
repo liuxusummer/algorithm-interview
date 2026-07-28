@@ -44,6 +44,7 @@
 ```python
 class Solution:
     def longestValidParentheses(self, s: str) -> int:
+        # -1 是第一段合法括号前的虚拟边界。
         stack = [-1]
         longest = 0
 
@@ -55,6 +56,7 @@ class Solution:
             stack.pop()
 
             if not stack:
+                # 当前右括号无法匹配，它会成为下一段合法区间的边界。
                 stack.append(index)
             else:
                 longest = max(longest, index - stack[-1])

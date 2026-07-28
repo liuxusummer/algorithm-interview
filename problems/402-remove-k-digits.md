@@ -49,6 +49,7 @@ class Solution:
     def removeKdigits(self, num: str, k: int) -> str:
         stack: list[str] = []
 
+        # 维护单调不降栈，遇到更小数字时优先删除前面的较大数字。
         for digit in num:
             while k > 0 and stack and stack[-1] > digit:
                 stack.pop()
@@ -57,6 +58,7 @@ class Solution:
             stack.append(digit)
 
         if k > 0:
+            # 若仍需删除，只能从单调栈末尾移除最大的尾部数字。
             del stack[-k:]
 
         result = "".join(stack).lstrip("0")

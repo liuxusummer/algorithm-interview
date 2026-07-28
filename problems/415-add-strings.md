@@ -65,6 +65,7 @@ class Solution:
         carry = 0
         reversed_digits: list[str] = []
 
+        # 从最低位向前模拟竖式加法，结果数字按逆序收集。
         while first_index >= 0 or second_index >= 0 or carry:
             first_digit = 0
             if first_index >= 0:

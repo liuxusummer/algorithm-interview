@@ -39,6 +39,7 @@ class Solution:
         slow = head
         fast = head
 
+        # 快指针每次走两步；若存在环，二者最终必在环内相遇。
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
