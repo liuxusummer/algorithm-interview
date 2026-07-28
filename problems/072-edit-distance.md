@@ -9,7 +9,7 @@
   source-label="力扣原题"
 />
 
-<ComplexityBadge time="O(mn)" space="O(min(m, n))" />
+<ComplexityBadge time="O(mn)" space="O(mn)" />
 
 ## 题目
 
@@ -49,29 +49,33 @@ dp[i][j] = dp[i - 1][j - 1]
 ```python
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        if len(word1) < len(word2):
-            word1, word2 = word2, word1
+        len1 = len(word1)
+        len2 = len(word2)
 
-        # previous 表示上一行状态；current 逐格构造当前行。
-        previous = list(range(len(word2) + 1))
+        # dp[i][j]：word1 前 i 个字符变成 word2 前 j 个字符的最少操作数。
+        dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]
 
-        for row, char1 in enumerate(word1, start=1):
-            current = [row] + [0] * len(word2)
+        # word1 的前 i 个字符变成空串，只能连续删除 i 次。
+        for i in range(len1 + 1):
+            dp[i][0] = i
 
-            for column, char2 in enumerate(word2, start=1):
-                if char1 == char2:
-                    current[column] = previous[column - 1]
+        # 空串变成 word2 的前 j 个字符，只能连续插入 j 次。
+        for j in range(len2 + 1):
+            dp[0][j] = j
+
+        for i in range(1, len1 + 1):
+            for j in range(1, len2 + 1):
+                if word1[i - 1] == word2[j - 1]:
+                    # 末尾字符相同，不需要增加编辑操作。
+                    dp[i][j] = dp[i - 1][j - 1]
                 else:
-                    # 三个来源依次对应删除、插入和替换。
-                    current[column] = 1 + min(
-                        previous[column],
-                        current[column - 1],
-                        previous[column - 1],
+                    dp[i][j] = 1 + min(
+                        dp[i - 1][j],      # 删除 word1[i - 1]
+                        dp[i][j - 1],      # 在 word1 末尾插入 word2[j - 1]
+                        dp[i - 1][j - 1],  # 把 word1[i - 1] 替换成 word2[j - 1]
                     )
 
-            previous = current
-
-        return previous[-1]
+        return dp[len1][len2]
 ```
 
 ## 初始化代表什么
@@ -79,13 +83,17 @@ class Solution:
 - `dp[0][j] = j`：空字符串变成长度为 `j` 的前缀，需要插入 `j` 次；
 - `dp[i][0] = i`：长度为 `i` 的前缀变成空字符串，需要删除 `i` 次。
 
-实现中 `previous = range(...)` 初始化第零行，`current[0] = row` 初始化每一行的第零列。
+这两组状态构成二维表的第零行和第零列，也是后续所有状态的递推起点。
 
-## 为什么可以交换两个单词
+## 三个转移来源如何理解
 
-编辑距离具有对称性：把 `word1` 变成 `word2` 的最少插入、删除、替换次数，与反向转换相同，插入和删除互为逆操作。
+| 来源 | 对应操作 | 操作之后的问题 |
+|---|---|---|
+| `dp[i - 1][j]` | 删除 `word1[i - 1]` | 前 `i - 1` 个字符继续匹配前 `j` 个字符 |
+| `dp[i][j - 1]` | 插入 `word2[j - 1]` | 前 `i` 个字符已经匹配到 `word2` 的前 `j - 1` 个字符 |
+| `dp[i - 1][j - 1]` | 替换末尾字符 | 两边各去掉最后一个字符 |
 
-让较短字符串作为列，可以把滚动数组空间降到 `O(min(m, n))`。
+因此，当两个末尾字符不同时，三个来源取最小值后再加一次当前操作。
 
 ## 正确性说明
 
@@ -94,7 +102,7 @@ class Solution:
 ## 复杂度
 
 - 时间复杂度：`O(mn)`。
-- 空间复杂度：`O(min(m, n))`。
+- 空间复杂度：`O(mn)`，保存完整的二维动态规划表。
 
 ## 边界用例
 
@@ -108,10 +116,11 @@ class Solution:
 
 ## 90 秒面试表达
 
-“定义 `dp[i][j]` 为两个前缀之间的最小编辑次数。末尾字符相同就继承左上状态；不同则分别考虑删除、插入、替换，对应上、左、左上三个状态取最小再加一。空前缀与长度 `j` 前缀的距离是 `j`。我用两行滚动，并让较短字符串作为列，时间 `O(mn)`、空间 `O(min(m,n))`。”
+“定义 `dp[i][j]` 为 `word1` 前 `i` 个字符变成 `word2` 前 `j` 个字符的最少编辑次数。第零列表示连续删除，第零行表示连续插入。末尾字符相同就继承左上状态；不同则分别考虑删除、插入和替换，对应上、左、左上三个状态取最小再加一。完整填写二维表后，右下角就是答案。时间和空间复杂度都是 `O(mn)`。”
 
 ## 常见追问
 
 - 不同操作代价不同时，把三个转移分别加对应权重。
 - 要恢复具体编辑步骤，需要保留完整二维表并从右下角回溯。
+- 如果只需要最小距离而不恢复路径，可以把二维表压缩成两行，空间降为 `O(min(m,n))`。
 - 只判断距离是否不超过 `k` 时，可以只计算主对角线附近的带状区域。
