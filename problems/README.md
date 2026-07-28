@@ -88,5 +88,6 @@
 | 912 | [排序数组](./912-sort-an-array.md) | [力扣 ↗](https://leetcode.cn/problems/sort-an-array/) | 归并排序 | 中等 | 30 次 | 54% |
 | 1143 | [最长公共子序列](./1143-longest-common-subsequence.md) | [力扣 ↗](https://leetcode.cn/problems/longest-common-subsequence/) | 二维 DP | 中等 | 23 次 | 63% |
 | 原创 01 | [带过期时间的 LRU 缓存](./original-001-expiring-lru-cache.md) | 本站原创 | 哈希表 + 双向链表 + 最小堆 | 困难 | 25 次 | 36% |
+| 原创题单 02 | [最小整数 I](./original-002-minimum-integer-i.md) | [力扣同题 1505 ↗](https://leetcode.cn/problems/minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits/) | 贪心 + 树状数组 | 困难 | 32 次 | 23% |
 
 新增题目时复制[题解模板](./TEMPLATE.md)。力扣题使用 `三位编号-英文短名.md`，原创题使用 `original-三位序号-英文短名.md`。

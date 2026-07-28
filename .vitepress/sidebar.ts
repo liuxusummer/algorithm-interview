@@ -122,7 +122,8 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
         text: '原创面试题',
         collapsed: true,
         items: [
-          { text: '原创 01 带过期时间的 LRU 缓存', link: '/problems/original-001-expiring-lru-cache' }
+          { text: '原创 01 带过期时间的 LRU 缓存', link: '/problems/original-001-expiring-lru-cache' },
+          { text: '原创题单 02 最小整数 I', link: '/problems/original-002-minimum-integer-i' }
         ]
       },
       { text: '题解模板', link: '/problems/TEMPLATE' },
