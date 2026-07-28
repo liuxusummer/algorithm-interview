@@ -37,10 +37,24 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       { text: '模块说明与 ACM 规范', link: '/written-tests/README' },
       {
         text: '蔚来通用岗 · 2026-07-26',
-        collapsed: false,
+        collapsed: true,
         items: [
           { text: '01 阶乘平方数', link: '/written-tests/nio-20260726-factorial-square' },
           { text: '02 线性组合计数', link: '/written-tests/nio-20260726-linear-combination-count' }
+        ]
+      },
+      {
+        text: '蚂蚁集团 · 2026 春招',
+        collapsed: false,
+        items: [
+          { text: '03-26 研发岗', link: '/written-tests/ant-20260326-dev' },
+          { text: '03-29 研发岗', link: '/written-tests/ant-20260329-dev' },
+          { text: '03-29 AI Coding · 重点', link: '/written-tests/ant-20260329-ai-coding' },
+          { text: '04-02 研发岗', link: '/written-tests/ant-20260402-dev' },
+          { text: '04-09 算法岗', link: '/written-tests/ant-20260409-algo' },
+          { text: '04-16 研发岗', link: '/written-tests/ant-20260416-dev' },
+          { text: '04-19 研发岗', link: '/written-tests/ant-20260419-dev' },
+          { text: '05-07 开发岗', link: '/written-tests/ant-20260507-dev' }
         ]
       }
     ]

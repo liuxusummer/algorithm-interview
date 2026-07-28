@@ -7,48 +7,37 @@ title: 大厂笔试真题
   <div class="written-test-hero__copy">
     <span class="written-test-kicker">ACM / REAL INTERVIEWS / PYTHON</span>
     <h1>大厂笔试<br><em>真题档案</em></h1>
-    <p>按真实考试场次归档。没有预设函数签名，所有示例都从标准输入读取、向标准输出写入，代码可直接提交到 ACM 评测系统。</p>
+    <p>按公司、岗位与真实考试时间归档。算法场次全部从标准输入读取、向标准输出写入；AI Coding 单独记录系统设计、工程实现与交付过程。</p>
     <div class="written-test-actions">
-      <a href="./nio-20260726-factorial-square">开始第一题</a>
+      <a href="#场次检索">浏览全部场次</a>
       <a class="is-ghost" href="#统一-acm-规范">查看答题规范</a>
     </div>
   </div>
   <div class="written-test-hero__ticket" aria-label="当前收录统计">
     <span>EXAM ARCHIVE</span>
+    <strong>09</strong>
+    <small>场真实笔试</small>
+    <strong>23</strong>
+    <small>道算法题</small>
     <strong>01</strong>
-    <small>场笔试</small>
-    <strong>02</strong>
-    <small>道完整题解</small>
-    <strong>PY</strong>
-    <small>统一语言</small>
+    <small>场 AI Coding</small>
   </div>
 </div>
 
-## 当前场次
+## 场次检索
 
-<div class="written-test-session">
-  <div class="written-test-session__head">
-    <span>SESSION 001</span>
-    <div>
-      <strong>蔚来 · 通用岗</strong>
-      <small>2026-07-26 · 数论专题 · 中等偏易</small>
-    </div>
-  </div>
-  <div class="written-test-session__grid">
-    <a href="./nio-20260726-factorial-square">
-      <span>01 / 数论预处理</span>
-      <strong>阶乘平方数</strong>
-      <p>阶乘增长、完全平方数判定、批量查询。</p>
-      <small>预计 25 分钟 →</small>
-    </a>
-    <a href="./nio-20260726-linear-combination-count">
-      <span>02 / 数论计数</span>
-      <strong>线性组合计数</strong>
-      <p>裴蜀定理、最大公约数、闭区间倍数统计。</p>
-      <small>预计 15 分钟 →</small>
-    </a>
-  </div>
-</div>
+<WrittenTestCatalog />
+
+## AI Coding 趋势观察
+
+AI Coding 已经从“补全一个函数”转向“在限定时间内交付一个可以运行、可以测试、可以说明的完整工程”。本站把这类题与传统算法笔试分开，重点训练：
+
+- 先把自然语言需求拆成数据模型、状态机、接口与验收标准；
+- 让 AI 分模块实现，每一步都提供明确输入、输出和完成条件；
+- 优先保证主链路可运行，再补异常处理、持久化、权限和界面；
+- 最后用自动化测试与 README 证明交付物真实可用。
+
+第一份专题：[蚂蚁 AI Coding · 终端早餐店系统](./ant-20260329-ai-coding)。
 
 ## 统一 ACM 规范
 
@@ -56,9 +45,9 @@ title: 大厂笔试真题
 
 | 项目 | 统一要求 |
 |---|---|
-| 输入 | 使用 `sys.stdin.buffer.read()` 或 `sys.stdin.buffer.readline()` |
-| 输出 | 使用 `print()` 或一次性 `sys.stdout.write()` |
-| 入口 | 把主要流程放入 `solve()`，文件末尾显式调用 |
+| 输入 | 与原场次保持一致；本批蚂蚁题统一使用 `input = sys.stdin.readline` |
+| 输出 | 严格按题面逐行 `print()`，需要批量输出时使用 `"\\n".join(...)` |
+| 入口 | 单测题调用一次 `solve()`；多测题先读取 `T`，再逐组调用 |
 | 类型 | 根据数据范围主动判断是否需要 64 位整数或大整数 |
 | 样例 | 展示完整标准输入和标准输出，不省略测试组数 |
 | 讲解 | 包含建模、优化抓手、正确性证明、复杂度和易错点 |
@@ -73,4 +62,4 @@ title: 大厂笔试真题
 5. 用样例、最小边界和极值数据验证输入输出；
 6. 最后用 90 秒讲清正确性与复杂度。
 
-> 题面根据公开笔试资料重新整理，解析、证明和 Python 实现均为本站独立编写。当前场次参考：[Zero2Leetcode · 蔚来通用岗 7.26](https://onefly.top/zero2Leetcode/04_real_interviews/nio/general-20260726/index.html)。
+> 题面根据公开笔试资料重新整理，解析、证明和 Python 实现均为本站独立编写。参考来源：[Zero2Leetcode · 蚂蚁笔试目录](https://onefly.top/zero2Leetcode/04_real_interviews/ant/dev-20260326/index.html)、[蔚来通用岗 7.26](https://onefly.top/zero2Leetcode/04_real_interviews/nio/general-20260726/index.html)。

@@ -485,7 +485,9 @@ body {
 }
 
 .dark .written-test-home,
-.dark .acm-problem-page {
+.dark .acm-problem-page,
+.dark .exam-session-page,
+.dark .ai-coding-page {
   --exam-blue: #7fa2ff;
   --exam-blue-soft: color-mix(in srgb, var(--exam-blue) 14%, var(--vp-c-bg));
 }
@@ -734,6 +736,139 @@ body {
   --exam-blue-soft: color-mix(in srgb, var(--exam-blue) 12%, var(--vp-c-bg));
 }
 
+.exam-session-page,
+.ai-coding-page {
+  --exam-blue: #2456d8;
+  --exam-blue-soft: color-mix(in srgb, var(--exam-blue) 12%, var(--vp-c-bg));
+}
+
+.exam-session-page .VPDoc .content-container,
+.ai-coding-page .VPDoc .content-container {
+  max-width: 980px !important;
+}
+
+.exam-session-banner {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  margin: 18px 0 24px;
+  padding: 24px 26px;
+  border: 2px solid var(--vp-c-text-1);
+  background:
+    linear-gradient(118deg, var(--exam-blue-soft), transparent 48%),
+    var(--vp-c-bg);
+  box-shadow: 7px 7px 0 color-mix(in srgb, var(--exam-blue) 48%, var(--vp-c-divider));
+}
+
+.exam-session-banner::after {
+  position: absolute;
+  right: -36px;
+  bottom: -68px;
+  width: 160px;
+  height: 160px;
+  border: 24px solid color-mix(in srgb, var(--exam-blue) 13%, transparent);
+  border-radius: 50%;
+  content: "";
+}
+
+.exam-session-banner > div {
+  position: relative;
+  z-index: 1;
+}
+
+.exam-session-banner span {
+  color: var(--exam-blue);
+  font-family: var(--vp-font-family-mono);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+}
+
+.exam-session-banner strong {
+  display: block;
+  margin-top: 8px;
+  font-size: clamp(24px, 5vw, 42px);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+
+.exam-session-banner small {
+  display: block;
+  margin-top: 10px;
+  color: var(--vp-c-text-2);
+}
+
+.exam-session-banner__meta {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.exam-session-banner__meta span {
+  padding: 5px 8px;
+  border: 1px solid color-mix(in srgb, var(--exam-blue) 40%, var(--vp-c-divider));
+  background: var(--exam-blue-soft);
+  letter-spacing: 0;
+}
+
+.exam-session-page .vp-doc h2,
+.ai-coding-page .vp-doc h2 {
+  border-top-color: var(--exam-blue);
+}
+
+.exam-session-page .vp-doc h2 {
+  margin-top: 68px;
+  padding-top: 20px;
+}
+
+.exam-session-page .vp-doc h2::before {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--exam-blue);
+  font-family: var(--vp-font-family-mono);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  content: "ACM PROBLEM";
+}
+
+.exam-session-page .vp-doc div[class*="language-python"],
+.ai-coding-page .vp-doc div[class*="language-python"] {
+  box-shadow: 7px 7px 0 color-mix(in srgb, var(--exam-blue) 35%, var(--vp-c-divider));
+}
+
+.ai-coding-page {
+  --exam-blue: #0c8f72;
+}
+
+.ai-trend-callout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 18px;
+  margin: 24px 0 34px;
+  padding: 20px;
+  border: 1px solid var(--exam-blue);
+  background: var(--exam-blue-soft);
+}
+
+.ai-trend-callout > strong {
+  align-self: start;
+  padding: 5px 8px;
+  color: var(--vp-c-bg);
+  background: var(--exam-blue);
+  font-family: var(--vp-font-family-mono);
+  font-size: 10px;
+}
+
+.ai-trend-callout p {
+  margin: 0;
+  color: var(--vp-c-text-1);
+}
+
 .acm-problem-banner {
   display: flex;
   align-items: center;
@@ -869,6 +1004,21 @@ body {
   .acm-problem-banner {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .exam-session-banner {
+    grid-template-columns: 1fr;
+  }
+
+  .exam-session-banner__meta {
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .ai-trend-callout {
+    grid-template-columns: 1fr;
   }
 
   .acm-problem-banner__tags {
