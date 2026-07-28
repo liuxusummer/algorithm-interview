@@ -10,7 +10,9 @@
     "docs:check:alibaba": "node scripts/check-alibaba-samples.mjs",
     "docs:check:meituan": "node scripts/check-meituan-samples.mjs",
     "docs:check:huawei": "node scripts/check-huawei-samples.mjs",
-    "docs:check:pinduoduo": "node scripts/check-pinduoduo-samples.mjs"
+    "docs:check:pinduoduo": "node scripts/check-pinduoduo-samples.mjs",
+    "docs:check:remaining": "node scripts/check-remaining-written-test-samples.mjs",
+    "docs:check": "pnpm docs:check:alibaba && pnpm docs:check:meituan && pnpm docs:check:huawei && pnpm docs:check:pinduoduo && pnpm docs:check:remaining"
   },
   "devDependencies": {
     "@phosphor-icons/vue": "^2.2.1",

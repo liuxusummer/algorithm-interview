@@ -2,6 +2,7 @@ import type { DefaultTheme } from 'vitepress'
 import { huaweiWrittenTests } from './theme/data/huaweiWrittenTests'
 import { meituanWrittenTests } from './theme/data/meituanWrittenTests'
 import { pinduoduoWrittenTests } from './theme/data/pinduoduoWrittenTests'
+import { remainingWrittenTests } from './theme/data/remainingWrittenTests'
 
 const moduleGroup = (
   number: string,
@@ -24,6 +25,37 @@ const writtenTestSession = (
   collapsed: true,
   items
 })
+
+const remainingCompanyOrder = [
+  '网易',
+  '哔哩哔哩',
+  '科大讯飞',
+  '携程',
+  '得物',
+  '字节跳动',
+  '米哈游',
+  '虾皮',
+  '上海 AI Lab',
+  '荣耀',
+  'DeepSeek',
+  '百度'
+]
+
+const remainingWrittenTestSidebarGroups: DefaultTheme.SidebarItem[] =
+  remainingCompanyOrder.map((company) => ({
+    text: company,
+    collapsed: true,
+    items: remainingWrittenTests
+      .filter((session) => session.company === company)
+      .map((session) => writtenTestSession(
+        session.date,
+        session.role,
+        session.questions.map((question, index) => ({
+          text: `${String(index + 1).padStart(2, '0')} ${question}`,
+          link: `${session.href}#problem-${String(index + 1).padStart(2, '0')}`
+        }))
+      ))
+  }))
 
 export const sidebar: DefaultTheme.SidebarItem[] = [
   {
@@ -200,6 +232,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
           }))
         ))
       },
+      ...remainingWrittenTestSidebarGroups,
       {
         text: '蚂蚁集团',
         collapsed: false,
@@ -248,6 +281,16 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
         text: '蔚来',
         collapsed: true,
         items: [
+          ...remainingWrittenTests
+            .filter((session) => session.company === '蔚来')
+            .map((session) => writtenTestSession(
+              session.date,
+              session.role,
+              session.questions.map((question, index) => ({
+                text: `${String(index + 1).padStart(2, '0')} ${question}`,
+                link: `${session.href}#problem-${String(index + 1).padStart(2, '0')}`
+              }))
+            )),
           writtenTestSession('2026-07-26', '通用岗', [
             { text: '01 阶乘平方数', link: '/written-tests/nio-20260726-factorial-square' },
             { text: '02 线性组合计数', link: '/written-tests/nio-20260726-linear-combination-count' }

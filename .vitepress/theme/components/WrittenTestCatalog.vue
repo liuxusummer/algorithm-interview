@@ -15,6 +15,7 @@ import { alibabaWrittenTests } from '../data/alibabaWrittenTests'
 import { huaweiWrittenTests } from '../data/huaweiWrittenTests'
 import { meituanWrittenTests } from '../data/meituanWrittenTests'
 import { pinduoduoWrittenTests } from '../data/pinduoduoWrittenTests'
+import { remainingWrittenTests } from '../data/remainingWrittenTests'
 
 type SortOrder = 'date-desc' | 'date-asc' | 'company'
 
@@ -47,6 +48,10 @@ const sessions: WrittenTestSession[] = [
     type: '算法笔试' as const
   })),
   ...pinduoduoWrittenTests.map((session) => ({
+    ...session,
+    type: '算法笔试' as const
+  })),
+  ...remainingWrittenTests.map((session) => ({
     ...session,
     type: '算法笔试' as const
   })),

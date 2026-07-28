@@ -15,9 +15,9 @@ title: 大厂笔试真题
   </div>
   <div class="written-test-hero__ticket" aria-label="当前收录统计">
     <span>EXAM ARCHIVE</span>
-    <strong>80</strong>
+    <strong>105</strong>
     <small>场真实笔试</small>
-    <strong>229</strong>
+    <strong>308</strong>
     <small>道算法题</small>
     <strong>01</strong>
     <small>场 AI Coding</small>
@@ -53,7 +53,7 @@ AI Coding 已经从“补全一个函数”转向“在限定时间内交付一�
 
 | 项目 | 统一要求 |
 |---|---|
-| 输入 | 与原场次保持一致；阿里、美团、华为、拼多多、蚂蚁场次均提供完整 `stdin` 读取流程 |
+| 输入 | 与原场次保持一致；全部 105 场均提供完整 `stdin` 读取流程 |
 | 输出 | 严格按题面逐行 `print()`，需要批量输出时使用 `"\\n".join(...)` |
 | 入口 | 单测题调用一次 `solve()`；多测题先读取 `T`，再逐组调用 |
 | 类型 | 根据数据范围主动判断是否需要 64 位整数或大整数 |
@@ -70,4 +70,4 @@ AI Coding 已经从“补全一个函数”转向“在限定时间内交付一�
 5. 用样例、最小边界和极值数据验证输入输出；
 6. 最后用 90 秒讲清正确性与复杂度。
 
-> 题面根据公开笔试资料重新整理，并统一为本站的三级目录和 Python ACM 阅读格式。参考来源：[Zero2Leetcode · 阿里巴巴笔试目录](https://onefly.top/zero2Leetcode/04_real_interviews/alibaba/dev-20260325/)、[美团笔试目录](https://onefly.top/zero2Leetcode/04_real_interviews/meituan/dev-20260328/)、[华为笔试目录](https://onefly.top/zero2Leetcode/04_real_interviews/huawei/dev-20260408/)、[拼多多笔试目录](https://onefly.top/zero2Leetcode/04_real_interviews/pinduoduo/general-20260412/)、[蚂蚁笔试目录](https://onefly.top/zero2Leetcode/04_real_interviews/ant/dev-20260326/index.html)、[蔚来通用岗 7.26](https://onefly.top/zero2Leetcode/04_real_interviews/nio/general-20260726/index.html)。
+> 题面根据公开笔试资料重新整理，并统一为本站的三级目录和 Python ACM 阅读格式。参考来源：[Zero2Leetcode · 大厂笔试真题目录](https://onefly.top/zero2Leetcode/04_real_interviews/)，覆盖阿里、蚂蚁、美团、华为、拼多多、网易、哔哩哔哩、科大讯飞、携程、得物、字节跳动、米哈游、虾皮、上海 AI Lab、荣耀、DeepSeek、百度和蔚来；每个场次页均保留对应公开来源链接。
