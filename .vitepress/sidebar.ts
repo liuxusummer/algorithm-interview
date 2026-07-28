@@ -1,6 +1,7 @@
 import type { DefaultTheme } from 'vitepress'
 import { huaweiWrittenTests } from './theme/data/huaweiWrittenTests'
 import { meituanWrittenTests } from './theme/data/meituanWrittenTests'
+import { pinduoduoWrittenTests } from './theme/data/pinduoduoWrittenTests'
 
 const moduleGroup = (
   number: string,
@@ -179,6 +180,18 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
         text: '华为',
         collapsed: false,
         items: huaweiWrittenTests.map((session) => writtenTestSession(
+          session.date,
+          session.role,
+          session.questions.map((question, index) => ({
+            text: `${String(index + 1).padStart(2, '0')} ${question}`,
+            link: `${session.href}#problem-${String(index + 1).padStart(2, '0')}`
+          }))
+        ))
+      },
+      {
+        text: '拼多多',
+        collapsed: false,
+        items: pinduoduoWrittenTests.map((session) => writtenTestSession(
           session.date,
           session.role,
           session.questions.map((question, index) => ({

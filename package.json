@@ -9,7 +9,8 @@
     "docs:preview": "vitepress preview --host 127.0.0.1",
     "docs:check:alibaba": "node scripts/check-alibaba-samples.mjs",
     "docs:check:meituan": "node scripts/check-meituan-samples.mjs",
-    "docs:check:huawei": "node scripts/check-huawei-samples.mjs"
+    "docs:check:huawei": "node scripts/check-huawei-samples.mjs",
+    "docs:check:pinduoduo": "node scripts/check-pinduoduo-samples.mjs"
   },
   "devDependencies": {
     "@phosphor-icons/vue": "^2.2.1",
