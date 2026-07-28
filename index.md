@@ -12,8 +12,8 @@ title: 解题现场
     <h1 class="algo-title">把题目<br>讲<em>明白</em></h1>
     <p class="algo-lead">不是背答案，而是训练识别模式、推导思路、写出可靠代码，再把复杂度和边界条件完整讲给面试官。</p>
     <div class="algo-actions">
-      <a class="algo-button" href="/START_HERE">开始第一次训练 →</a>
-      <a class="algo-button algo-button--ghost" href="/ROADMAP">查看学习路线</a>
+      <a class="algo-button" href="./START_HERE">开始第一次训练 →</a>
+      <a class="algo-button algo-button--ghost" href="./ROADMAP">查看学习路线</a>
     </div>
   </section>
   <aside class="algo-hero__aside">
