@@ -1,0 +1,15 @@
+{
+  "name": "algorithm-interview",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.9.0",
+  "scripts": {
+    "docs:dev": "vitepress dev --host 127.0.0.1",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview --host 127.0.0.1"
+  },
+  "devDependencies": {
+    "@phosphor-icons/vue": "^2.2.1",
+    "vitepress": "^1.6.4"
+  }
+}
