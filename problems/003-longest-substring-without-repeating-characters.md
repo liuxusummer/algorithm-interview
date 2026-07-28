@@ -1,9 +1,9 @@
 # 003 · 无重复字符的最长子串
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '滑动窗口']"
+  :tags="['Hot100', '大厂面试', '滑动窗口', '华为面试题']"
   difficulty="medium"
-  :appearances="263"
+  :appearances="301"
   pass-rate="24%"
   source-url="https://leetcode.cn/problems/longest-substring-without-repeating-characters/"
   source-label="力扣原题"

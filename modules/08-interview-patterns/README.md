@@ -21,6 +21,7 @@
 | [腾讯原创 03 · 蓄水池抽样](/problems/original-003-reservoir-sampling) | 未知长度数据流随机抽样 | 用逐步替换维持相同入选概率 |
 | [腾讯原创 04 · 错排问题](/problems/original-004-derangement) | 所有元素都不能回到原位 | 按第一个元素的去向拆出递推 |
 | [腾讯原创 05 · 微信红包随机分配](/problems/original-005-random-red-packet-allocation) | 随机拆分固定金额 | 整数分守恒 + 二倍均值上界 |
+| [华为手写 10 · 快速排序](/problems/original-010-quicksort) | 手写原地排序 | 三路分区减少重复元素递归 |
 
 ## 约束如何决定方案
 

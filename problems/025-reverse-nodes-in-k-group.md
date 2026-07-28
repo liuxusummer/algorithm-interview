@@ -1,9 +1,9 @@
 # 025 · K 个一组翻转链表
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '分组反转']"
+  :tags="['Hot100', '大厂面试', '分组反转', '华为面试题']"
   difficulty="hard"
-  :appearances="79"
+  :appearances="82"
   pass-rate="51%"
   source-url="https://leetcode.cn/problems/reverse-nodes-in-k-group/"
   source-label="力扣原题"

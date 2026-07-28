@@ -1,9 +1,9 @@
 # 104 · 二叉树的最大深度
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '递归']"
+  :tags="['Hot100', '大厂面试', '递归', '华为面试题']"
   difficulty="easy"
-  :appearances="12"
+  :appearances="15"
   pass-rate="61%"
   source-url="https://leetcode.cn/problems/maximum-depth-of-binary-tree/"
   source-label="力扣原题"

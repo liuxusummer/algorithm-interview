@@ -1,9 +1,9 @@
 # 019 · 删除链表的倒数第 N 个结点
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '快慢指针']"
+  :tags="['Hot100', '大厂面试', '快慢指针', '华为面试题']"
   difficulty="medium"
-  :appearances="60"
+  :appearances="68"
   pass-rate="49%"
   source-url="https://leetcode.cn/problems/remove-nth-node-from-end-of-list/"
   source-label="力扣原题"

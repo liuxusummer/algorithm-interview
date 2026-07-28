@@ -1,9 +1,9 @@
 # 142 · 环形链表 II
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '快慢指针']"
+  :tags="['Hot100', '大厂面试', '快慢指针', '华为面试题']"
   difficulty="medium"
-  :appearances="23"
+  :appearances="30"
   pass-rate="39%"
   source-url="https://leetcode.cn/problems/linked-list-cycle-ii/"
   source-label="力扣原题"

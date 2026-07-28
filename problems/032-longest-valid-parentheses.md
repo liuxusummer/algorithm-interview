@@ -1,9 +1,9 @@
 # 032 · 最长有效括号
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '索引栈']"
+  :tags="['Hot100', '大厂面试', '索引栈', '华为面试题']"
   difficulty="easy"
-  :appearances="22"
+  :appearances="25"
   pass-rate="46%"
   source-url="https://leetcode.cn/problems/longest-valid-parentheses/"
   source-label="力扣原题"

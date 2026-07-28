@@ -1,9 +1,9 @@
 # 146 · LRU 缓存
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '数据结构设计']"
+  :tags="['Hot100', '大厂面试', '数据结构设计', '华为面试题']"
   difficulty="medium"
-  :appearances="209"
+  :appearances="226"
   pass-rate="54%"
   source-url="https://leetcode.cn/problems/lru-cache/"
   source-label="力扣原题"

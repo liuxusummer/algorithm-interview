@@ -118,6 +118,33 @@
 | [腾讯原创 08 · 手写小根堆](/problems/original-008-handwritten-min-heap) | 数组模拟优先队列 | 高频 | 已有题解 |
 | [腾讯原创 09 · 消消乐](/problems/original-009-digit-elimination) | 栈模拟 | 高频 | 已有题解 |
 
+## 华为高频补充
+
+本批题目来自华为高频题单截图；与旧题重复的记录已累计到题目元数据，以下为本次新增题解。
+
+| 题目 | 专题 | 优先级 | 当前状态 |
+|---|---|---|---|
+| [008 · 字符串转换整数（atoi）](/problems/008-string-to-integer-atoi) | 字符串模拟 | 高频 | 已有题解 |
+| [011 · 盛最多水的容器](/problems/011-container-with-most-water) | 双指针 | 必做 | 已有题解 |
+| [016 · 最接近的三数之和](/problems/016-3sum-closest) | 排序 + 双指针 | 高频 | 已有题解 |
+| [017 · 电话号码的字母组合](/problems/017-letter-combinations-of-a-phone-number) | 回溯 | 必做 | 已有题解 |
+| [055 · 跳跃游戏](/problems/055-jump-game) | 贪心 | 必做 | 已有题解 |
+| [062 · 不同路径](/problems/062-unique-paths) | 网格 DP | 必做 | 已有题解 |
+| [065 · 有效数字](/problems/065-valid-number) | 状态机 | 高频 | 已有题解 |
+| [169 · 多数元素](/problems/169-majority-element) | 摩尔投票 | 必做 | 已有题解 |
+| [179 · 最大数](/problems/179-largest-number) | 自定义排序 | 高频 | 已有题解 |
+| [344 · 反转字符串](/problems/344-reverse-string) | 双指针 | 高频 | 已有题解 |
+| [406 · 根据身高重建队列](/problems/406-queue-reconstruction-by-height) | 贪心 + 排序 | 高频 | 已有题解 |
+| [451 · 根据字符出现频率排序](/problems/451-sort-characters-by-frequency) | 哈希表 + 桶排序 | 高频 | 已有题解 |
+| [554 · 砖墙](/problems/554-brick-wall) | 前缀和 + 哈希表 | 高频 | 已有题解 |
+| [739 · 每日温度](/problems/739-daily-temperatures) | 单调栈 | 必做 | 已有题解 |
+| [875 · 爱吃香蕉的珂珂](/problems/875-koko-eating-bananas) | 答案二分 | 高频 | 已有题解 |
+| [994 · 腐烂的橘子](/problems/994-rotting-oranges) | 多源 BFS | 必做 | 已有题解 |
+| [1160 · 拼写单词](/problems/1160-find-words-that-can-be-formed-by-characters) | 哈希计数 | 高频 | 已有题解 |
+| [1190 · 反转每对括号间的子串](/problems/1190-reverse-substrings-between-each-pair-of-parentheses) | 栈 + 括号跳转 | 高频 | 已有题解 |
+| [1423 · 可获得的最大点数](/problems/1423-maximum-points-you-can-obtain-from-cards) | 滑动窗口 | 高频 | 已有题解 |
+| [华为手写 10 · 快速排序](/problems/original-010-quicksort) | 三路快速排序 | 高频 | 已有题解 |
+
 每道题使用三种状态：
 
 - `首次完成`：看提示后写出；

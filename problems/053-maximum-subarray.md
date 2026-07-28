@@ -1,9 +1,9 @@
 # 053 · 最大子数组和
 
 <ProblemMeta
-  :tags="['模板题', '线性 DP', '普通数组']"
+  :tags="['模板题', '线性 DP', '普通数组', '华为面试题']"
   difficulty="medium"
-  :appearances="110"
+  :appearances="117"
   pass-rate="67%"
   source-url="https://leetcode.cn/problems/maximum-subarray/"
   source-label="力扣原题"

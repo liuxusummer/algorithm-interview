@@ -1,9 +1,9 @@
 # 015 · 三数之和
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '双指针']"
+  :tags="['Hot100', '大厂面试', '双指针', '华为面试题']"
   difficulty="medium"
-  :appearances="70"
+  :appearances="79"
   pass-rate="43%"
   source-url="https://leetcode.cn/problems/3sum/"
   source-label="力扣原题"

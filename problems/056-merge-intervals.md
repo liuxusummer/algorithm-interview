@@ -1,9 +1,9 @@
 # 056 · 合并区间
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '排序']"
+  :tags="['Hot100', '大厂面试', '排序', '华为面试题']"
   difficulty="medium"
-  :appearances="57"
+  :appearances="73"
   pass-rate="50%"
   source-url="https://leetcode.cn/problems/merge-intervals/"
   source-label="力扣原题"

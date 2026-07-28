@@ -1,9 +1,9 @@
 # 005 · 最长回文子串
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '区间 DP']"
+  :tags="['Hot100', '大厂面试', '区间 DP', '华为面试题']"
   difficulty="medium"
-  :appearances="72"
+  :appearances="78"
   pass-rate="52%"
   source-url="https://leetcode.cn/problems/longest-palindromic-substring/"
   source-label="力扣原题"

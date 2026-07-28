@@ -1,9 +1,9 @@
 # 022 · 括号生成
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '回溯']"
+  :tags="['Hot100', '大厂面试', '回溯', '华为面试题']"
   difficulty="medium"
-  :appearances="30"
+  :appearances="33"
   pass-rate="63%"
   source-url="https://leetcode.cn/problems/generate-parentheses/"
   source-label="力扣原题"

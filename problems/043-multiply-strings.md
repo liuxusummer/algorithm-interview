@@ -1,9 +1,9 @@
 # 043 · 字符串相乘
 
 <ProblemMeta
-  :tags="['腾讯面试题', '字符串', '模拟']"
+  :tags="['腾讯面试题', '字符串', '模拟', '华为面试题']"
   difficulty="medium"
-  :appearances="20"
+  :appearances="23"
   pass-rate="51%"
   source-url="https://leetcode.cn/problems/multiply-strings/"
   source-label="力扣原题"

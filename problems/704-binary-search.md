@@ -1,9 +1,9 @@
 # 704 · 二分查找
 
 <ProblemMeta
-  :tags="['字节面试题', '二分查找', '模板']"
+  :tags="['字节面试题', '二分查找', '模板', '华为面试题']"
   difficulty="medium"
-  :appearances="26"
+  :appearances="31"
   pass-rate="55%"
   source-url="https://leetcode.cn/problems/binary-search/"
   source-label="力扣原题"

@@ -1,9 +1,9 @@
 # 054 · 螺旋矩阵
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '矩阵']"
+  :tags="['Hot100', '大厂面试', '矩阵', '华为面试题']"
   difficulty="medium"
-  :appearances="34"
+  :appearances="39"
   pass-rate="47%"
   source-url="https://leetcode.cn/problems/spiral-matrix/"
   source-label="力扣原题"

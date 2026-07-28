@@ -1,9 +1,9 @@
 # 124 · 二叉树中的最大路径和
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '树形 DP']"
+  :tags="['Hot100', '大厂面试', '树形 DP', '华为面试题']"
   difficulty="hard"
-  :appearances="15"
+  :appearances="19"
   pass-rate="39%"
   source-url="https://leetcode.cn/problems/binary-tree-maximum-path-sum/"
   source-label="力扣原题"

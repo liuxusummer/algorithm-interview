@@ -1,9 +1,9 @@
 # 1143 · 最长公共子序列
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '二维 DP']"
+  :tags="['Hot100', '大厂面试', '二维 DP', '华为面试题']"
   difficulty="medium"
-  :appearances="36"
+  :appearances="39"
   pass-rate="63%"
   source-url="https://leetcode.cn/problems/longest-common-subsequence/"
   source-label="力扣原题"

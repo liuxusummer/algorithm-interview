@@ -1,9 +1,9 @@
 # 102 · 二叉树的层序遍历
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', 'BFS']"
+  :tags="['Hot100', '大厂面试', 'BFS', '华为面试题']"
   difficulty="medium"
-  :appearances="48"
+  :appearances="61"
   pass-rate="48%"
   source-url="https://leetcode.cn/problems/binary-tree-level-order-traversal/"
   source-label="力扣原题"

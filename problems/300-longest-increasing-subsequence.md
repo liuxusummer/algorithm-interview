@@ -1,9 +1,9 @@
 # 300 · 最长递增子序列
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '二分优化']"
+  :tags="['Hot100', '大厂面试', '二分优化', '华为面试题']"
   difficulty="easy"
-  :appearances="99"
+  :appearances="107"
   pass-rate="59%"
   source-url="https://leetcode.cn/problems/longest-increasing-subsequence/"
   source-label="力扣原题"

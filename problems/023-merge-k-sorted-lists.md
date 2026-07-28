@@ -1,9 +1,9 @@
 # 023 · 合并 K 个升序链表
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '最小堆']"
+  :tags="['Hot100', '大厂面试', '最小堆', '华为面试题']"
   difficulty="hard"
-  :appearances="69"
+  :appearances="74"
   pass-rate="24%"
   source-url="https://leetcode.cn/problems/merge-k-sorted-lists/"
   source-label="力扣原题"

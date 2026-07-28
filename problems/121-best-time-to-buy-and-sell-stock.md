@@ -1,9 +1,9 @@
 # 121 · 买卖股票的最佳时机
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '贪心']"
+  :tags="['Hot100', '大厂面试', '贪心', '华为面试题']"
   difficulty="easy"
-  :appearances="48"
+  :appearances="52"
   pass-rate="66%"
   source-url="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/"
   source-label="力扣原题"

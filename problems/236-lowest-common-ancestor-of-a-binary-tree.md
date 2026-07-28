@@ -1,9 +1,9 @@
 # 236 · 二叉树的最近公共祖先
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '递归']"
+  :tags="['Hot100', '大厂面试', '递归', '华为面试题']"
   difficulty="medium"
-  :appearances="55"
+  :appearances="58"
   pass-rate="47%"
   source-url="https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/"
   source-label="力扣原题"

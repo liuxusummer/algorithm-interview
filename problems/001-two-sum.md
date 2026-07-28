@@ -1,9 +1,9 @@
 # 001 · 两数之和
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '哈希表']"
+  :tags="['Hot100', '大厂面试', '哈希表', '华为面试题']"
   difficulty="easy"
-  :appearances="41"
+  :appearances="52"
   pass-rate="27%"
   source-url="https://leetcode.cn/problems/two-sum/"
   source-label="力扣原题"

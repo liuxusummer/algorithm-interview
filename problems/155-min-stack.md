@@ -1,9 +1,9 @@
 # 155 · 最小栈
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '辅助栈']"
+  :tags="['Hot100', '大厂面试', '辅助栈', '华为面试题']"
   difficulty="medium"
-  :appearances="10"
+  :appearances="16"
   pass-rate="68%"
   source-url="https://leetcode.cn/problems/min-stack/"
   source-label="力扣原题"

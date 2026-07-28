@@ -1,9 +1,9 @@
 # 092 · 反转链表 II
 
 <ProblemMeta
-  :tags="['字节面试题', '链表', '局部反转']"
+  :tags="['字节面试题', '链表', '局部反转', '华为面试题']"
   difficulty="medium"
-  :appearances="15"
+  :appearances="18"
   pass-rate="55%"
   source-url="https://leetcode.cn/problems/reverse-linked-list-ii/"
   source-label="力扣原题"

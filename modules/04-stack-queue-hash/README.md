@@ -49,6 +49,8 @@
 | [331 · 验证二叉树的前序序列化](/problems/331-verify-preorder-serialization-of-a-binary-tree) | 待填槽位数量 | 用出入度思想替代建树 |
 | [224 · 基本计算器](/problems/224-basic-calculator) | 外层结果 + 括号前符号 | 括号内求值后合并回外层 |
 | [腾讯原创 09 · 消消乐](/problems/original-009-digit-elimination) | 尚未消除的数字 | 新数字只和栈顶形成相邻关系 |
+| [739 · 每日温度](/problems/739-daily-temperatures) | 未找到更高温度的下标 | 单调递减栈定位右侧首个更大值 |
+| [1190 · 反转每对括号间的子串](/problems/1190-reverse-substrings-between-each-pair-of-parentheses) | 配对括号位置 | 跨越括号时改变遍历方向 |
 
 ## LRU 的职责拆分
 

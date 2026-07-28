@@ -1,9 +1,9 @@
 # 034 · 在排序数组中查找元素的第一个和最后一个位置
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '边界二分']"
+  :tags="['Hot100', '大厂面试', '边界二分', '华为面试题']"
   difficulty="medium"
-  :appearances="39"
+  :appearances="42"
   pass-rate="40%"
   source-url="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/"
   source-label="力扣原题"

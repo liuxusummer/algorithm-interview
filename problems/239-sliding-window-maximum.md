@@ -1,9 +1,9 @@
 # 239 · 滑动窗口最大值
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '单调队列']"
+  :tags="['Hot100', '大厂面试', '单调队列', '华为面试题']"
   difficulty="medium"
-  :appearances="32"
+  :appearances="37"
   pass-rate="40%"
   source-url="https://leetcode.cn/problems/sliding-window-maximum/"
   source-label="力扣原题"

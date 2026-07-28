@@ -1,9 +1,9 @@
 # 215 · 数组中的第 K 个最大元素
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '最小堆']"
+  :tags="['Hot100', '大厂面试', '最小堆', '华为面试题']"
   difficulty="medium"
-  :appearances="128"
+  :appearances="138"
   pass-rate="53%"
   source-url="https://leetcode.cn/problems/kth-largest-element-in-an-array/"
   source-label="力扣原题"

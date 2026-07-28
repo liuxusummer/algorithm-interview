@@ -1,9 +1,9 @@
 # 207 · 课程表
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '拓扑排序']"
+  :tags="['Hot100', '大厂面试', '拓扑排序', '华为面试题']"
   difficulty="medium"
-  :appearances="16"
+  :appearances="22"
   pass-rate="43%"
   source-url="https://leetcode.cn/problems/course-schedule/"
   source-label="力扣原题"

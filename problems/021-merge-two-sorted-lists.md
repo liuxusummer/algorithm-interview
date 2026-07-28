@@ -1,9 +1,9 @@
 # 021 · 合并两个有序链表
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '归并']"
+  :tags="['Hot100', '大厂面试', '归并', '华为面试题']"
   difficulty="easy"
-  :appearances="57"
+  :appearances="63"
   pass-rate="58%"
   source-url="https://leetcode.cn/problems/merge-two-sorted-lists/"
   source-label="力扣原题"

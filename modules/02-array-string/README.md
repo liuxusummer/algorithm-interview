@@ -65,6 +65,17 @@
 | 字符串模拟 | [043 · 字符串相乘](/problems/043-multiply-strings)、[165 · 比较版本号](/problems/165-compare-version-numbers)、[415 · 字符串相加](/problems/415-add-strings)、[443 · 压缩字符串](/problems/443-string-compression) |
 | 值域映射 | [442 · 数组中重复的数据](/problems/442-find-all-duplicates-in-an-array) |
 
+## 华为高频补充
+
+| 模式 | 代表题 |
+|---|---|
+| 双指针 | [011 · 盛最多水的容器](/problems/011-container-with-most-water)、[016 · 最接近的三数之和](/problems/016-3sum-closest)、[344 · 反转字符串](/problems/344-reverse-string) |
+| 答案二分 | [875 · 爱吃香蕉的珂珂](/problems/875-koko-eating-bananas) |
+| 字符串解析 | [008 · 字符串转换整数（atoi）](/problems/008-string-to-integer-atoi)、[065 · 有效数字](/problems/065-valid-number) |
+| 计数与前缀 | [451 · 根据字符出现频率排序](/problems/451-sort-characters-by-frequency)、[554 · 砖墙](/problems/554-brick-wall)、[1160 · 拼写单词](/problems/1160-find-words-that-can-be-formed-by-characters) |
+| 滑动窗口 | [1423 · 可获得的最大点数](/problems/1423-maximum-points-you-can-obtain-from-cards) |
+| 排序与投票 | [169 · 多数元素](/problems/169-majority-element)、[179 · 最大数](/problems/179-largest-number) |
+
 ## 二分实现检查表
 
 - 当前维护的是闭区间还是半开区间；

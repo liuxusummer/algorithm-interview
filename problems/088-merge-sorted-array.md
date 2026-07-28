@@ -1,9 +1,9 @@
 # 088 · 合并两个有序数组
 
 <ProblemMeta
-  :tags="['字节面试题', '双指针', '普通数组']"
+  :tags="['字节面试题', '双指针', '普通数组', '华为面试题']"
   difficulty="medium"
-  :appearances="62"
+  :appearances="66"
   pass-rate="33%"
   source-url="https://leetcode.cn/problems/merge-sorted-array/"
   source-label="力扣原题"

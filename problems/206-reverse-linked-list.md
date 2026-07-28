@@ -1,9 +1,9 @@
 # 206 · 反转链表
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '链表']"
+  :tags="['Hot100', '大厂面试', '链表', '华为面试题']"
   difficulty="easy"
-  :appearances="100"
+  :appearances="112"
   pass-rate="39%"
   source-url="https://leetcode.cn/problems/reverse-linked-list/"
   source-label="力扣原题"

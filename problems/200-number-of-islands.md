@@ -1,9 +1,9 @@
 # 200 · 岛屿数量
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', 'DFS']"
+  :tags="['Hot100', '大厂面试', 'DFS', '华为面试题']"
   difficulty="medium"
-  :appearances="65"
+  :appearances="94"
   pass-rate="30%"
   source-url="https://leetcode.cn/problems/number-of-islands/"
   source-label="力扣原题"

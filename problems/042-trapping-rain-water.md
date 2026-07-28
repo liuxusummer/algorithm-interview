@@ -1,9 +1,9 @@
 # 042 · 接雨水
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '双指针']"
+  :tags="['Hot100', '大厂面试', '双指针', '华为面试题']"
   difficulty="hard"
-  :appearances="53"
+  :appearances="64"
   pass-rate="63%"
   source-url="https://leetcode.cn/problems/trapping-rain-water/"
   source-label="力扣原题"

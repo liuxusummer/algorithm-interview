@@ -1,9 +1,9 @@
 # 020 · 有效的括号
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '栈']"
+  :tags="['Hot100', '大厂面试', '栈', '华为面试题']"
   difficulty="easy"
-  :appearances="78"
+  :appearances="100"
   pass-rate="44%"
   source-url="https://leetcode.cn/problems/valid-parentheses/"
   source-label="力扣原题"

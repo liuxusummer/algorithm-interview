@@ -1,9 +1,9 @@
 # 141 · 环形链表
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '快慢指针']"
+  :tags="['Hot100', '大厂面试', '快慢指针', '华为面试题']"
   difficulty="easy"
-  :appearances="28"
+  :appearances="31"
   pass-rate="56%"
   source-url="https://leetcode.cn/problems/linked-list-cycle/"
   source-label="力扣原题"

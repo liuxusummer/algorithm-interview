@@ -1,9 +1,9 @@
 # 069 · x 的平方根
 
 <ProblemMeta
-  :tags="['字节面试题', '二分查找', '答案二分']"
+  :tags="['字节面试题', '二分查找', '答案二分', '华为面试题']"
   difficulty="easy"
-  :appearances="24"
+  :appearances="28"
   pass-rate="42%"
   source-url="https://leetcode.cn/problems/sqrtx/"
   source-label="力扣原题"

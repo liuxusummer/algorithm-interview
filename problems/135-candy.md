@@ -1,9 +1,9 @@
 # 135 · 分发糖果
 
 <ProblemMeta
-  :tags="['字节面试题', '贪心', '双向扫描']"
+  :tags="['字节面试题', '贪心', '双向扫描', '华为面试题']"
   difficulty="medium"
-  :appearances="10"
+  :appearances="13"
   pass-rate="47%"
   source-url="https://leetcode.cn/problems/candy/"
   source-label="力扣原题"

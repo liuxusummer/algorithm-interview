@@ -1,9 +1,9 @@
 # 002 · 两数相加
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '链表']"
+  :tags="['Hot100', '大厂面试', '链表', '华为面试题']"
   difficulty="medium"
-  :appearances="20"
+  :appearances="26"
   pass-rate="45%"
   source-url="https://leetcode.cn/problems/add-two-numbers/"
   source-label="力扣原题"

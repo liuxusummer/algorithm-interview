@@ -1,9 +1,9 @@
 # 394 · 字符串解码
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '栈']"
+  :tags="['Hot100', '大厂面试', '栈', '华为面试题']"
   difficulty="medium"
-  :appearances="10"
+  :appearances="25"
   pass-rate="59%"
   source-url="https://leetcode.cn/problems/decode-string/"
   source-label="力扣原题"

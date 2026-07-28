@@ -1,9 +1,9 @@
 # 322 · 零钱兑换
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '完全背包']"
+  :tags="['Hot100', '大厂面试', '完全背包', '华为面试题']"
   difficulty="medium"
-  :appearances="45"
+  :appearances="49"
   pass-rate="53%"
   source-url="https://leetcode.cn/problems/coin-change/"
   source-label="力扣原题"

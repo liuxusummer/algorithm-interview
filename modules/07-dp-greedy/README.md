@@ -42,6 +42,7 @@
 |---|---|---|
 | [005 · 最长回文子串](/problems/005-longest-palindromic-substring) | 一个闭区间是否回文 | 内部区间 |
 | [064 · 最小路径和](/problems/064-minimum-path-sum) | 到达当前格的最小路径和 | 上、左 |
+| [062 · 不同路径](/problems/062-unique-paths) | 到达当前格的路径数量 | 上、左 |
 | [072 · 编辑距离](/problems/072-edit-distance) | 两个前缀的最少编辑次数 | 上、左、左上 |
 | [718 · 最长重复子数组](/problems/718-maximum-length-of-repeated-subarray) | 以两个位置结尾的连续匹配长度 | 左上，不同则归零 |
 | [1143 · 最长公共子序列](/problems/1143-longest-common-subsequence) | 两个前缀的最长公共子序列 | 左上或上、左 |
@@ -71,6 +72,8 @@
 |---|---|---|
 | [121 · 买卖股票的最佳时机](/problems/121-best-time-to-buy-and-sell-stock) | 维护此前最低价格 | 覆盖每个卖出日的最优交易 |
 | [122 · 买卖股票的最佳时机 II](/problems/122-best-time-to-buy-and-sell-stock-ii) | 累加全部相邻正价差 | 上涨区间利润可以望远镜求和 |
+| [055 · 跳跃游戏](/problems/055-jump-game) | 维护可达最远边界 | 不可达位置不能继续扩展 |
+| [406 · 根据身高重建队列](/problems/406-queue-reconstruction-by-height) | 先安置高个子 | 后插入的矮个子不影响已有计数 |
 
 121 也可以写成持有/未持有的状态 DP，但一次交易条件下，状态可以压缩为历史最低价格。
 

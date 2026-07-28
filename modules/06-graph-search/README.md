@@ -23,6 +23,7 @@
 | [046 · 全排列](/problems/046-permutations) | `used + path` | 每层选择尚未使用的元素 |
 | [022 · 括号生成](/problems/022-generate-parentheses) | 左右括号计数 | 用约束阻止非法前缀 |
 | [093 · 复原 IP 地址](/problems/093-restore-ip-addresses) | 起点 + 已切段 | 合法性与剩余容量剪枝 |
+| [017 · 电话号码的字母组合](/problems/017-letter-combinations-of-a-phone-number) | 数字位置 + 当前组合 | 每层枚举当前按键的全部字母 |
 
 ### 2. 再处理网格搜索
 
@@ -31,6 +32,7 @@
 | [079 · 单词搜索](/problems/079-word-search) | 路径回溯 | 访问标记只对当前路径生效 |
 | [200 · 岛屿数量](/problems/200-number-of-islands) | 连通分量计数 | 一次 DFS 消除一整座岛 |
 | [695 · 岛屿的最大面积](/problems/695-max-area-of-island) | 连通分量聚合 | 在搜索中统计结点数量 |
+| [994 · 腐烂的橘子](/problems/994-rotting-oranges) | 多源 BFS | 所有腐烂源同时按分钟扩散 |
 | [腾讯原创 07 · 迷宫最短路径](/problems/original-007-maze-shortest-path) | 网格 BFS | 第一次访问即得到最短步数 |
 
 ### 3. 最后进入真正的图

@@ -1,9 +1,9 @@
 # 209 · 长度最小的子数组
 
 <ProblemMeta
-  :tags="['字节面试题', '双指针', '滑动窗口']"
+  :tags="['字节面试题', '双指针', '滑动窗口', '华为面试题']"
   difficulty="medium"
-  :appearances="36"
+  :appearances="43"
   pass-rate="45%"
   source-url="https://leetcode.cn/problems/minimum-size-subarray-sum/"
   source-label="力扣原题"

@@ -1,9 +1,9 @@
 # 072 · 编辑距离
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '二维 DP']"
+  :tags="['Hot100', '大厂面试', '二维 DP', '华为面试题']"
   difficulty="medium"
-  :appearances="59"
+  :appearances="64"
   pass-rate="42%"
   source-url="https://leetcode.cn/problems/edit-distance/"
   source-label="力扣原题"

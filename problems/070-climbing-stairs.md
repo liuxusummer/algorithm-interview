@@ -1,9 +1,9 @@
 # 070 · 爬楼梯
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '线性 DP']"
+  :tags="['Hot100', '大厂面试', '线性 DP', '华为面试题']"
   difficulty="easy"
-  :appearances="29"
+  :appearances="35"
   pass-rate="53%"
   source-url="https://leetcode.cn/problems/climbing-stairs/"
   source-label="力扣原题"

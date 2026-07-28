@@ -1,9 +1,9 @@
 # 695 · 岛屿的最大面积
 
 <ProblemMeta
-  :tags="['字节面试题', 'DFS', '网格搜索']"
+  :tags="['字节面试题', 'DFS', '网格搜索', '华为面试题']"
   difficulty="medium"
-  :appearances="15"
+  :appearances="20"
   pass-rate="46%"
   source-url="https://leetcode.cn/problems/max-area-of-island/"
   source-label="力扣原题"

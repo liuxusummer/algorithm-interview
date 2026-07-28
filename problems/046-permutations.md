@@ -1,9 +1,9 @@
 # 046 · 全排列
 
 <ProblemMeta
-  :tags="['Hot100', '大厂面试', '回溯']"
+  :tags="['Hot100', '大厂面试', '回溯', '华为面试题']"
   difficulty="medium"
-  :appearances="31"
+  :appearances="40"
   pass-rate="53%"
   source-url="https://leetcode.cn/problems/permutations/"
   source-label="力扣原题"
