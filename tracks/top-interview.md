@@ -110,6 +110,9 @@
 | [1262 · 可被三整除的最大和](/problems/1262-greatest-sum-divisible-by-three) | 余数 DP | 高频 | 已有题解 |
 | [原创 01 · 带过期时间的 LRU 缓存](/problems/original-001-expiring-lru-cache) | 缓存设计 | 高频 | 已有题解 |
 | [原创题单 02 · 最小整数 I](/problems/original-002-minimum-integer-i) | 贪心 + 树状数组 | 高频 | 已有题解 |
+| [腾讯原创 03 · 蓄水池抽样](/problems/original-003-reservoir-sampling) | 随机算法 | 高频 | 已有题解 |
+| [腾讯原创 04 · 错排问题](/problems/original-004-derangement) | 组合数学 + DP | 高频 | 已有题解 |
+| [腾讯原创 05 · 微信红包随机分配](/problems/original-005-random-red-packet-allocation) | 随机模拟 | 高频 | 已有题解 |
 
 每道题使用三种状态：
 

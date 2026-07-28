@@ -134,7 +134,10 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
         collapsed: true,
         items: [
           { text: '原创 01 带过期时间的 LRU 缓存', link: '/problems/original-001-expiring-lru-cache' },
-          { text: '原创题单 02 最小整数 I', link: '/problems/original-002-minimum-integer-i' }
+          { text: '原创题单 02 最小整数 I', link: '/problems/original-002-minimum-integer-i' },
+          { text: '腾讯原创 03 蓄水池抽样', link: '/problems/original-003-reservoir-sampling' },
+          { text: '腾讯原创 04 错排问题', link: '/problems/original-004-derangement' },
+          { text: '腾讯原创 05 微信红包随机分配', link: '/problems/original-005-random-red-packet-allocation' }
         ]
       },
       { text: '题解模板', link: '/problems/TEMPLATE' },
