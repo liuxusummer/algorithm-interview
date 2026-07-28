@@ -12,6 +12,7 @@ import {
 import { withBase } from 'vitepress'
 import { computed, ref } from 'vue'
 import { alibabaWrittenTests } from '../data/alibabaWrittenTests'
+import { huaweiWrittenTests } from '../data/huaweiWrittenTests'
 import { meituanWrittenTests } from '../data/meituanWrittenTests'
 
 type SortOrder = 'date-desc' | 'date-asc' | 'company'
@@ -37,6 +38,10 @@ const sessions: WrittenTestSession[] = [
     type: '算法笔试' as const
   })),
   ...meituanWrittenTests.map((session) => ({
+    ...session,
+    type: '算法笔试' as const
+  })),
+  ...huaweiWrittenTests.map((session) => ({
     ...session,
     type: '算法笔试' as const
   })),
