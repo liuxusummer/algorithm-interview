@@ -31,6 +31,21 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
   moduleGroup('07', '动态规划与贪心', '07-dp-greedy'),
   moduleGroup('08', '综合面试模式', '08-interview-patterns'),
   {
+    text: '大厂笔试真题',
+    collapsed: false,
+    items: [
+      { text: '模块说明与 ACM 规范', link: '/written-tests/README' },
+      {
+        text: '蔚来通用岗 · 2026-07-26',
+        collapsed: false,
+        items: [
+          { text: '01 阶乘平方数', link: '/written-tests/nio-20260726-factorial-square' },
+          { text: '02 线性组合计数', link: '/written-tests/nio-20260726-linear-combination-count' }
+        ]
+      }
+    ]
+  },
+  {
     text: '题目与题单',
     collapsed: true,
     items: [

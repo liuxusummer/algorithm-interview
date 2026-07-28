@@ -41,6 +41,7 @@ pnpm docs:preview
 | `.vitepress/` | 站点配置、导航、主题和 Vue 组件 |
 | `modules/` | 按知识结构组织的专题讲解 |
 | `problems/` | 单题拆解与统一题解模板 |
+| `written-tests/` | 大厂笔试场次、ACM 模式题解与完整 Python 程序 |
 | `tracks/` | 高频题单与岗位训练路径 |
 | `notes/` | 个人复盘和口述练习模板 |
 | `progress/` | 学习进度、复习计划和通关记录 |
