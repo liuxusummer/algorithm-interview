@@ -255,6 +255,33 @@ body {
   color: #cf3f3f !important;
 }
 
+.problem-index-page .VPDoc .content-container {
+  max-width: 1120px !important;
+}
+
+.problem-catalog-fallback {
+  margin: 34px 0 22px;
+  border: 1px solid var(--vp-c-divider);
+  background: color-mix(in srgb, var(--vp-c-bg) 92%, transparent);
+}
+
+.problem-catalog-fallback > summary {
+  padding: 13px 16px;
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-mono);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.problem-catalog-fallback[open] > summary {
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.problem-catalog-fallback > table {
+  margin: 0;
+}
+
 .algorithm-home .VPPage {
   padding-bottom: 88px;
 }

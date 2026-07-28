@@ -1,6 +1,15 @@
+---
+pageClass: problem-index-page
+---
+
 # 题目索引
 
 单题页面按统一结构编写：题意重述、约束观察、暴力解、优化抓手、正确性说明、代码、复杂度、边界与追问。出现次数按已提供的多批面试题截图累加，通过率保留首次收录值。
+
+<ProblemCatalog />
+
+<details class="problem-catalog-fallback">
+<summary>查看完整静态题目表</summary>
 
 | 编号 | 题目 | 原题 | 模式 | 难度 | 面试记录 | 通过率 |
 |---:|---|---|---|---|---:|---:|
@@ -107,5 +116,7 @@
 | 腾讯原创题单 07 | [迷宫最短路径](./original-007-maze-shortest-path.md) | 腾讯面试题版本 | 网格 BFS | 中等 | 8 次 | — |
 | 腾讯原创题单 08 | [手写小根堆](./original-008-handwritten-min-heap.md) | 腾讯面试题版本 | 数组模拟优先队列 | 中等 | 7 次 | 20% |
 | 腾讯原创题单 09 | [消消乐](./original-009-digit-elimination.md) | 腾讯面试题版本 | 栈模拟 | 简单 | 5 次 | 100% |
+
+</details>
 
 新增题目时复制[题解模板](./TEMPLATE.md)。力扣题使用 `三位编号-英文短名.md`，原创题使用 `original-三位序号-英文短名.md`。
