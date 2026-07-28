@@ -31,6 +31,7 @@
 | [232 · 用栈实现队列](/problems/232-implement-queue-using-stacks) | 输入栈 + 输出栈 | 输出栈非空时绝不转移 |
 | [146 · LRU 缓存](/problems/146-lru-cache) | 哈希表 + 双向链表 | 链表从最近使用到最久未使用 |
 | [原创 01 · 带过期时间的 LRU 缓存](/problems/original-001-expiring-lru-cache) | 哈希表 + 双向链表 + 最小堆 | 先清过期，再按 LRU 淘汰 |
+| [腾讯原创 08 · 手写小根堆](/problems/original-008-handwritten-min-heap) | 数组 + 上浮 / 下沉 | 父节点始终不大于孩子 |
 
 ### 3. 候选集合与优先级
 
@@ -47,6 +48,7 @@
 | [394 · 字符串解码](/problems/394-decode-string) | 外层前缀 + 重复次数 | 左括号压栈，右括号归约 |
 | [331 · 验证二叉树的前序序列化](/problems/331-verify-preorder-serialization-of-a-binary-tree) | 待填槽位数量 | 用出入度思想替代建树 |
 | [224 · 基本计算器](/problems/224-basic-calculator) | 外层结果 + 括号前符号 | 括号内求值后合并回外层 |
+| [腾讯原创 09 · 消消乐](/problems/original-009-digit-elimination) | 尚未消除的数字 | 新数字只和栈顶形成相邻关系 |
 
 ## LRU 的职责拆分
 

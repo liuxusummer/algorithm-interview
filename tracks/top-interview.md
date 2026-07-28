@@ -115,6 +115,8 @@
 | [腾讯原创 05 · 微信红包随机分配](/problems/original-005-random-red-packet-allocation) | 随机模拟 | 高频 | 已有题解 |
 | [腾讯原创 06 · 单源最短路径](/problems/original-006-single-source-shortest-path) | 堆优化 Dijkstra | 高频 | 已有题解 |
 | [腾讯原创 07 · 迷宫最短路径](/problems/original-007-maze-shortest-path) | 网格 BFS | 高频 | 已有题解 |
+| [腾讯原创 08 · 手写小根堆](/problems/original-008-handwritten-min-heap) | 数组模拟优先队列 | 高频 | 已有题解 |
+| [腾讯原创 09 · 消消乐](/problems/original-009-digit-elimination) | 栈模拟 | 高频 | 已有题解 |
 
 每道题使用三种状态：
 

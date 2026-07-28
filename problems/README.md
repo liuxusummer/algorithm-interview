@@ -105,5 +105,7 @@
 | 腾讯原创题单 05 | [微信红包随机分配](./original-005-random-red-packet-allocation.md) | 腾讯面试题版本 | 二倍均值 + 随机模拟 | 中等 | 6 次 | 16% |
 | 腾讯原创题单 06 | [单源最短路径](./original-006-single-source-shortest-path.md) | 腾讯面试题版本 | 堆优化 Dijkstra | 中等 | 8 次 | — |
 | 腾讯原创题单 07 | [迷宫最短路径](./original-007-maze-shortest-path.md) | 腾讯面试题版本 | 网格 BFS | 中等 | 8 次 | — |
+| 腾讯原创题单 08 | [手写小根堆](./original-008-handwritten-min-heap.md) | 腾讯面试题版本 | 数组模拟优先队列 | 中等 | 7 次 | 20% |
+| 腾讯原创题单 09 | [消消乐](./original-009-digit-elimination.md) | 腾讯面试题版本 | 栈模拟 | 简单 | 5 次 | 100% |
 
 新增题目时复制[题解模板](./TEMPLATE.md)。力扣题使用 `三位编号-英文短名.md`，原创题使用 `original-三位序号-英文短名.md`。

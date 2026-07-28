@@ -139,7 +139,9 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
           { text: '腾讯原创 04 错排问题', link: '/problems/original-004-derangement' },
           { text: '腾讯原创 05 微信红包随机分配', link: '/problems/original-005-random-red-packet-allocation' },
           { text: '腾讯原创 06 单源最短路径', link: '/problems/original-006-single-source-shortest-path' },
-          { text: '腾讯原创 07 迷宫最短路径', link: '/problems/original-007-maze-shortest-path' }
+          { text: '腾讯原创 07 迷宫最短路径', link: '/problems/original-007-maze-shortest-path' },
+          { text: '腾讯原创 08 手写小根堆', link: '/problems/original-008-handwritten-min-heap' },
+          { text: '腾讯原创 09 消消乐', link: '/problems/original-009-digit-elimination' }
         ]
       },
       { text: '题解模板', link: '/problems/TEMPLATE' },
