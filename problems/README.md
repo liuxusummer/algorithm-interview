@@ -94,7 +94,7 @@ pageClass: problem-index-page
 | 239 | [滑动窗口最大值](./239-sliding-window-maximum.md) | [力扣 ↗](https://leetcode.cn/problems/sliding-window-maximum/) | 单调队列 | 中等 | 37 次 | 40% |
 | 240 | [搜索二维矩阵 II](./240-search-a-2d-matrix-ii.md) | [力扣 ↗](https://leetcode.cn/problems/search-a-2d-matrix-ii/) | 阶梯搜索 | 中等 | 26 次 | 39% |
 | 287 | [寻找重复数](./287-find-the-duplicate-number.md) | [力扣 ↗](https://leetcode.cn/problems/find-the-duplicate-number/) | Floyd 判圈 | 中等 | 32 次 | 67% |
-| 300 | [最长递增子序列](./300-longest-increasing-subsequence.md) | [力扣 ↗](https://leetcode.cn/problems/longest-increasing-subsequence/) | 二分优化 | 简单 | 107 次 | 59% |
+| 300 | [最长递增子序列](./300-longest-increasing-subsequence.md) | [力扣 ↗](https://leetcode.cn/problems/longest-increasing-subsequence/) | 动态规划 | 简单 | 107 次 | 59% |
 | 322 | [零钱兑换](./322-coin-change.md) | [力扣 ↗](https://leetcode.cn/problems/coin-change/) | 完全背包 | 中等 | 49 次 | 53% |
 | 328 | [奇偶链表](./328-odd-even-linked-list.md) | [力扣 ↗](https://leetcode.cn/problems/odd-even-linked-list/) | 指针分组 | 中等 | 10 次 | 45% |
 | 331 | [验证二叉树的前序序列化](./331-verify-preorder-serialization-of-a-binary-tree.md) | [力扣 ↗](https://leetcode.cn/problems/verify-preorder-serialization-of-a-binary-tree/) | 槽位计数 | 中等 | 11 次 | 48% |
