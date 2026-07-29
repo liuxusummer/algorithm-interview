@@ -73,7 +73,12 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
   moduleGroup('01', '复杂度与解题流程', '01-complexity'),
   moduleGroup('02', '数组、字符串与双指针', '02-array-string'),
   moduleGroup('03', '链表', '03-linked-list'),
-  moduleGroup('04', '栈、队列与哈希', '04-stack-queue-hash'),
+  moduleGroup('04', '栈、队列与哈希', '04-stack-queue-hash', [
+    {
+      text: '单调栈与单调队列',
+      link: '/modules/04-stack-queue-hash/monotonic-stack-queue'
+    }
+  ]),
   moduleGroup('05', '二叉树与递归', '05-tree-recursion'),
   moduleGroup('06', '图、搜索与并查集', '06-graph-search', [
     {
