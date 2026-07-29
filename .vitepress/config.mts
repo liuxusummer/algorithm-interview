@@ -8,7 +8,7 @@ export default defineConfig({
   lang: 'zh-CN',
   title: '解题现场',
   titleTemplate: ':title · 解题现场',
-  description: '面向技术面试的算法题拆解、模式归纳与复盘网站',
+  description: '面向技术面试的算法题拆解、计算机基础问答、模式归纳与复盘网站',
   cleanUrls: true,
 
   head: [
@@ -25,6 +25,7 @@ export default defineConfig({
       { text: '开始刷题', link: '/START_HERE' },
       { text: '学习路线', link: '/ROADMAP' },
       { text: '专题模块', link: '/modules/01-complexity/README' },
+      { text: '面试真题', link: '/modules/company-interview-questions/README' },
       { text: '笔试真题', link: '/written-tests/README' },
       { text: '题目拆解', link: '/problems/README' },
       {
@@ -46,8 +47,8 @@ export default defineConfig({
       options: {
         translations: {
           button: {
-            buttonText: '搜索题目与模式',
-            buttonAriaLabel: '搜索题目与模式'
+            buttonText: '搜索题目、问答与模式',
+            buttonAriaLabel: '搜索题目、问答与模式'
           },
           modal: {
             displayDetails: '显示详细结果',

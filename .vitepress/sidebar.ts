@@ -99,6 +99,40 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
   moduleGroup('07', '动态规划与贪心', '07-dp-greedy'),
   moduleGroup('08', '综合面试模式', '08-interview-patterns'),
   {
+    text: '大厂面试真题',
+    collapsed: true,
+    items: [
+      {
+        text: '模块说明',
+        link: '/modules/company-interview-questions/README'
+      },
+      {
+        text: '操作系统与并发',
+        link: '/modules/company-interview-questions/operating-system'
+      },
+      {
+        text: '网络协议',
+        link: '/modules/company-interview-questions/network'
+      },
+      {
+        text: '数据库',
+        link: '/modules/company-interview-questions/database'
+      },
+      {
+        text: 'Redis 与缓存',
+        link: '/modules/company-interview-questions/redis-cache'
+      },
+      {
+        text: '消息与分布式',
+        link: '/modules/company-interview-questions/distributed'
+      },
+      {
+        text: '场景设计与排障',
+        link: '/modules/company-interview-questions/system-design'
+      }
+    ]
+  },
+  {
     text: '大厂笔试真题',
     collapsed: true,
     items: [
