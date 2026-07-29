@@ -45,63 +45,65 @@ partition2 = (m + n + 1) // 2 - partition1
 ## Python 实现
 
 ```python
+from typing import List
+
+
 class Solution:
     def findMedianSortedArrays(
         self,
-        nums1: list[int],
-        nums2: list[int],
+        nums1: List[int],
+        nums2: List[int],
     ) -> float:
-        # 始终在较短数组上二分，缩小搜索范围并避免分割下标越界。
+        # 始终在较短的数组 nums1 上二分。
+        # 这样二分次数最少，也能保证 nums2 的分割位置 j 不会越界。
         if len(nums1) > len(nums2):
-            return self.findMedianSortedArrays(nums2, nums1)
+            nums1, nums2 = nums2, nums1
 
-        length1 = len(nums1)
-        length2 = len(nums2)
-        left_size = (length1 + length2 + 1) // 2
-        low = 0
-        high = length1
+        m = len(nums1)
+        n = len(nums2)
 
-        while low <= high:
-            partition1 = (low + high) // 2
-            partition2 = left_size - partition1
+        # i 表示 nums1 左半部分包含的元素数量，范围是 [0, m]。
+        left = 0
+        right = m
 
-            left1 = (
-                nums1[partition1 - 1]
-                if partition1 > 0
-                else float("-inf")
-            )
-            right1 = (
-                nums1[partition1]
-                if partition1 < length1
-                else float("inf")
-            )
-            left2 = (
-                nums2[partition2 - 1]
-                if partition2 > 0
-                else float("-inf")
-            )
-            right2 = (
-                nums2[partition2]
-                if partition2 < length2
-                else float("inf")
-            )
+        while left <= right:
+            i = (left + right) // 2
 
-            # 两侧最大值都不超过另一侧最小值时，当前分割才合法。
-            if left1 <= right2 and left2 <= right1:
-                left_maximum = max(left1, left2)
+            # 左半部分固定包含 (m + n + 1) // 2 个元素。
+            # i 确定后，nums2 的分割位置 j 也随之确定。
+            j = (m + n + 1) // 2 - i
 
-                if (length1 + length2) % 2 == 1:
-                    return float(left_maximum)
+            # 分割线可以落在数组两端。
+            # 使用正负无穷作为哨兵，可以统一处理空数组和边界分割。
+            nums1_left = float("-inf") if i == 0 else nums1[i - 1]
+            nums1_right = float("inf") if i == m else nums1[i]
 
-                right_minimum = min(right1, right2)
-                return (left_maximum + right_minimum) / 2
+            nums2_left = float("-inf") if j == 0 else nums2[j - 1]
+            nums2_right = float("inf") if j == n else nums2[j]
 
-            if left1 > right2:
-                high = partition1 - 1
+            # 两个交叉条件都成立，说明左半部分所有元素
+            # 都不大于右半部分所有元素，当前分割合法。
+            if (
+                nums1_left <= nums2_right
+                and nums2_left <= nums1_right
+            ):
+                if (m + n) % 2 == 1:
+                    # 总长度为奇数时，左半部分比右半部分多一个元素。
+                    return max(nums1_left, nums2_left)
+
+                # 总长度为偶数时，中位数是：
+                # 左半部分最大值与右半部分最小值的平均数。
+                return (
+                    max(nums1_left, nums2_left)
+                    + min(nums1_right, nums2_right)
+                ) / 2
+
+            if nums1_left > nums2_right:
+                # nums1 左边取多了，分割线向左移动。
+                right = i - 1
             else:
-                low = partition1 + 1
-
-        raise ValueError("输入数组必须有序")
+                # nums1 左边取少了，分割线向右移动。
+                left = i + 1
 ```
 
 ## 分割线如何移动
