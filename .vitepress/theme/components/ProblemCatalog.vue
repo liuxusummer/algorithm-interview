@@ -11,6 +11,11 @@ import {
 import { withBase } from 'vitepress'
 import { computed, ref } from 'vue'
 import { data as problems } from '../data/problems.data'
+import {
+  getProblemTagGroup,
+  normalizeProblemTags,
+  type ProblemTagGroup
+} from '../utils/problemTags'
 
 type SortOrder = 'frequency-desc' | 'frequency-asc' | 'default'
 
@@ -25,11 +30,13 @@ const selectedTags = ref<Set<string>>(new Set())
 const showAllTags = ref(false)
 const sortOrder = ref<SortOrder>('frequency-desc')
 
+const problemTags = (tags: string[]) => normalizeProblemTags(tags)
+
 const tagStats = computed(() => {
   const counts = new Map<string, number>()
 
   for (const problem of problems) {
-    for (const tag of problem.tags) {
+    for (const tag of problemTags(problem.tags)) {
       counts.set(tag, (counts.get(tag) ?? 0) + 1)
     }
   }
@@ -41,6 +48,20 @@ const tagStats = computed(() => {
       || first.name.localeCompare(second.name, 'zh-CN')
     ))
 })
+
+const tagGroupLabels: Record<ProblemTagGroup, string> = {
+  source: '来源与题单',
+  topic: '核心分类',
+  technique: '技巧与变体'
+}
+
+const tagGroupOrder: ProblemTagGroup[] = ['source', 'topic', 'technique']
+
+const groupedTags = computed(() => tagGroupOrder.map((group) => ({
+  group,
+  label: tagGroupLabels[group],
+  tags: tagStats.value.filter((tag) => getProblemTagGroup(tag.name) === group)
+})))
 
 const visibleTags = computed(() => {
   if (showAllTags.value) {
@@ -69,11 +90,11 @@ const filteredProblems = computed(() => {
         problem.id,
         problem.title,
         problem.fullTitle,
-        ...problem.tags
+        ...problemTags(problem.tags)
       ].some((value) => value.toLocaleLowerCase('zh-CN').includes(keyword))
 
       const matchesTags = activeTags.every((tag) => (
-        problem.tags.includes(tag)
+        problemTags(problem.tags).includes(tag)
       ))
 
       return matchesQuery && matchesTags
@@ -142,6 +163,7 @@ function clearFilters() {
           <input
             v-model="query"
             type="search"
+            aria-label="搜索题目、编号或标签"
             placeholder="题目、编号或标签"
             autocomplete="off"
           >
@@ -188,7 +210,7 @@ function clearFilters() {
         </button>
       </div>
 
-      <div class="problem-tag-filter__list">
+      <div v-if="!showAllTags" class="problem-tag-filter__list">
         <button
           v-for="tag in visibleTags"
           :key="tag.name"
@@ -201,21 +223,52 @@ function clearFilters() {
           <span>{{ tag.name }}</span>
           <small>{{ tag.count }}</small>
         </button>
-
-        <button
-          type="button"
-          class="problem-filter-more"
-          :aria-expanded="showAllTags"
-          @click="showAllTags = !showAllTags"
-        >
-          {{ showAllTags ? '收起标签' : `全部标签 ${tagStats.length}` }}
-          <PhCaretDown
-            :size="14"
-            aria-hidden="true"
-            :class="{ 'is-open': showAllTags }"
-          />
-        </button>
       </div>
+
+      <div v-else class="problem-tag-filter__groups">
+        <section
+          v-for="tagGroup in groupedTags"
+          :key="tagGroup.group"
+          class="problem-tag-filter__group"
+          :aria-labelledby="`problem-tag-group-${tagGroup.group}`"
+        >
+          <span
+            :id="`problem-tag-group-${tagGroup.group}`"
+            class="problem-tag-filter__group-label"
+          >
+            {{ tagGroup.label }}
+          </span>
+          <div class="problem-tag-filter__list">
+            <button
+              v-for="tag in tagGroup.tags"
+              :key="tag.name"
+              type="button"
+              class="problem-filter-tag"
+              :class="{ 'problem-filter-tag--active': selectedTags.has(tag.name) }"
+              :aria-pressed="selectedTags.has(tag.name)"
+              @click="toggleTag(tag.name)"
+            >
+              <span>{{ tag.name }}</span>
+              <small>{{ tag.count }}</small>
+            </button>
+          </div>
+        </section>
+
+      </div>
+
+      <button
+        type="button"
+        class="problem-filter-more"
+        :aria-expanded="showAllTags"
+        @click="showAllTags = !showAllTags"
+      >
+        {{ showAllTags ? '收起标签' : `全部标签 ${tagStats.length}` }}
+        <PhCaretDown
+          :size="14"
+          aria-hidden="true"
+          :class="{ 'is-open': showAllTags }"
+        />
+      </button>
     </div>
 
     <div class="problem-catalog__result-bar" aria-live="polite">
@@ -258,7 +311,7 @@ function clearFilters() {
 
         <div class="problem-card__tags">
           <button
-            v-for="tag in problem.tags"
+            v-for="tag in problemTags(problem.tags)"
             :key="tag"
             type="button"
             :aria-label="`筛选标签：${tag}`"
@@ -516,6 +569,27 @@ function clearFilters() {
   gap: 8px;
 }
 
+.problem-tag-filter__groups {
+  display: grid;
+  gap: 18px;
+}
+
+.problem-tag-filter__group {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+}
+
+.problem-tag-filter__group-label {
+  padding-top: 8px;
+  color: var(--vp-c-text-2);
+  font-family: var(--vp-font-family-mono);
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+}
+
 .problem-filter-tag,
 .problem-filter-more {
   display: inline-flex;
@@ -573,6 +647,7 @@ function clearFilters() {
 
 .problem-filter-more {
   gap: 6px;
+  margin-top: 10px;
   border-style: dashed;
 }
 
@@ -751,9 +826,9 @@ function clearFilters() {
 
 .problem-card__stats span {
   display: grid;
-  color: var(--vp-c-text-3);
+  color: var(--vp-c-text-2);
   font-family: var(--vp-font-family-mono);
-  font-size: 8px;
+  font-size: 9px;
 }
 
 .problem-card__stats strong {
@@ -857,6 +932,15 @@ function clearFilters() {
 
   .problem-tag-filter__heading small {
     display: block;
+  }
+
+  .problem-tag-filter__group {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .problem-tag-filter__group-label {
+    padding-top: 0;
   }
 
   .problem-card__footer {

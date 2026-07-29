@@ -120,6 +120,12 @@ body {
   box-shadow: 7px 7px 0 var(--vp-c-divider);
 }
 
+.vp-doc div[class*="language-"] pre {
+  overscroll-behavior-inline: contain;
+  scrollbar-color: var(--algo-accent) var(--vp-c-bg-alt);
+  scrollbar-width: thin;
+}
+
 .vp-doc blockquote {
   border-left: 4px solid var(--algo-accent);
   background: color-mix(in srgb, var(--algo-accent) 7%, var(--vp-c-bg));
@@ -192,13 +198,13 @@ body {
 }
 
 .problem-tag {
-  padding: 3px 9px;
+  padding: 4px 10px;
   border: 1px solid color-mix(in srgb, var(--vp-c-brand-1) 32%, transparent);
   border-radius: 2px;
   color: var(--vp-c-brand-1);
   background: var(--vp-c-brand-soft);
   font-family: var(--vp-font-family-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -210,7 +216,7 @@ body {
   border-bottom: 1px solid currentColor;
   color: var(--vp-c-text-1) !important;
   font-family: var(--vp-font-family-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   text-decoration: none !important;
 }
@@ -230,8 +236,8 @@ body {
 
 .problem-meta__stats small {
   margin-right: 5px;
-  color: var(--vp-c-text-3);
-  font-size: 9px;
+  color: var(--vp-c-text-2);
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -467,6 +473,23 @@ body {
   .problem-meta {
     align-items: flex-start;
     flex-direction: column;
+    gap: 14px;
+    padding: 14px;
+  }
+
+  .problem-meta__stats {
+    gap: 8px 12px;
+  }
+
+  .vp-doc div[class*="language-"] {
+    margin-right: -8px;
+    margin-left: -8px;
+    box-shadow: 4px 4px 0 var(--vp-c-divider);
+  }
+
+  .vp-doc div[class*="language-"] code {
+    font-size: 12.5px;
+    line-height: 1.7;
   }
 
   .algo-title {

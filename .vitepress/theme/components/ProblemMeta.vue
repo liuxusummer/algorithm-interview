@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { normalizeProblemTags } from '../utils/problemTags'
 
 type Difficulty = 'easy' | 'medium' | 'hard'
 
@@ -17,12 +18,14 @@ const difficultyText = computed(() => ({
   medium: '中等',
   hard: '困难'
 })[props.difficulty])
+
+const displayTags = computed(() => normalizeProblemTags(props.tags))
 </script>
 
 <template>
   <section class="problem-meta" aria-label="题目信息">
     <div class="problem-meta__tags">
-      <span v-for="tag in tags" :key="tag" class="problem-tag">{{ tag }}</span>
+      <span v-for="tag in displayTags" :key="tag" class="problem-tag">{{ tag }}</span>
       <a
         v-if="sourceUrl"
         class="problem-source"

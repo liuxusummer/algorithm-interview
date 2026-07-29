@@ -77,12 +77,12 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
   moduleGroup('08', '综合面试模式', '08-interview-patterns'),
   {
     text: '大厂笔试真题',
-    collapsed: false,
+    collapsed: true,
     items: [
       { text: '模块说明与 ACM 规范', link: '/written-tests/README' },
       {
         text: '阿里巴巴',
-        collapsed: false,
+        collapsed: true,
         items: [
           writtenTestSession('2026-03-25', '研发岗', [
             { text: '01 圣诞老人分糖果', link: '/written-tests/alibaba-dev-20260325#problem-01' },
@@ -198,7 +198,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       },
       {
         text: '美团',
-        collapsed: false,
+        collapsed: true,
         items: meituanWrittenTests.map((session) => writtenTestSession(
           session.date,
           session.role,
@@ -210,7 +210,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       },
       {
         text: '华为',
-        collapsed: false,
+        collapsed: true,
         items: huaweiWrittenTests.map((session) => writtenTestSession(
           session.date,
           session.role,
@@ -222,7 +222,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       },
       {
         text: '拼多多',
-        collapsed: false,
+        collapsed: true,
         items: pinduoduoWrittenTests.map((session) => writtenTestSession(
           session.date,
           session.role,
@@ -235,7 +235,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       ...remainingWrittenTestSidebarGroups,
       {
         text: '蚂蚁集团',
-        collapsed: false,
+        collapsed: true,
         items: [
           writtenTestSession('2026-03-26', '研发岗', [
             { text: '01 排列拼接', link: '/written-tests/ant-20260326-dev#problem-01' },
