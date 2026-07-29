@@ -129,6 +129,10 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       {
         text: '场景设计与排障',
         link: '/modules/company-interview-questions/system-design'
+      },
+      {
+        text: 'Agent 开发',
+        link: '/modules/company-interview-questions/agent-development'
       }
     ]
   },
