@@ -66,7 +66,8 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     items: [
       { text: '项目说明', link: '/README' },
       { text: '开始刷题', link: '/START_HERE' },
-      { text: '完整学习路线', link: '/ROADMAP' }
+      { text: '完整学习路线', link: '/ROADMAP' },
+      { text: '大厂真题数据分析', link: '/ANALYSIS' }
     ]
   },
   moduleGroup('01', '复杂度与解题流程', '01-complexity'),
@@ -87,6 +88,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     collapsed: true,
     items: [
       { text: '模块说明与 ACM 规范', link: '/written-tests/README' },
+      { text: '真题数据分析', link: '/written-tests/ANALYSIS' },
       {
         text: '阿里巴巴',
         collapsed: true,

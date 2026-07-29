@@ -12,6 +12,8 @@
     "docs:check:huawei": "node scripts/check-huawei-samples.mjs",
     "docs:check:pinduoduo": "node scripts/check-pinduoduo-samples.mjs",
     "docs:check:remaining": "node scripts/check-remaining-written-test-samples.mjs",
+    "docs:analyze:interview": "node scripts/analyze-interview-problems.mjs",
+    "docs:analyze:written-tests": "node scripts/analyze-written-tests.mjs",
     "docs:check": "pnpm docs:check:alibaba && pnpm docs:check:meituan && pnpm docs:check:huawei && pnpm docs:check:pinduoduo && pnpm docs:check:remaining"
   },
   "devDependencies": {

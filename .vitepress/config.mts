@@ -30,6 +30,7 @@ export default defineConfig({
       {
         text: '面试工具',
         items: [
+          { text: '真题数据分析', link: '/ANALYSIS' },
           { text: '高频题单', link: '/tracks/top-interview' },
           { text: '解题模板', link: '/problems/TEMPLATE' },
           { text: '复盘笔记', link: '/notes/SOLUTION_NOTE_TEMPLATE' },

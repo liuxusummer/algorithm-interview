@@ -10,6 +10,7 @@ title: 大厂笔试真题
     <p>按“公司 → 日期与岗位 → 具体题目”三级归档。算法场次全部从标准输入读取、向标准输出写入；AI Coding 单独记录系统设计、工程实现与交付过程。</p>
     <div class="written-test-actions">
       <a href="#场次检索">浏览全部场次</a>
+      <a class="is-ghost" href="./ANALYSIS">查看数据分析</a>
       <a class="is-ghost" href="#统一-acm-规范">查看答题规范</a>
     </div>
   </div>
@@ -35,6 +36,12 @@ title: 大厂笔试真题
 ## 场次检索
 
 <WrittenTestCatalog />
+
+## 真题数据分析
+
+本站对全部 **105 场笔试、308 道算法题**做了统一统计，包含难度分布、算法频次、常见算法组合、公司侧重点、岗位差异和四周备考计划。
+
+[查看《大厂笔试真题数据分析》 →](./ANALYSIS)
 
 ## AI Coding 趋势观察
 
