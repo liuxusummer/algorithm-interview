@@ -7,12 +7,14 @@ import { remainingWrittenTests } from './theme/data/remainingWrittenTests'
 const moduleGroup = (
   number: string,
   title: string,
-  slug: string
+  slug: string,
+  extraItems: DefaultTheme.SidebarItem[] = []
 ): DefaultTheme.SidebarItem => ({
   text: `${number} · ${title}`,
   collapsed: true,
   items: [
-    { text: '专题说明', link: `/modules/${slug}/README` }
+    { text: '专题说明', link: `/modules/${slug}/README` },
+    ...extraItems
   ]
 })
 
@@ -72,7 +74,12 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
   moduleGroup('03', '链表', '03-linked-list'),
   moduleGroup('04', '栈、队列与哈希', '04-stack-queue-hash'),
   moduleGroup('05', '二叉树与递归', '05-tree-recursion'),
-  moduleGroup('06', '图、搜索与并查集', '06-graph-search'),
+  moduleGroup('06', '图、搜索与并查集', '06-graph-search', [
+    {
+      text: '并查集系统详解',
+      link: '/modules/06-graph-search/union-find'
+    }
+  ]),
   moduleGroup('07', '动态规划与贪心', '07-dp-greedy'),
   moduleGroup('08', '综合面试模式', '08-interview-patterns'),
   {
