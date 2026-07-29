@@ -33,8 +33,7 @@
 定义：
 
 ```text
-palindrome[left][right] =
-s[left:right + 1] 是否为回文串
+dp[i][j] = s[i:j + 1] 是否为回文串
 ```
 
 区间成为回文需要：
@@ -42,14 +41,16 @@ s[left:right + 1] 是否为回文串
 1. 两端字符相同；
 2. 中间区间也是回文。
 
-长度不超过 3 时，只要两端相同，中间为空或只有一个字符，可以直接成立：
+长度为 1 的子串天然是回文，因此先初始化：
 
 ```text
-s[left] == s[right]
-and (
-    right - left < 3
-    or palindrome[left + 1][right - 1]
-)
+dp[i][i] = True
+```
+
+长度为 2 时没有更小的内部区间，只需要判断两个字符是否相同。长度大于 2 时：
+
+```text
+dp[i][j] = s[i] == s[j] and dp[i + 1][j - 1]
 ```
 
 ## Python 实现
@@ -57,43 +58,51 @@ and (
 ```python
 class Solution:
     def longestPalindrome(self, s: str) -> str:
-        length = len(s)
-        palindrome = [
-            [False] * length
-            for _ in range(length)
-        ]
-        best_start = 0
-        best_length = 1
+        n = len(s)
 
-        # 按右端点递增填表，访问内部区间时其状态已经计算完成。
-        for right in range(length):
-            for left in range(right + 1):
-                if (
-                    s[left] == s[right]
-                    and (
-                        right - left < 3
-                        or palindrome[left + 1][right - 1]
-                    )
-                ):
-                    palindrome[left][right] = True
-                    current_length = right - left + 1
+        # 题目保证 s 非空，因此至少存在一个长度为 1 的回文串。
+        ans = s[0]
 
-                    if current_length > best_length:
-                        best_start = left
-                        best_length = current_length
+        # dp[i][j] 表示闭区间 s[i:j + 1] 是否为回文串。
+        dp = [[False] * n for _ in range(n)]
 
-        return s[best_start:best_start + best_length]
+        # 单个字符正着读和反着读相同，一定是回文串。
+        for i in range(n):
+            dp[i][i] = True
+
+        # 按子串长度从小到大填表，保证内部区间已经计算完成。
+        for l in range(2, n + 1):
+            # 长度固定为 l 时，合法起点范围是 [0, n - l]。
+            for i in range(n - l + 1):
+                # 闭区间长度为 l，所以右端点是 i + l - 1。
+                j = i + l - 1
+
+                if s[i] == s[j]:
+                    if l == 2:
+                        # 两个字符相同即可构成长度为 2 的回文串。
+                        dp[i][j] = True
+                    else:
+                        # 两端相同后，结果取决于内部区间是否回文。
+                        dp[i][j] = dp[i + 1][j - 1]
+
+                    # 只在当前区间确实回文且更长时更新答案。
+                    if l > len(ans) and dp[i][j]:
+                        ans = s[i:j + 1]
+
+        return ans
 ```
 
-## 遍历顺序为什么是右端点递增
+## 为什么要按子串长度递增
 
-状态 `[left][right]` 依赖 `[left + 1][right - 1]`，后者的右端点更小。
+状态 `dp[i][j]` 依赖内部状态 `dp[i + 1][j - 1]`，内部子串的长度比当前子串少 2。
 
-让 `right` 从小到大扫描，可以保证计算较大区间时，内部区间已经得到结果。只要依赖顺序满足，按区间长度递增遍历也可以。
+因此必须先计算短区间，再计算长区间。让 `l` 从 2 递增到 `n`，计算当前状态时，它依赖的内部状态一定已经得到结果。
+
+如果随意按起点或终点遍历，可能在内部状态尚未计算时读取默认值 `False`，从而漏掉回文串。
 
 ## 正确性说明
 
-长度为 1 的区间天然是回文。对于更长区间，算法严格按照回文定义检查两端字符和内部区间；内部状态因遍历顺序已正确计算。因此每个 `palindrome[left][right]` 当且仅当对应子串为回文。算法比较所有为真的区间长度，所以记录的子串是全局最长回文子串。
+长度为 1 的区间被正确初始化为回文。长度为 2 时，算法直接比较两端字符；对于更长区间，算法检查两端字符是否相同，并读取已经正确计算的内部区间。按照区间长度归纳，每个 `dp[i][j]` 当且仅当对应子串是回文。算法枚举了所有区间，并在发现更长回文时更新 `ans`，所以最终返回全局最长回文子串。
 
 ## 复杂度
 
@@ -112,7 +121,7 @@ class Solution:
 
 ## 90 秒面试表达
 
-“定义二维状态表示闭区间是否为回文。一个区间是回文，当且仅当两端字符相等，并且区间长度小于等于 3，或者内部区间也是回文。状态依赖更小的右端点，所以我让右端点递增，枚举左端点并更新最长区间。时间和空间都是 `O(n²)`。”
+“定义 `dp[i][j]` 表示闭区间 `s[i:j+1]` 是否为回文。单字符状态初始化为真；长度为 2 时只需比较两个字符；更长区间要求两端相同且内部区间也是回文。因为状态依赖长度少 2 的内部区间，所以按子串长度从小到大填表。发现更长回文时更新答案。总共枚举 `O(n²)` 个区间，时间和空间都是 `O(n²)`。”
 
 ## 常见追问
 
