@@ -10,6 +10,8 @@ description: 基于 2025-07 至 2026-07 公开面试资料与一手工程文档�
 > 调研窗口：**2025-07-29 ～ 2026-07-29**。
 > “高频”表示某个能力主题在多个独立的公开面试题集、招聘指南或近期工程讨论中反复出现，不代表某家公司官方公布了精确次数。
 
+> 本页用于训练高频问题的限时回答。如果希望先建立完整知识体系，请从 [Agent 核心工程专题](./agent-core/README.md) 开始；专题按 Runtime、工具、上下文、评估、安全、可观测性和协议协作拆成 7 个详细章节，并与本页题目互相链接。
+
 ## 调研口径
 
 候选题主要来自三类信号：
@@ -90,6 +92,18 @@ description: 基于 2025-07 至 2026-07 公开面试资料与一手工程文档�
 | AQ08 | Agent 安全 | 是否把模型视为不可信决策者并实施最小权限 | 困难 |
 | AQ09 | 多 Agent | 是否知道何时拆分，以及如何控制协作成本 | 进阶 |
 | AQ10 | 生产架构 | 是否具备成本、延迟、观测、降级的全局视角 | 困难 |
+
+## 系统专题映射
+
+| 高频题 | 深挖专题 |
+|---|---|
+| AQ01、AQ02、AQ06 | [Agent Runtime 与 Harness](./agent-core/runtime-harness.md) |
+| AQ03、AQ08 | [工具工程与权限边界](./agent-core/tool-engineering.md) |
+| AQ05 | [上下文工程与记忆](./agent-core/context-memory.md) |
+| AQ07 | [Agent 评估体系](./agent-core/evaluation.md) |
+| AQ08 | [安全与治理](./agent-core/security-governance.md) |
+| AQ10 | [可观测性与成本控制](./agent-core/observability-cost.md) |
+| AQ04、AQ09 | [MCP、A2A 与多 Agent](./agent-core/protocols-multi-agent.md) |
 
 ---
 

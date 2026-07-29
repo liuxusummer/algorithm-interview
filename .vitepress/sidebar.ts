@@ -131,8 +131,46 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
         link: '/modules/company-interview-questions/system-design'
       },
       {
-        text: 'Agent 开发',
+        text: 'Agent 高频面试题',
         link: '/modules/company-interview-questions/agent-development'
+      },
+      {
+        text: 'Agent 核心工程专题',
+        collapsed: true,
+        items: [
+          {
+            text: '专题导读',
+            link: '/modules/company-interview-questions/agent-core/README'
+          },
+          {
+            text: '01 Runtime 与 Harness',
+            link: '/modules/company-interview-questions/agent-core/runtime-harness'
+          },
+          {
+            text: '02 工具与权限',
+            link: '/modules/company-interview-questions/agent-core/tool-engineering'
+          },
+          {
+            text: '03 上下文与记忆',
+            link: '/modules/company-interview-questions/agent-core/context-memory'
+          },
+          {
+            text: '04 评估体系',
+            link: '/modules/company-interview-questions/agent-core/evaluation'
+          },
+          {
+            text: '05 安全与治理',
+            link: '/modules/company-interview-questions/agent-core/security-governance'
+          },
+          {
+            text: '06 可观测性与成本',
+            link: '/modules/company-interview-questions/agent-core/observability-cost'
+          },
+          {
+            text: '07 MCP、A2A 与多 Agent',
+            link: '/modules/company-interview-questions/agent-core/protocols-multi-agent'
+          }
+        ]
       }
     ]
   },
