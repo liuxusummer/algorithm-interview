@@ -1,0 +1,27 @@
+.vitepress/sidebar.ts
+  s_67d0f3858c51ab::t_69a7367f639e19 76-81
+ROADMAP.md
+  s_67d0f3858c51ab::t_eaaeb47d54d0d0 10
+modules/04-stack-queue-hash/README.md
+  s_67d0f3858c51ab::t_38f40e5279918e 16-20,105
+modules/04-stack-queue-hash/monotonic-stack-queue.md
+  s_67d0f3858c51ab::t_0a596444b39d57 1-671
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "2c881c7a429f333813a976f7214356e57424d4c6",
+  "prompts": {},
+  "sessions": {
+    "s_67d0f3858c51ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa7ef-2778-7c22-a178-04bb49c3a15c",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
