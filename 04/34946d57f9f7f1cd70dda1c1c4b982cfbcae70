@@ -1,0 +1,41 @@
+.vitepress/config.mts
+  s_67d0f3858c51ab::t_ae59300eecf262 33
+.vitepress/sidebar.ts
+  s_67d0f3858c51ab::t_996f95a74acbc7 69-70,91
+.vitepress/theme/components/WrittenTestCatalog.vue
+  s_67d0f3858c51ab::t_d2ea512ee81fc6 15,59-62
+.vitepress/theme/data/extraWrittenTests.ts
+  s_67d0f3858c51ab::t_5a620bca8e51c0 1-196
+ANALYSIS.md
+  s_67d0f3858c51ab::t_d7802dfcedb28b 1-305
+README.md
+  s_67d0f3858c51ab::t_c14c7131444e8e 7-8
+package.json
+  s_67d0f3858c51ab::t_cf251b56c887f9 15-16
+scripts/analyze-interview-problems.mjs
+  s_67d0f3858c51ab::t_b1ee35a228b057 1-364
+scripts/analyze-written-tests.mjs
+  s_67d0f3858c51ab::t_af6297d7031e34 1-481
+written-tests/ANALYSIS.md
+  s_67d0f3858c51ab::t_7d8f6b9395eb5e 1-327
+written-tests/README.md
+  s_67d0f3858c51ab::t_18ca931f8432b9 13,40-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "0434946d57f9f7f1cd70dda1c1c4b982cfbcae70",
+  "prompts": {},
+  "sessions": {
+    "s_67d0f3858c51ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa7ef-2778-7c22-a178-04bb49c3a15c",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
