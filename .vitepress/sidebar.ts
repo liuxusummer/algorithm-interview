@@ -71,7 +71,12 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     ]
   },
   moduleGroup('01', '复杂度与解题流程', '01-complexity'),
-  moduleGroup('02', '数组、字符串与双指针', '02-array-string'),
+  moduleGroup('02', '数组、字符串与双指针', '02-array-string', [
+    {
+      text: '二分查找系统详解',
+      link: '/modules/02-array-string/binary-search'
+    }
+  ]),
   moduleGroup('03', '链表', '03-linked-list'),
   moduleGroup('04', '栈、队列与哈希', '04-stack-queue-hash', [
     {
@@ -79,7 +84,12 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       link: '/modules/04-stack-queue-hash/monotonic-stack-queue'
     }
   ]),
-  moduleGroup('05', '二叉树与递归', '05-tree-recursion'),
+  moduleGroup('05', '二叉树与递归', '05-tree-recursion', [
+    {
+      text: '二叉树与递归系统详解',
+      link: '/modules/05-tree-recursion/tree-recursion'
+    }
+  ]),
   moduleGroup('06', '图、搜索与并查集', '06-graph-search', [
     {
       text: '并查集系统详解',
