@@ -400,7 +400,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     ]
   },
   {
-    text: '题目与题单',
+    text: '面试手撕题',
     collapsed: true,
     items: [
       { text: '题目索引', link: '/problems/README' },
