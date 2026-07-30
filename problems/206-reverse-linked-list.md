@@ -32,6 +32,12 @@
 
 每轮把 `current.next` 指向 `previous`，再整体向前推进。
 
+## 动画拆解
+
+链表反转真正容易写错的不是“把箭头反过来”，而是修改指针后还能否找到剩余链表。下面用三种颜色同步标出 `previous`、`current` 和 `next_node`，并逐行对应 Python 实现。
+
+<ReverseLinkedListDemo />
+
 ## Python 实现
 
 ```python

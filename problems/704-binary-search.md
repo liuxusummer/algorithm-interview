@@ -38,6 +38,12 @@
 
 因为左右端点都可能是答案，循环条件使用 `left <= right`。
 
+## 动画拆解
+
+下面同步展示闭区间 `[left, right]`、中点比较和被排除的候选。手动推进时，可以直接看到为什么边界更新必须跨过已经检查过的中点。
+
+<BinarySearchDemo variant="classic" />
+
 ## Python 实现
 
 ```python

@@ -42,6 +42,12 @@
 
 Python 整数无溢出问题，因此可以安全使用 `target + 1`。
 
+## 动画拆解
+
+下面把两次 `lower_bound` 放到同一条时间线上：第一趟寻找第一个 `8`，第二趟寻找第一个大于 `8` 的位置，从而夹出完整目标区间。
+
+<BinarySearchDemo variant="lower-bound" />
+
 ## Python 实现
 
 ```python

@@ -42,6 +42,12 @@ partition2 = (m + n + 1) // 2 - partition1
 
 只需在较短数组中二分 `partition1`。
 
+## 动画拆解
+
+这道题二分的不是数组值，而是较短数组的分割位置。下面同步展示两条分割线、四个交叉边界以及对应的 Python 判断条件。
+
+<BinarySearchDemo variant="median-partition" />
+
 ## Python 实现
 
 ```python
