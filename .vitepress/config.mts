@@ -11,6 +11,24 @@ export default defineConfig({
   description: '面向技术面试的算法题拆解、计算机基础问答、模式归纳与复盘网站',
   cleanUrls: true,
 
+  transformPageData(pageData) {
+    const isInterviewProblem = (
+      pageData.relativePath.startsWith('problems/')
+      && pageData.relativePath !== 'problems/README.md'
+      && pageData.relativePath !== 'problems/TEMPLATE.md'
+    )
+
+    if (isInterviewProblem) {
+      return {
+        frontmatter: {
+          ...pageData.frontmatter,
+          prev: false,
+          next: false
+        }
+      }
+    }
+  },
+
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: `${base}favicon.svg` }],
     ['meta', { name: 'theme-color', content: '#11100e' }],

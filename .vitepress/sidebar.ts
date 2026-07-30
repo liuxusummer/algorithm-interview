@@ -403,7 +403,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     text: '面试手撕题',
     collapsed: true,
     items: [
-      { text: '题目索引', link: '/problems/README' },
+      { text: '按出现次数刷题', link: '/problems/README' },
       { text: '001 两数之和', link: '/problems/001-two-sum' },
       { text: '002 两数相加', link: '/problems/002-add-two-numbers' },
       { text: '003 无重复字符的最长子串', link: '/problems/003-longest-substring-without-repeating-characters' },
