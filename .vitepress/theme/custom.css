@@ -56,8 +56,10 @@ body {
   background-size: 28px 28px;
 }
 
-.VPNav,
+/* VPNavScreen 是 VPNav 的 fixed 子元素；滤镜放在 VPNav 上会让手机菜单高度塌缩。 */
+.VPNavBar,
 .VPSidebar {
+  -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
 
