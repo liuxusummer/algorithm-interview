@@ -107,10 +107,6 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
         link: '/modules/company-interview-questions/README'
       },
       {
-        text: '三轮对抗审查',
-        link: '/modules/company-interview-questions/AUDIT'
-      },
-      {
         text: '操作系统与并发',
         link: '/modules/company-interview-questions/operating-system'
       },
