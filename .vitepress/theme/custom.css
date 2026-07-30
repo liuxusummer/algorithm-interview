@@ -63,6 +63,19 @@ body {
   backdrop-filter: blur(16px);
 }
 
+@media (max-width: 767px) {
+  .VPNavBarHamburger,
+  .VPLocalNav .menu {
+    touch-action: manipulation;
+  }
+
+  /* 真机浏览器的动态地址栏会改变视口高度，显式占满剩余可视区域。 */
+  .VPNavScreen {
+    height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px));
+    height: calc(100dvh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px));
+  }
+}
+
 .VPNavBarTitle .title {
   font-family: var(--vp-font-family-mono);
   font-size: 17px;
