@@ -53,6 +53,12 @@ dp[i][j] = max(
 )
 ```
 
+## 动画拆解
+
+下面逐格展示两个前缀之间的选择：字符相同时从左上延伸，字符不同时从上方和左方继承更优结果。
+
+<DpTableDemo variant="longest-common-subsequence" />
+
 ## Python 实现
 
 ```python

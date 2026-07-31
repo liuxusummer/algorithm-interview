@@ -3,12 +3,17 @@ import type { Theme } from 'vitepress'
 import { h } from 'vue'
 import BinarySearchDemo from './components/BinarySearchDemo.vue'
 import ComplexityBadge from './components/ComplexityBadge.vue'
+import DpTableDemo from './components/DpTableDemo.vue'
+import GridSearchDemo from './components/GridSearchDemo.vue'
 import InorderTraversalDemo from './components/InorderTraversalDemo.vue'
+import LinkedListDemo from './components/LinkedListDemo.vue'
+import PointerArrayDemo from './components/PointerArrayDemo.vue'
 import ProblemCatalog from './components/ProblemCatalog.vue'
 import ProblemFrequencyNav from './components/ProblemFrequencyNav.vue'
 import ProblemMeta from './components/ProblemMeta.vue'
 import ReverseLinkedListDemo from './components/ReverseLinkedListDemo.vue'
 import SlidingWindowDemo from './components/SlidingWindowDemo.vue'
+import StackQueueDemo from './components/StackQueueDemo.vue'
 import WrittenTestCatalog from './components/WrittenTestCatalog.vue'
 import './custom.css'
 
@@ -22,11 +27,16 @@ export default {
   enhanceApp({ app }) {
     app.component('BinarySearchDemo', BinarySearchDemo)
     app.component('ComplexityBadge', ComplexityBadge)
+    app.component('DpTableDemo', DpTableDemo)
+    app.component('GridSearchDemo', GridSearchDemo)
     app.component('InorderTraversalDemo', InorderTraversalDemo)
+    app.component('LinkedListDemo', LinkedListDemo)
+    app.component('PointerArrayDemo', PointerArrayDemo)
     app.component('ProblemCatalog', ProblemCatalog)
     app.component('ProblemMeta', ProblemMeta)
     app.component('ReverseLinkedListDemo', ReverseLinkedListDemo)
     app.component('SlidingWindowDemo', SlidingWindowDemo)
+    app.component('StackQueueDemo', StackQueueDemo)
     app.component('WrittenTestCatalog', WrittenTestCatalog)
   }
 } satisfies Theme

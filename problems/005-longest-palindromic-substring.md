@@ -53,6 +53,12 @@ dp[i][i] = True
 dp[i][j] = s[i] == s[j] and dp[i + 1][j - 1]
 ```
 
+## 动画拆解
+
+下面按子串长度逐层填充二维状态表。当前格、内部依赖区间和已经确认的回文会分别高亮，便于理解为什么不能随意改变遍历顺序。
+
+<DpTableDemo variant="longest-palindrome" />
+
 ## Python 实现
 
 ```python

@@ -50,6 +50,12 @@ numbers[left] + numbers[right] = -numbers[index]
 - 总和大于 `0`：右指针左移，让总和变小；
 - 总和等于 `0`：记录答案，并跳过两侧重复值。
 
+## 动画拆解
+
+下面固定第一个数，并同步标出左右指针、当前三数之和和已找到答案。排序后的单调性决定每次只能移动哪一侧。
+
+<PointerArrayDemo variant="three-sum" />
+
 ## Python 实现
 
 ```python

@@ -28,6 +28,12 @@
 
 这个“头插法”完成 `right - left` 次后，区间恰好被反转。
 
+## 动画拆解
+
+下面用头插法逐步摘下 `current` 后面的结点，并插到翻转区间最前面。区间外的前缀和后缀始终保持连接。
+
+<LinkedListDemo variant="reverse-between" />
+
 ## Python 实现
 
 ```python

@@ -51,6 +51,12 @@ water[i] = min(left_max[i], right_max[i]) - height[i]
 
 每次处理边界更低的一侧，就能立即确定该位置的水量。
 
+## 动画拆解
+
+下面把柱高、水层、左右指针和累计水量放在同一张图上。每个位置只会在较矮一侧离开时结算一次。
+
+<PointerArrayDemo variant="trapping-rain-water" />
+
 ## Python 实现
 
 ```python

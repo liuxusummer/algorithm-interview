@@ -37,6 +37,12 @@
 
 下面同样使用迭代 DFS，并把访问过的陆地改为水。
 
+## 动画拆解
+
+下面同步展示当前 DFS 栈、已经访问的陆地和本岛面积。一次搜索结束后才用本岛面积更新全局最大值。
+
+<GridSearchDemo variant="max-area-of-island" />
+
 ## Python 实现
 
 ```python
