@@ -51,28 +51,31 @@
 ## Python 实现
 
 ```python
+from typing import List
+
+
 class Solution:
-    def minSubArrayLen(self, target: int, nums: list[int]) -> int:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+
         left = 0
         window_sum = 0
-        minimum_length = len(nums) + 1
+        ans = float("inf")
 
-        for right, value in enumerate(nums):
-            window_sum += value
+        for right in range(len(nums)):
+            # 将 nums[right] 加入窗口
+            window_sum += nums[right]
 
-            # 元素均为正，窗口达标后可安全收缩以寻找更短答案。
+            # 当前窗口满足条件，尝试缩小窗口
             while window_sum >= target:
-                minimum_length = min(
-                    minimum_length,
-                    right - left + 1,
-                )
+                ans = min(ans, right - left + 1)
+
                 window_sum -= nums[left]
                 left += 1
 
-        if minimum_length == len(nums) + 1:
-            return 0
-        return minimum_length
+        return 0 if ans == float("inf") else ans
 ```
+
+`ans` 初始化为正无穷，表示当前还没有找到合法窗口。扫描结束后如果它仍未改变，就按题意返回 `0`。
 
 ## 为什么这里能用滑动窗口
 
