@@ -1,0 +1,31 @@
+.vitepress/sidebar.ts
+  s_ee0bd965fa8957::t_c041e3a8a6949c 6,51-56
+.vitepress/theme/data/extraWrittenTests.ts
+  s_ee0bd965fa8957::t_67832f81d1fe88 195-223
+scripts/check-remaining-written-test-samples.mjs
+  s_ee0bd965fa8957::t_0d21c8e8b4955d 1,7-22,25-28,120-127
+written-tests/ANALYSIS.md
+  s_ee0bd965fa8957::t_dcd6c79e2b42cd 3,8,25,27
+written-tests/README.md
+  s_ee0bd965fa8957::t_e1c36c787d4708 19,23-24,42,55-58,66
+written-tests/baidu-dev-20260730.md
+  s_ee0bd965fa8957::t_a7cbe6ec5260bc 1-651
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "a19fad64befec7c5b07897be300a9d7272f1fd10",
+  "prompts": {},
+  "sessions": {
+    "s_ee0bd965fa8957": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fb383-5778-7de1-a8ca-d7b35edf3f0a",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
