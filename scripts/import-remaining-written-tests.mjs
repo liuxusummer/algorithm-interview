@@ -36,6 +36,7 @@ const sessions = [
   ['deepseek', 'DeepSeek', 'DEEPSEEK', 'dev-20260712', '研发岗 · Agent Harness / 全栈'],
   ['baidu', '百度', 'BAIDU', 'dev-20260716', '研发岗'],
   ['baidu', '百度', 'BAIDU', 'algo-20260723', '算法岗'],
+  ['baidu', '百度', 'BAIDU', 'algo-20260730', '算法岗'],
   ['nio', '蔚来', 'NIO', 'general-20260419', '通用岗']
 ].map(([sourceCompany, company, companyCode, stem, role]) => ({
   sourceCompany,
@@ -570,7 +571,97 @@ function addAcmNote(section, note) {
   )
 }
 
+function addProofAndMistakes(section, proof, mistakes) {
+  return section
+    .replace(
+      /(?=### Python ACM 实现)/,
+      `### 正确性依据\n\n${proof.trim()}\n\n`
+    )
+    .replace(
+      /(?=### 复杂度分析)/,
+      `### 易错点\n\n${mistakes.trim()}\n\n`
+    )
+}
+
 function applySpecialOverrides(section, key) {
+  if (key === 'baidu/algo-20260730:01') {
+    let result = section
+      .replace(
+        '    for char in brackets:',
+        '    # 扫描前 current_depth 等于尚未闭合的左括号数量。\n    for char in brackets:'
+      )
+      .replace(
+        '    return [max_depth - depth + 1 for depth in depths]',
+        '    # 最深层先消失，深度每降低一层就晚一轮。\n    return [max_depth - depth + 1 for depth in depths]'
+      )
+    return addProofAndMistakes(
+      result,
+      `扫描到左括号时，新增的未闭合括号使当前深度加一；扫描到右括号时，它与当前最内层未闭合左括号配对，所以必须先记录深度再减一。因此 ` + '`depths`' + ` 精确记录了每个字符所属括号对的原始深度。
+
+设整串最大深度为 $D$。第 1 轮恰好删除深度 $D$ 的所有括号对；删除内层括号不会改变任意两个浅层括号之间的包含关系，所以第 $r$ 轮开始时，尚存括号对的最大原始深度恰好是 $D-r+1$。于是原始深度为 $d$ 的括号对会在第 $D-d+1$ 轮删除。程序逐字符应用同一公式，因此输出与题目过程完全一致。`,
+      `- 右括号的深度要在 ` + '`current_depth -= 1`' + ` **之前**记录，否则左右括号会得到不同深度。
+- 轮次由整串的全局最大深度决定，不能对每个并列括号子串分别从第 1 轮计算。
+- 题目要求对原串的每个字符输出答案，而不是只输出每个括号对一次。
+- 多测总长度为 $2\\times10^5$，不要真的逐轮删除字符串，否则最坏会退化到 $O(n^2)$。`
+    )
+  }
+
+  if (key === 'baidu/algo-20260730:02') {
+    let result = section
+      .replace(
+        '    for i in range(1, 2 * n):',
+        '    # P[1..2n-1] 覆盖所有 n 个起点、每个起点最多 n 步。\n    for i in range(1, 2 * n):'
+      )
+      .replace(
+        '        while right < limit and prefix[right + 1] not in seen:',
+        '        # seen 始终保存 prefix[left..right]，窗口内余数两两不同。\n        while right < limit and prefix[right + 1] not in seen:'
+      )
+      .replace(
+        '        seen.remove(prefix[left])',
+        '        # 左端移出窗口；right 单调前进，不会重复扫描。\n        seen.remove(prefix[left])'
+      )
+    return addProofAndMistakes(
+      result,
+      `固定起点 $s$ 时，第 $t$ 步轨迹值为 $(P_{s+t-1}-P_{s-1})\\bmod M$。对所有步数都减去同一个常数是模 $M$ 意义下的双射，所以两个轨迹值相等，当且仅当对应的两个前缀余数相等。因此 $L_s$ 正好等于从 $P_s$ 开始、长度不超过 $n$ 的最长无重复窗口长度。
+
+双指针循环开始处理 ` + '`left`' + ` 时，集合 ` + '`seen`' + ` 恰好包含 $P_{left},\\ldots,P_{right}$，且其中元素两两不同。循环只在下一个余数未出现且窗口未满 $n$ 时扩展，所以停止时窗口已经是该左端点可取得的最长合法窗口；累加的长度因此就是对应的 $L_s$。移除 $P_{left}$ 后不变量对下一个左端点继续成立，右端点从不回退，最终每个起点都被准确统计一次。`,
+      `- 轨迹不包含“尚未走一步”的初始余数 0；窗口应从 $P_s$ 开始，不能把 $P_{s-1}$ 放进 ` + '`seen`' + `。
+- 环形展开后需要前缀余数 $P_0$ 到 $P_{2n-1}$；数组长度 ` + '`2 * n`' + ` 已经足够，不要少算最后一个起点的第 $n$ 步。
+- Python 的 ` + '`%`' + ` 会得到非负余数；在其他语言中处理负数时需要写成 $((x\\bmod M)+M)\\bmod M$。
+- 总答案最大为 $n^2$，固定宽度语言必须使用 64 位整数。`
+    )
+  }
+
+  if (key === 'baidu/algo-20260730:03') {
+    let result = section
+      .replace(
+        '    if operation_count >= prefix_sum[n] - n:',
+        '    # 最多只能执行 sum(a_i - 1) 次；之后所有元素都等于 1。\n    if operation_count >= prefix_sum[n] - n:'
+      )
+      .replace(
+        '    def cost_to_level(level):',
+        '    # 把所有大于 level 的值削到 level 所需的操作数。\n    def cost_to_level(level):'
+      )
+      .replace(
+        '    low, high = 1, values[-1]',
+        '    # 二分最小的可达水平线：cost(level) <= operation_count。\n    low, high = 1, values[-1]'
+      )
+      .replace(
+        '    remaining = operation_count - cost_to_level(level)',
+        '    # 削平后剩余操作分给不同的 level，使它们各再减 1。\n    remaining = operation_count - cost_to_level(level)'
+      )
+    return addProofAndMistakes(
+      result,
+      `当前值为 $v>1$ 的元素减一后，乘积会乘上 $(v-1)/v=1-1/v$，该比例随 $v$ 增大而增大。因此若某一步递减了较小值 $x$，却仍保留更大的可操作值 $y$，把这一步改为递减 $y$ 不会使乘积更小。反复交换可知，始终递减当前最大值存在最优解。
+
+这一贪心过程会把较大元素逐层削平。` + '`cost_to_level(x)`' + ` 精确累加所有 $a_i>x$ 的差值 $a_i-x$，并且随 $x$ 增大单调不增，所以二分得到的 ` + '`level`' + ` 是满足代价不超过 $k$ 的最小整数。令剩余操作数为 $r$；若 $r$ 不小于削平后等于 ` + '`level`' + ` 的元素个数，就还能整体降到更低一层，与 ` + '`level`' + ` 的最小性矛盾。因此只需把其中恰好 $r$ 个元素各减一。代码计算的三部分乘积正是贪心最终状态，故结果最优。`,
+      `- 当 $k\\ge\\sum(a_i-1)$ 时操作会提前停止，答案必须直接返回 1。
+- 计算 ` + '`cost(level)`' + ` 时只处理严格大于 ` + '`level`' + ` 的元素，应使用 ` + '`bisect_right`' + `；统计削平后等于该层的元素时要包含原本就等于它的元素，应使用 ` + '`bisect_left`' + `。
+- 二分过程中代价和 $k$ 可能达到 $10^{18}$ 以上，不能提前取模；只有最终乘积才对 $10^9+7$ 取模。
+- ` + '`level - 1`' + ` 不会变成 0：若所有元素都能减到 1，已经在前面的提前停止分支返回。`
+    )
+  }
+
   if (key === 'netease/general-20260426:03') {
     return replaceSample(section, `3
 4 5 3

@@ -117,8 +117,8 @@ console.log(`\n${Object.entries(counts)
   .map(([status, items]) => `${status}=${items.length}`)
   .join(' ')}`)
 
-if (files.length !== 25 || results.length !== 79) {
-  console.error(`覆盖数异常：files=${files.length}/25 questions=${results.length}/79`)
+if (files.length !== 26 || results.length !== 82) {
+  console.error(`覆盖数异常：files=${files.length}/26 questions=${results.length}/82`)
   process.exitCode = 1
 }
 

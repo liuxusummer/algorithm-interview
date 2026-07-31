@@ -467,6 +467,25 @@ export const remainingWrittenTests = [
     ]
   },
   {
+    "id": "BAIDU-ALGO-20260730",
+    "company": "百度",
+    "role": "算法岗",
+    "date": "2026-07-30",
+    "year": "2026",
+    "href": "/written-tests/baidu-algo-20260730",
+    "difficulty": "中等",
+    "topics": [
+      "括号深度与线性扫描",
+      "前缀余数与双指针",
+      "乘积贪心、二分答案与快速幂"
+    ],
+    "questions": [
+      "消失的括号层",
+      "余数游走",
+      "最大乘积操作"
+    ]
+  },
+  {
     "id": "NIO-GENERAL-20260419",
     "company": "蔚来",
     "role": "通用岗",
