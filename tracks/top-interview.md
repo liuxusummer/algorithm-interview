@@ -85,6 +85,7 @@
 | [236 · 二叉树的最近公共祖先](/problems/236-lowest-common-ancestor-of-a-binary-tree) | 递归 | 必做 | 已有题解 |
 | [239 · 滑动窗口最大值](/problems/239-sliding-window-maximum) | 单调队列 | 必做 | 已有题解 |
 | [240 · 搜索二维矩阵 II](/problems/240-search-a-2d-matrix-ii) | 阶梯搜索 | 必做 | 已有题解 |
+| [253 · 会议室 II](/problems/253-meeting-rooms-ii) | 排序 + 双指针 | 必做 | 已有题解 |
 | [287 · 寻找重复数](/problems/287-find-the-duplicate-number) | Floyd 判圈 | 必做 | 已有题解 |
 | [300 · 最长递增子序列](/problems/300-longest-increasing-subsequence) | 二分优化 | 必做 | 已有题解 |
 | [322 · 零钱兑换](/problems/322-coin-change) | 完全背包 | 必做 | 已有题解 |

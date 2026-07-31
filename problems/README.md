@@ -93,6 +93,7 @@ pageClass: problem-index-page
 | 236 | [二叉树的最近公共祖先](./236-lowest-common-ancestor-of-a-binary-tree.md) | [力扣 ↗](https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/) | 递归 | 中等 | 58 次 | 47% |
 | 239 | [滑动窗口最大值](./239-sliding-window-maximum.md) | [力扣 ↗](https://leetcode.cn/problems/sliding-window-maximum/) | 单调队列 | 中等 | 37 次 | 40% |
 | 240 | [搜索二维矩阵 II](./240-search-a-2d-matrix-ii.md) | [力扣 ↗](https://leetcode.cn/problems/search-a-2d-matrix-ii/) | 阶梯搜索 | 中等 | 26 次 | 39% |
+| 253 | [会议室 II](./253-meeting-rooms-ii.md) | [力扣 ↗](https://leetcode.cn/problems/meeting-rooms-ii/) | 排序 + 双指针 | 中等 | 48 次（估算） | 52% |
 | 287 | [寻找重复数](./287-find-the-duplicate-number.md) | [力扣 ↗](https://leetcode.cn/problems/find-the-duplicate-number/) | Floyd 判圈 | 中等 | 32 次 | 67% |
 | 300 | [最长递增子序列](./300-longest-increasing-subsequence.md) | [力扣 ↗](https://leetcode.cn/problems/longest-increasing-subsequence/) | 动态规划 | 简单 | 107 次 | 59% |
 | 322 | [零钱兑换](./322-coin-change.md) | [力扣 ↗](https://leetcode.cn/problems/coin-change/) | 完全背包 | 中等 | 49 次 | 53% |

@@ -490,6 +490,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       { text: '236 二叉树的最近公共祖先', link: '/problems/236-lowest-common-ancestor-of-a-binary-tree' },
       { text: '239 滑动窗口最大值', link: '/problems/239-sliding-window-maximum' },
       { text: '240 搜索二维矩阵 II', link: '/problems/240-search-a-2d-matrix-ii' },
+      { text: '253 会议室 II', link: '/problems/253-meeting-rooms-ii' },
       { text: '287 寻找重复数', link: '/problems/287-find-the-duplicate-number' },
       { text: '300 最长递增子序列', link: '/problems/300-longest-increasing-subsequence' },
       { text: '322 零钱兑换', link: '/problems/322-coin-change' },
