@@ -13,6 +13,20 @@
 | 07 | 动态规划与贪心 | 从状态、选择和转移推导解法 |
 | 08 | 综合面试模式 | 在限时环境中组合模式并清晰表达 |
 
+## NLP、LLM 与 Agent 算法岗
+
+关注 AI 算法与应用工程时，可进入独立的
+[NLP · LLM · Agent 算法岗专题](/modules/nlp-llm-agent/README)：
+
+- 从 Tokenization、Transformer 和预训练建立模型基础；
+- 系统掌握 SFT、RLHF、DPO、LoRA 与 QLoRA；
+- 用分层指标定位 RAG 的解析、召回、排序和生成问题；
+- 理解 Prefill、Decode、KV Cache、批处理、量化和模型路由；
+- 深入 Agent Runtime、工具、上下文、评估、安全和 MCP/A2A。
+
+它与 01～08 算法专题并列，不使用顺序编号。建议先完成数组、栈队列、
+二叉树和图搜索，再进入 AI 系统设计与项目深挖。
+
 ## 大厂面试真题
 
 完成算法基础后，可进入独立的[大厂面试真题](/modules/company-interview-questions/README)：

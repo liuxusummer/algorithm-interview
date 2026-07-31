@@ -40,4 +40,9 @@ title: 解题现场
     <h2>最后闭环复盘</h2>
     <p>记录错误类型、遗漏边界和下一次复习时间，让“做过”真正变成“会做”。</p>
   </article>
+  <article class="algo-card algo-card--ai">
+    <span class="algo-card__number">AI / SPECIALTY</span>
+    <h2><a href="./modules/nlp-llm-agent/README">NLP · LLM · Agent →</a></h2>
+    <p>从 Transformer、后训练和 RAG，走到可评估、可恢复、可控制的生产级 Agent。</p>
+  </article>
 </div>

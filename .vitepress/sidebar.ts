@@ -105,6 +105,40 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
   moduleGroup('07', '动态规划与贪心', '07-dp-greedy'),
   moduleGroup('08', '综合面试模式', '08-interview-patterns'),
   {
+    text: 'NLP · LLM · Agent 算法岗',
+    collapsed: true,
+    items: [
+      {
+        text: '专题地图与学习路线',
+        link: '/modules/nlp-llm-agent/README'
+      },
+      {
+        text: 'NLP 与 Transformer',
+        link: '/modules/nlp-llm-agent/nlp-transformer'
+      },
+      {
+        text: 'LLM 预训练与数据',
+        link: '/modules/nlp-llm-agent/pretraining-data'
+      },
+      {
+        text: '后训练与参数高效微调',
+        link: '/modules/nlp-llm-agent/posttraining-peft'
+      },
+      {
+        text: 'RAG 与搜索系统',
+        link: '/modules/nlp-llm-agent/rag-search'
+      },
+      {
+        text: 'LLM 推理与性能',
+        link: '/modules/nlp-llm-agent/inference-systems'
+      },
+      {
+        text: 'Agent 核心工程体系',
+        link: '/modules/company-interview-questions/agent-core/README'
+      }
+    ]
+  },
+  {
     text: '大厂面试真题',
     collapsed: true,
     items: [

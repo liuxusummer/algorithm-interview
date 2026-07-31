@@ -6,6 +6,10 @@
 
 [大厂真题数据分析](./ANALYSIS)基于 123 道高频面试题与 106 场真实笔试，整理出现次数、难度分布、算法频次和公司侧重点。
 
+[NLP · LLM · Agent 算法岗专题](./modules/nlp-llm-agent/README)从 Transformer、
+预训练和后训练出发，覆盖 RAG、推理系统与生产级 Agent 的运行时、评估、
+安全和协议协作。
+
 ```text
 读懂约束 → 给出暴力方案 → 找到优化抓手
          → 写出正确代码 → 验证边界 → 分析复杂度 → 面试复述
@@ -41,7 +45,7 @@ pnpm docs:preview
 | 目录 | 用途 |
 |---|---|
 | `.vitepress/` | 站点配置、导航、主题和 Vue 组件 |
-| `modules/` | 按知识结构组织的专题讲解 |
+| `modules/` | 算法模式、NLP/LLM/Agent 与计算机基础专题 |
 | `problems/` | 单题拆解与统一题解模板 |
 | `written-tests/` | 大厂笔试场次、ACM 模式题解与完整 Python 程序 |
 | `tracks/` | 高频题单与岗位训练路径 |
