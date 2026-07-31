@@ -1,0 +1,49 @@
+.vitepress/config.mts
+  s_329e04de48c25d::t_1f594d6367500e 49
+.vitepress/sidebar.ts
+  s_329e04de48c25d::t_80e2f437f719fe 107-140
+.vitepress/theme/custom.css
+  s_329e04de48c25d::t_e2a37e7f8f47df 432,464-484,540-782
+README.md
+  s_329e04de48c25d::t_a39bee72339e09 9-12,48
+ROADMAP.md
+  s_329e04de48c25d::t_3301e24cdea707 16-29
+index.md
+  s_329e04de48c25d::t_37445b0546515f 43-47
+modules/company-interview-questions/README.md
+  s_329e04de48c25d::t_6b1d60cfe2beb6 10-14
+modules/nlp-llm-agent/README.md
+  s_329e04de48c25d::t_349b262a3cdd93 1-206
+modules/nlp-llm-agent/inference-systems.md
+  s_329e04de48c25d::t_4939bac1e3481b 1-435
+modules/nlp-llm-agent/nlp-transformer.md
+  s_329e04de48c25d::t_cd65a46be74f0d 1-381
+modules/nlp-llm-agent/posttraining-peft.md
+  s_329e04de48c25d::t_550d4797d0cd32 1-424
+modules/nlp-llm-agent/pretraining-data.md
+  s_329e04de48c25d::t_36b528f24d90fa 1-389
+modules/nlp-llm-agent/rag-search.md
+  s_329e04de48c25d::t_e9dfcad24a4e12 1-412
+package.json
+  s_329e04de48c25d::t_d2534c774c726e 16,19
+scripts/check-nlp-llm-agent-content.mjs
+  s_329e04de48c25d::t_c09f8beeee7856 1-135
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "74bc6c2665a51b67307de01c52d777c4e53141c5",
+  "prompts": {},
+  "sessions": {
+    "s_329e04de48c25d": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fac36-1b6e-74f1-bb33-cbffc5785f31",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
