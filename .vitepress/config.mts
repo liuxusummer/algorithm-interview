@@ -10,6 +10,9 @@ export default defineConfig({
   titleTemplate: ':title · 解题现场',
   description: '面向技术面试的算法题拆解、计算机基础问答、模式归纳与复盘网站',
   cleanUrls: true,
+  markdown: {
+    math: true
+  },
 
   transformPageData(pageData) {
     const isInterviewProblem = (
