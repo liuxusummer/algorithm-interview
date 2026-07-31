@@ -3,6 +3,7 @@ import { huaweiWrittenTests } from './theme/data/huaweiWrittenTests'
 import { meituanWrittenTests } from './theme/data/meituanWrittenTests'
 import { pinduoduoWrittenTests } from './theme/data/pinduoduoWrittenTests'
 import { remainingWrittenTests } from './theme/data/remainingWrittenTests'
+import { extraWrittenTests } from './theme/data/extraWrittenTests'
 
 const moduleGroup = (
   number: string,
@@ -47,7 +48,12 @@ const remainingWrittenTestSidebarGroups: DefaultTheme.SidebarItem[] =
   remainingCompanyOrder.map((company) => ({
     text: company,
     collapsed: true,
-    items: remainingWrittenTests
+    items: [
+      ...remainingWrittenTests,
+      ...extraWrittenTests.filter(
+        (session) => session.company === company
+      )
+    ]
       .filter((session) => session.company === company)
       .map((session) => writtenTestSession(
         session.date,

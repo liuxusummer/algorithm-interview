@@ -192,5 +192,34 @@ export const extraWrittenTests = [
       "地图上的最短别墅距离",
       "最大化打铁次数的期望"
     ]
+  },
+  {
+    "id": "BAIDU-DEV-20260730",
+    "company": "百度",
+    "role": "研发岗 · 综合卷",
+    "type": "AI Coding",
+    "date": "2026-07-30",
+    "year": "2026",
+    "href": "/written-tests/baidu-dev-20260730",
+    "difficulty": "中等偏难",
+    "topics": [
+      "后端基础",
+      "前缀和",
+      "提示词工程",
+      "AI Coding"
+    ],
+    "questionTopics": [
+      "后端基础 + 大模型应用",
+      "前缀和 + 双指针",
+      "提示词工程 + 结构化输出",
+      "信贷领域 + HTTP JSON + 状态机"
+    ],
+    "questions": [
+      "后端基础与大模型选择题",
+      "余数游走",
+      "汽车洗车计算器",
+      "分期借贷还款引擎"
+    ],
+    "featured": true
   }
 ]

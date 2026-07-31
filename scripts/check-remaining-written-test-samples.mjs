@@ -1,31 +1,31 @@
-import { readFile, readdir } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises'
 import { spawnSync } from 'node:child_process'
 import path from 'node:path'
 
 const projectRoot = path.resolve(import.meta.dirname, '..')
 const writtenTests = path.join(projectRoot, 'written-tests')
-const companyPrefixes = [
-  'netease-',
-  'bilibili-',
-  'iflytek-',
-  'ctrip-',
-  'dewu-',
-  'bytedance-',
-  'mihoyo-',
-  'shopee-',
-  'shailab-',
-  'honor-',
-  'deepseek-',
-  'baidu-'
-]
-
-const files = (await readdir(writtenTests))
-  .filter((file) => (
-    companyPrefixes.some((prefix) => file.startsWith(prefix))
-    || file === 'nio-general-20260419.md'
+const catalogPath = path.join(
+  projectRoot,
+  '.vitepress',
+  'theme',
+  'data',
+  'remainingWrittenTests.ts'
+)
+const catalogSource = await readFile(catalogPath, 'utf8')
+const arrayStart = catalogSource.indexOf('[')
+const arrayEnd = catalogSource.lastIndexOf(']')
+const sessions = JSON.parse(
+  catalogSource.slice(arrayStart, arrayEnd + 1)
+)
+const files = sessions
+  .map((session) => (
+    `${session.href.replace(/^\/written-tests\//u, '')}.md`
   ))
-  .filter((file) => file.endsWith('.md'))
   .sort()
+const expectedQuestionCount = sessions.reduce(
+  (total, session) => total + session.questions.length,
+  0
+)
 
 function normalize(output) {
   return output
@@ -117,8 +117,14 @@ console.log(`\n${Object.entries(counts)
   .map(([status, items]) => `${status}=${items.length}`)
   .join(' ')}`)
 
-if (files.length !== 26 || results.length !== 82) {
-  console.error(`覆盖数异常：files=${files.length}/26 questions=${results.length}/82`)
+if (
+  files.length !== sessions.length
+  || results.length !== expectedQuestionCount
+) {
+  console.error(
+    `覆盖数异常：files=${files.length}/${sessions.length}`
+    + ` questions=${results.length}/${expectedQuestionCount}`
+  )
   process.exitCode = 1
 }
 
