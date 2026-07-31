@@ -8,7 +8,7 @@ description: 从 Transformer、后训练和 RAG，到 Agent Runtime、评估、�
   <div class="ai-specialty-hero__copy">
     <span class="ai-specialty-kicker">NLP / LARGE LANGUAGE MODEL / AGENT ENGINEERING</span>
     <h1>从模型原理<br>走到<em>可靠系统</em></h1>
-    <p>面向 NLP、LLM 与 Agent 算法岗：既能推导 Attention 和 DPO，也能定位 RAG、工具调用、长任务与线上推理的真实失败。</p>
+    <p>面向 NLP、LLM 与 Agent 算法岗：既能推导 Attention、DPO 和 GRPO，也能定位 RAG、工具调用、长任务与线上推理的真实失败。</p>
     <div class="ai-specialty-actions">
       <a href="./nlp-transformer">从 Transformer 开始 →</a>
       <a class="is-ghost" href="#专题地图">查看专题地图</a>
@@ -57,9 +57,9 @@ description: 从 Transformer、后训练和 RAG，到 Agent Runtime、评估、�
 
 | 章节 | 需要建立的核心能力 | 代表性面试问题 |
 |---|---|---|
-| [NLP 与 Transformer](./nlp-transformer.md) | Tokenization、Attention、位置编码、归一化与复杂度 | 为什么 Attention 要除以 `sqrt(d_k)`？ |
+| [NLP 与 Transformer](./nlp-transformer.md) | Tokenization、标准 Attention、MLA、稀疏与线性混合注意力 | 为什么 Attention 要除以 `sqrt(d_k)`？现代模型怎样降低 KV 与长上下文成本？ |
 | [预训练与数据治理](./pretraining-data.md) | 训练目标、数据配比、去重、污染、并行与实验归因 | 数据量增加为什么不一定继续提升？ |
-| [后训练与参数高效微调](./posttraining-peft.md) | SFT、Reward Model、RLHF、DPO、LoRA、QLoRA | DPO 为什么仍需要参考模型？ |
+| [后训练与参数高效微调](./posttraining-peft.md) | SFT、RLHF、DPO、GRPO、RLVR、推理蒸馏、LoRA、QLoRA | DPO 为什么仍需要参考模型？GRPO 为什么不需要 Value Model？ |
 
 ### 知识与推理
 
