@@ -9,7 +9,7 @@
   source-label="力扣原题"
 />
 
-<ComplexityBadge time="O(n²)" space="O(n²)" />
+<ComplexityBadge time="O(n²)" space="O(n²) → O(n)" />
 
 ## 题目
 
@@ -59,7 +59,7 @@ dp[i][j] = s[i] == s[j] and dp[i + 1][j - 1]
 
 <DpTableDemo variant="longest-palindrome" />
 
-## Python 实现
+## 二维 DP 实现（基础版）
 
 ```python
 class Solution:
@@ -115,6 +115,52 @@ class Solution:
 - 时间复杂度：`O(n²)`，枚举全部左右端点。
 - 空间复杂度：`O(n²)`，保存区间状态。
 
+## 第二步：再把二维 DP 压缩成一维
+
+面试和学习时应先写上面的二维版本。`dp[i][j]` 的区间含义、初始化和依赖方向都能直接从表格中看到，最容易证明正确，也最不容易写错遍历顺序。
+
+理解二维转移后，再观察它的依赖：
+
+```text
+dp[i][j] 只依赖上一层起点的 dp[i + 1][j - 1]
+```
+
+可以用一维数组 `dp[j]` 保存状态。开始计算起点 `i` 这一行之前，`dp[j]` 表示二维表中的 `dp[i + 1][j]`；更新后，它表示 `dp[i][j]`。
+
+关键是右端点 `j` 必须**从右向左**更新。计算当前 `dp[j]` 时，需要读取尚未被本轮覆盖的 `dp[j - 1]`，它对应二维表里的 `dp[i + 1][j - 1]`。如果从左向右更新，读到的会是当前行 `dp[i][j - 1]`，状态含义就错了。
+
+```python
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        if not s:
+            return ""
+
+        n = len(s)
+        dp = [False] * n
+        best_start = 0
+        best_length = 1
+
+        # 起点从右向左，保证一维数组保存的是二维表的下一行。
+        for i in range(n - 1, -1, -1):
+            dp[i] = True
+
+            # 右端点必须倒序，避免覆盖仍要使用的 dp[i + 1][j - 1]。
+            for j in range(n - 1, i, -1):
+                dp[j] = (
+                    s[i] == s[j]
+                    and (j - i == 1 or dp[j - 1])
+                )
+
+                current_length = j - i + 1
+                if dp[j] and current_length > best_length:
+                    best_start = i
+                    best_length = current_length
+
+        return s[best_start:best_start + best_length]
+```
+
+压缩后时间复杂度仍为 `O(n²)`，额外空间从 `O(n²)` 降为 `O(n)`。代价是状态含义与新旧值更难观察，所以它应当作为二维版本之后的优化，而不是第一次讲解时的起点。
+
 ## 边界用例
 
 | 输入 | 可能输出 | 检查点 |
@@ -131,6 +177,7 @@ class Solution:
 
 ## 常见追问
 
+- 二维 DP 可以在理解状态依赖后压缩到 `O(n)` 空间，但必须让右端点倒序更新。
 - 中心扩展同样是 `O(n²)` 时间，但只需 `O(1)` 额外空间。
 - Manacher 算法可以做到 `O(n)` 时间，但实现和讲解成本更高。
 - 只求回文子串数量时，发现每个回文状态后累加即可。

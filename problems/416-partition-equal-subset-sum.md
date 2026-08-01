@@ -9,7 +9,7 @@
   source-label="力扣原题"
 />
 
-<ComplexityBadge time="O(n · target)" space="O(target)" />
+<ComplexityBadge time="O(n · target)" space="O(n · target) → O(target)" />
 
 ## 题目
 
@@ -35,9 +35,63 @@
 - `total` 为奇数时不可能平分；
 - `total` 为偶数时，只需判断能否从数组中选出和为 `total / 2` 的子集。
 
-定义 `reachable[sum]` 表示能否用已经处理过的元素组成该和。
+先定义完整二维状态：
 
-## Python 实现
+```text
+dp[i][current_sum] =
+能否用前 i 个数字组成 current_sum
+```
+
+处理第 `i` 个数字 `number` 时，可以不选或选择它：
+
+```text
+dp[i][current_sum] =
+dp[i - 1][current_sum]
+or dp[i - 1][current_sum - number]
+```
+
+第二项只在 `current_sum >= number` 时存在。
+
+## 二维 DP 实现（基础版）
+
+```python
+class Solution:
+    def canPartition(self, nums: list[int]) -> bool:
+        total = sum(nums)
+
+        if total % 2 == 1:
+            return False
+
+        target = total // 2
+        count = len(nums)
+        dp = [[False] * (target + 1) for _ in range(count + 1)]
+
+        # 不选择任何数字时，只有和为 0 可以组成。
+        for i in range(count + 1):
+            dp[i][0] = True
+
+        for i in range(1, count + 1):
+            number = nums[i - 1]
+
+            for current_sum in range(1, target + 1):
+                # 不选择当前数字。
+                dp[i][current_sum] = dp[i - 1][current_sum]
+
+                # 选择当前数字，剩余和必须由前 i - 1 个数字组成。
+                if current_sum >= number:
+                    dp[i][current_sum] = (
+                        dp[i][current_sum]
+                        or dp[i - 1][current_sum - number]
+                    )
+
+        return dp[count][target]
+```
+
+二维表中每一行只从上一行转移，所以能清楚证明每个数字最多使用一次。
+
+## 空间优化：压缩成一行
+
+二维状态的当前行只依赖上一行，可以改用 `reachable[current_sum]` 表示“用已经处理过的数字能否组成该和”。压缩后必须倒序更新，才能让右侧状态继续读取上一行数据。
 
 ```python
 class Solution:
@@ -87,10 +141,10 @@ class Solution:
 
 初始只有和为零可达。处理数字 `number` 时，每个目标和有“不选它”与“选择它”两种可能，逆序转移分别由旧的当前状态和旧的 `current_sum - number` 状态表示，且保证当前数字最多使用一次。归纳处理全部元素后，`reachable[target]` 当且仅当存在和为一半总和的子集，也就当且仅当原数组可以等和分割。
 
-## 复杂度
+## 复杂度对比
 
-- 时间复杂度：`O(n · target)`。
-- 空间复杂度：`O(target)`。
+- 二维基础版：时间 `O(n · target)`，空间 `O(n · target)`；
+- 一维优化版：时间 `O(n · target)`，空间 `O(target)`。
 
 ## 边界用例
 
@@ -104,7 +158,7 @@ class Solution:
 
 ## 90 秒面试表达
 
-“先求总和，奇数直接失败；偶数时问题等价于能否选出和为一半的子集。定义一维布尔数组表示目标和是否可达，初始只有 0 可达。每个数字只能使用一次，所以目标和必须从大到小更新，避免当前数字在同一轮被重复使用。这是标准 0/1 背包，时间 `O(n·target)`、空间 `O(target)`。”
+“先求总和，奇数直接失败；偶数时转成容量为一半总和的 0/1 背包。基础二维状态表示前 `i` 个数字能否组成指定和，当前数字有选与不选两种来源，时间、空间都是 `O(n·target)`。确认当前行只依赖上一行后压成一维；因为每个数字只能使用一次，目标和必须倒序更新，空间降到 `O(target)`。”
 
 ## 常见追问
 

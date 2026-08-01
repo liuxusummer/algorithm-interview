@@ -9,7 +9,7 @@
   source-label="力扣原题"
 />
 
-<ComplexityBadge time="O(mn)" space="O(n)" />
+<ComplexityBadge time="O(mn)" space="O(mn) → O(n)" />
 
 ## 题目
 
@@ -45,9 +45,42 @@ min(dp[row - 1][column], dp[row][column - 1])
 + grid[row][column]
 ```
 
-每一行只依赖上一行和本行左侧，可以压缩成一维数组。
+先用二维表把首行、首列和两个转移来源写清楚，再观察每一行只依赖上一行和本行左侧，从而压缩空间。
 
-## Python 实现
+## 二维 DP 实现（基础版）
+
+```python
+class Solution:
+    def minPathSum(self, grid: list[list[int]]) -> int:
+        rows = len(grid)
+        columns = len(grid[0])
+        dp = [[0] * columns for _ in range(rows)]
+
+        dp[0][0] = grid[0][0]
+
+        # 第一列只能从上方到达。
+        for row in range(1, rows):
+            dp[row][0] = dp[row - 1][0] + grid[row][0]
+
+        # 第一行只能从左侧到达。
+        for column in range(1, columns):
+            dp[0][column] = dp[0][column - 1] + grid[0][column]
+
+        for row in range(1, rows):
+            for column in range(1, columns):
+                dp[row][column] = min(
+                    dp[row - 1][column],
+                    dp[row][column - 1],
+                ) + grid[row][column]
+
+        return dp[rows - 1][columns - 1]
+```
+
+完整二维表还可以直接保存前驱方向，适合需要恢复具体最短路径的变体。
+
+## 空间优化：压缩成一行
+
+当前状态只依赖上一行同列与当前行左侧，因此可以让 `dp[column]` 同时承载新旧两行状态。
 
 ```python
 class Solution:
@@ -70,7 +103,7 @@ class Solution:
         return int(dp[-1])
 ```
 
-## 一维数组中的两个方向
+### 一维数组中的两个方向
 
 更新 `dp[column]` 前，它表示上一行同列的最小路径和，也就是“上方”。
 
@@ -82,10 +115,10 @@ class Solution:
 
 任意到达当前格的合法路径，最后一步必然来自上方或左方。根据归纳假设，一维数组在更新前后分别保存这两个方向的最优路径和，取较小者加当前格值即为当前位置最优值。按从上到下、从左到右的拓扑顺序处理后，右下角状态就是全局最小路径和。
 
-## 复杂度
+## 复杂度对比
 
-- 时间复杂度：`O(mn)`，每个格子处理一次。
-- 空间复杂度：`O(n)`，`n` 为列数。
+- 二维基础版：时间 `O(mn)`，空间 `O(mn)`；
+- 一维优化版：时间 `O(mn)`，空间 `O(n)`，其中 `n` 为列数。
 
 ## 边界用例
 
@@ -99,7 +132,7 @@ class Solution:
 
 ## 90 秒面试表达
 
-“定义状态为从左上角到当前格的最小路径和。因为只能向右或向下，当前格只可能从上方或左方进入，所以取两者最小值加当前格。按行扫描时，更新前的一维 `dp[col]` 是上方，更新后的 `dp[col-1]` 是左方，因此可把二维空间压成一行。时间 `O(mn)`、空间 `O(n)`。”
+“先定义二维状态为从左上角到当前格的最小路径和。首行只能来自左侧，首列只能来自上方；其余格取上方、左方最小值再加当前值。二维版本时间和空间都是 `O(mn)`。确认当前行只依赖上一行后，再压成一维：更新前的 `dp[col]` 是上方，更新后的 `dp[col-1]` 是左方，空间降到 `O(n)`。”
 
 ## 常见追问
 

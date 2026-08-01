@@ -9,7 +9,7 @@
   source-label="力扣原题"
 />
 
-<ComplexityBadge time="O(mn)" space="O(min(m, n))" />
+<ComplexityBadge time="O(mn)" space="O(mn) → O(min(m, n))" />
 
 ## 题目
 
@@ -49,7 +49,39 @@ dp[i][j] = dp[i - 1][j - 1] + 1
 
 <DpTableDemo variant="repeated-subarray" />
 
-## Python 实现
+## 二维 DP 实现（基础版）
+
+```python
+class Solution:
+    def findLength(
+        self,
+        nums1: list[int],
+        nums2: list[int],
+    ) -> int:
+        rows = len(nums1)
+        columns = len(nums2)
+        dp = [[0] * (columns + 1) for _ in range(rows + 1)]
+        maximum_length = 0
+
+        for row in range(1, rows + 1):
+            for column in range(1, columns + 1):
+                if nums1[row - 1] == nums2[column - 1]:
+                    dp[row][column] = (
+                        dp[row - 1][column - 1] + 1
+                    )
+                    maximum_length = max(
+                        maximum_length,
+                        dp[row][column],
+                    )
+
+        return maximum_length
+```
+
+二维表中的非零状态会沿右下对角线连续增长，能直观看到“公共连续后缀”的含义；元素不同时状态保留为零。
+
+## 空间优化：压缩成一行
+
+当前状态只依赖上一行左上角。让较短数组作为列，并让列倒序更新，就能保证 `dp[column - 1]` 尚未被当前行覆盖。
 
 ```python
 class Solution:
@@ -79,7 +111,7 @@ class Solution:
         return maximum_length
 ```
 
-## 为什么一维数组必须逆序
+### 为什么一维数组必须逆序
 
 当前状态依赖上一行的 `dp[column - 1]`。
 
@@ -96,10 +128,10 @@ class Solution:
 
 当两个结尾元素相同，所有以它们结尾的公共连续子数组都由此前两个前缀的共同后缀追加当前元素得到，最长长度正好加一。元素不同时，不存在以这两个位置同时结尾的公共连续子数组，状态为零。算法枚举全部结尾组合并取最大，因此得到全局最长重复子数组长度。
 
-## 复杂度
+## 复杂度对比
 
-- 时间复杂度：`O(mn)`。
-- 空间复杂度：`O(min(m, n))`，让较短数组作为列。
+- 二维基础版：时间 `O(mn)`，空间 `O(mn)`；
+- 一维优化版：时间 `O(mn)`，空间 `O(min(m, n))`，让较短数组作为列。
 
 ## 边界用例
 
@@ -113,7 +145,7 @@ class Solution:
 
 ## 90 秒面试表达
 
-“定义状态为以两个当前位置同时结尾的最长公共连续长度。元素相同就从左上状态加一，不同则必须归零，因为题目要求连续。答案可能在任意结尾组合，所以遍历时维护最大值。一维压缩后要从右向左更新，确保读取的是上一行左上状态。时间 `O(mn)`、空间 `O(min(m,n))`。”
+“先定义二维状态为以两个当前位置同时结尾的最长公共连续长度。元素相同就从左上状态加一，不同则归零；答案可能出现在任意格，所以维护全局最大值。二维版本时间、空间都是 `O(mn)`。确认状态只依赖上一行左上角后，再压成一维并倒序更新列，空间降到 `O(min(m,n))`。”
 
 ## 常见追问
 

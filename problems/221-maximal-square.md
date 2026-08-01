@@ -9,7 +9,7 @@
   source-label="力扣原题"
 />
 
-<ComplexityBadge time="O(mn)" space="O(n)" />
+<ComplexityBadge time="O(mn)" space="O(mn) → O(n)" />
 
 ## 题目
 
@@ -52,7 +52,42 @@ min(左, 上, 左上) + 1
 
 <DpTableDemo variant="maximal-square" />
 
-## Python 实现
+## 二维 DP 实现（基础版）
+
+为了统一第一行和第一列的边界，在二维表顶部和左侧各补一圈零值哨兵。
+
+```python
+class Solution:
+    def maximalSquare(self, matrix: list[list[str]]) -> int:
+        if not matrix or not matrix[0]:
+            return 0
+
+        rows = len(matrix)
+        columns = len(matrix[0])
+        dp = [[0] * (columns + 1) for _ in range(rows + 1)]
+        maximum_side = 0
+
+        for row in range(1, rows + 1):
+            for column in range(1, columns + 1):
+                if matrix[row - 1][column - 1] == "1":
+                    dp[row][column] = min(
+                        dp[row - 1][column],
+                        dp[row][column - 1],
+                        dp[row - 1][column - 1],
+                    ) + 1
+                    maximum_side = max(
+                        maximum_side,
+                        dp[row][column],
+                    )
+
+        return maximum_side * maximum_side
+```
+
+二维表能直接看到上、左、左上三个短板如何共同限制当前正方形，是理解转移的首选版本。
+
+## 空间优化：压缩成一行
+
+当前行只依赖上一行和本行左侧，可以复用一维数组；但左上角会在更新 `dp[column]` 时丢失，所以要先保存到 `top_left`。
 
 ```python
 class Solution:
@@ -86,7 +121,7 @@ class Solution:
         return maximum_side * maximum_side
 ```
 
-## 一维压缩时三个值分别是谁
+### 一维压缩时三个值分别是谁
 
 - 更新前的 `dp[column]`：上一行同列，也就是上方；
 - 更新后的 `dp[column - 1]`：当前行前一列，也就是左方；
@@ -98,10 +133,10 @@ class Solution:
 
 若当前位置为零，不可能作为全 1 正方形右下角。若为一，边长超过 1 的正方形必须同时由左、上、左上三个较小正方形支撑，其最大可扩展边长由三者最小值限制；加上当前行列后边长增加一。转移准确计算每个右下角的最大边长，比较所有状态后平方即为最大面积。
 
-## 复杂度
+## 复杂度对比
 
-- 时间复杂度：`O(mn)`，每个格子处理一次。
-- 空间复杂度：`O(n)`，`n` 为列数。
+- 二维基础版：时间 `O(mn)`，空间 `O(mn)`；
+- 一维优化版：时间 `O(mn)`，空间 `O(n)`，其中 `n` 为列数。
 
 ## 边界用例
 
@@ -114,7 +149,7 @@ class Solution:
 
 ## 90 秒面试表达
 
-“定义状态为以当前格为右下角的最大全 1 正方形边长。当前格是 1 时，边长由左、上、左上三个状态的最小值加一决定；是 0 时状态归零。遍历中记录最大边长，最后返回平方。我用一维数组压缩行状态，并额外保存更新前的左上值。时间 `O(mn)`、空间 `O(n)`。”
+“先定义二维状态为以当前格为右下角的最大全 1 正方形边长。当前格是 1 时，由左、上、左上三个状态的最小值加一决定；是 0 时保持零。二维版本便于看清依赖，时间和空间都是 `O(mn)`。确认只依赖上一行后，再压成一维，并额外保存更新前的左上值，空间降到 `O(n)`。”
 
 ## 常见追问
 

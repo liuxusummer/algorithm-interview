@@ -9,7 +9,7 @@
   source-label="力扣原题"
 />
 
-<ComplexityBadge time="O(mn)" space="O(min(m, n))" />
+<ComplexityBadge time="O(mn)" space="O(mn) → O(min(m, n))" />
 
 ## 题目
 
@@ -59,7 +59,37 @@ dp[i][j] = max(
 
 <DpTableDemo variant="longest-common-subsequence" />
 
-## Python 实现
+## 二维 DP 实现（基础版）
+
+```python
+class Solution:
+    def longestCommonSubsequence(
+        self,
+        text1: str,
+        text2: str,
+    ) -> int:
+        len1 = len(text1)
+        len2 = len(text2)
+        dp = [[0] * (len2 + 1) for _ in range(len1 + 1)]
+
+        for i in range(1, len1 + 1):
+            for j in range(1, len2 + 1):
+                if text1[i - 1] == text2[j - 1]:
+                    dp[i][j] = dp[i - 1][j - 1] + 1
+                else:
+                    dp[i][j] = max(
+                        dp[i - 1][j],
+                        dp[i][j - 1],
+                    )
+
+        return dp[len1][len2]
+```
+
+完整二维表不仅容易理解从上、左、左上的转移，还能从右下角回溯出一条实际的最长公共子序列。
+
+## 空间优化：滚动两行
+
+如果只需要长度，当前行只依赖上一行和本行左侧，保留 `previous`、`current` 两行即可。让较短字符串作为列，可将空间降到 `O(min(m, n))`。
 
 ```python
 class Solution:
@@ -97,7 +127,7 @@ class Solution:
 
 即使存在不使用这对字符的同长度最优解，左上加一也不会更差；标准 LCS 最优子结构保证该转移足以覆盖最优值。
 
-## 为什么能压成两行
+### 为什么能压成两行
 
 当前行只依赖：
 
@@ -111,10 +141,10 @@ class Solution:
 
 若末尾字符相同，存在一个最优公共子序列包含这对字符，移除后对应两个更短前缀的最优解，因此长度为左上状态加一。若不同，任何公共子序列至少不使用其中一个末尾字符，分别落入上方或左方子问题，取较大者即可。由空前缀状态递推到完整字符串，右下角状态就是 LCS 长度。
 
-## 复杂度
+## 复杂度对比
 
-- 时间复杂度：`O(mn)`。
-- 空间复杂度：`O(min(m, n))`。
+- 二维基础版：时间 `O(mn)`，空间 `O(mn)`，并支持回溯具体序列；
+- 两行优化版：时间 `O(mn)`，空间 `O(min(m, n))`，只保留长度信息。
 
 ## 边界用例
 
@@ -128,7 +158,7 @@ class Solution:
 
 ## 90 秒面试表达
 
-“定义二维状态为两个前缀的最长公共子序列长度。末尾字符相同，就在两个更短前缀的答案上加一；不同则至少跳过一个末尾字符，取上方和左方状态的最大值。当前行只依赖上一行和本行左侧，所以用两行滚动，并让短字符串作为列。时间 `O(mn)`、空间 `O(min(m,n))`。”
+“先定义二维状态为两个前缀的最长公共子序列长度。末尾相同就在左上答案加一；不同则至少跳过一个末尾字符，取上方和左方最大值。二维版本时间、空间都是 `O(mn)`，还能回溯具体序列。只求长度时，当前行只依赖上一行和本行左侧，所以再滚动成两行，并让短字符串作为列，空间降到 `O(min(m,n))`。”
 
 ## 常见追问
 
