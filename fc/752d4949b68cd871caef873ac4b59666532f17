@@ -1,0 +1,25 @@
+modules/04-stack-queue-hash/README.md
+  s_67d0f3858c51ab::t_2062dcb3ce2159 38
+problems/README.md
+  s_67d0f3858c51ab::t_f316042b1746ef 130
+problems/original-001-expiring-lru-cache.md
+  s_67d0f3858c51ab::t_4cd9d32d88e60d 11,84,92,108,111-112,114-116,118-119,127-128,130-132,135-136,143,148-149,154,165-166,172-173,184,189,194-195,199,204,209-213,222-223,234,239-240,247,252-253,307-452
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "fc752d4949b68cd871caef873ac4b59666532f17",
+  "prompts": {},
+  "sessions": {
+    "s_67d0f3858c51ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa7ef-2778-7c22-a178-04bb49c3a15c",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
