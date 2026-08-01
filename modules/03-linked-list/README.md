@@ -46,7 +46,7 @@ class ListNode:
 
 ### 4. 多链表归并与排序
 
-- [023 · 合并 K 个升序链表](/problems/023-merge-k-sorted-lists)：最小堆维护 K 个候选。
+- [023 · 合并 K 个升序链表](/problems/023-merge-k-sorted-lists)：最小堆维护 K 个候选，或自底向上两两归并。
 - [148 · 排序链表](/problems/148-sort-list)：快慢指针拆分与归并排序。
 
 ## 链表操作检查清单

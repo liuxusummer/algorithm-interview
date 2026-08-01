@@ -27,20 +27,20 @@ pageClass: problem-index-page
 | 020 | [有效的括号](./020-valid-parentheses.md) | [力扣 ↗](https://leetcode.cn/problems/valid-parentheses/) | 栈 | 简单 | 100 次 | 44% |
 | 021 | [合并两个有序链表](./021-merge-two-sorted-lists.md) | [力扣 ↗](https://leetcode.cn/problems/merge-two-sorted-lists/) | 归并 | 简单 | 63 次 | 58% |
 | 022 | [括号生成](./022-generate-parentheses.md) | [力扣 ↗](https://leetcode.cn/problems/generate-parentheses/) | 回溯 | 中等 | 33 次 | 63% |
-| 023 | [合并 K 个升序链表](./023-merge-k-sorted-lists.md) | [力扣 ↗](https://leetcode.cn/problems/merge-k-sorted-lists/) | 最小堆 | 困难 | 74 次 | 24% |
+| 023 | [合并 K 个升序链表](./023-merge-k-sorted-lists.md) | [力扣 ↗](https://leetcode.cn/problems/merge-k-sorted-lists/) | 最小堆 / 分治归并 | 困难 | 74 次 | 24% |
 | 024 | [两两交换链表中的节点](./024-swap-nodes-in-pairs.md) | [力扣 ↗](https://leetcode.cn/problems/swap-nodes-in-pairs/) | 成对重连 | 中等 | 8 次 | 48% |
 | 025 | [K 个一组翻转链表](./025-reverse-nodes-in-k-group.md) | [力扣 ↗](https://leetcode.cn/problems/reverse-nodes-in-k-group/) | 分组反转 | 困难 | 82 次 | 51% |
-| 032 | [最长有效括号](./032-longest-valid-parentheses.md) | [力扣 ↗](https://leetcode.cn/problems/longest-valid-parentheses/) | 索引栈 | 简单 | 25 次 | 46% |
+| 032 | [最长有效括号](./032-longest-valid-parentheses.md) | [力扣 ↗](https://leetcode.cn/problems/longest-valid-parentheses/) | 索引栈 / 双向扫描 | 简单 | 25 次 | 46% |
 | 033 | [搜索旋转排序数组](./033-search-in-rotated-sorted-array.md) | [力扣 ↗](https://leetcode.cn/problems/search-in-rotated-sorted-array/) | 旋转数组二分 | 中等 | 52 次 | 44% |
 | 034 | [在排序数组中查找元素的第一个和最后一个位置](./034-find-first-and-last-position-of-element-in-sorted-array.md) | [力扣 ↗](https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/) | 边界二分 | 中等 | 42 次 | 40% |
-| 042 | [接雨水](./042-trapping-rain-water.md) | [力扣 ↗](https://leetcode.cn/problems/trapping-rain-water/) | 双指针 | 困难 | 64 次 | 63% |
+| 042 | [接雨水](./042-trapping-rain-water.md) | [力扣 ↗](https://leetcode.cn/problems/trapping-rain-water/) | 双指针 / 单调栈 | 困难 | 64 次 | 63% |
 | 043 | [字符串相乘](./043-multiply-strings.md) | [力扣 ↗](https://leetcode.cn/problems/multiply-strings/) | 竖式乘法模拟 | 中等 | 23 次 | 51% |
 | 046 | [全排列](./046-permutations.md) | [力扣 ↗](https://leetcode.cn/problems/permutations/) | 回溯 | 中等 | 40 次 | 53% |
 | 053 | [最大子数组和](./053-maximum-subarray.md) | [力扣 ↗](https://leetcode.cn/problems/maximum-subarray/) | 线性 DP | 中等 | 117 次 | 67% |
 | 054 | [螺旋矩阵](./054-spiral-matrix.md) | [力扣 ↗](https://leetcode.cn/problems/spiral-matrix/) | 边界模拟 | 中等 | 39 次 | 47% |
 | 055 | [跳跃游戏](./055-jump-game.md) | [力扣 ↗](https://leetcode.cn/problems/jump-game/) | 贪心 | 中等 | 7 次 | 49% |
 | 056 | [合并区间](./056-merge-intervals.md) | [力扣 ↗](https://leetcode.cn/problems/merge-intervals/) | 排序 + 扫描 | 中等 | 73 次 | 50% |
-| 062 | [不同路径](./062-unique-paths.md) | [力扣 ↗](https://leetcode.cn/problems/unique-paths/) | 网格 DP | 中等 | 4 次 | 67% |
+| 062 | [不同路径](./062-unique-paths.md) | [力扣 ↗](https://leetcode.cn/problems/unique-paths/) | 网格 DP / 组合数学 | 中等 | 4 次 | 67% |
 | 064 | [最小路径和](./064-minimum-path-sum.md) | [力扣 ↗](https://leetcode.cn/problems/minimum-path-sum/) | 网格 DP | 中等 | 13 次 | 55% |
 | 065 | [有效数字](./065-valid-number.md) | [力扣 ↗](https://leetcode.cn/problems/valid-number/) | 状态机 | 困难 | 3 次 | 33% |
 | 069 | [x 的平方根](./069-sqrtx.md) | [力扣 ↗](https://leetcode.cn/problems/sqrtx/) | 答案二分 | 简单 | 28 次 | 42% |
@@ -63,7 +63,7 @@ pageClass: problem-index-page
 | 121 | [买卖股票的最佳时机](./121-best-time-to-buy-and-sell-stock.md) | [力扣 ↗](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/) | 一次交易贪心 | 简单 | 52 次 | 66% |
 | 122 | [买卖股票的最佳时机 II](./122-best-time-to-buy-and-sell-stock-ii.md) | [力扣 ↗](https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/) | 正收益贪心 | 中等 | 23 次 | 82% |
 | 124 | [二叉树中的最大路径和](./124-binary-tree-maximum-path-sum.md) | [力扣 ↗](https://leetcode.cn/problems/binary-tree-maximum-path-sum/) | 树形 DP | 困难 | 19 次 | 39% |
-| 135 | [分发糖果](./135-candy.md) | [力扣 ↗](https://leetcode.cn/problems/candy/) | 双向贪心 | 中等 | 13 次 | 47% |
+| 135 | [分发糖果](./135-candy.md) | [力扣 ↗](https://leetcode.cn/problems/candy/) | 双向贪心 / 坡度统计 | 中等 | 13 次 | 47% |
 | 139 | [单词拆分](./139-word-break.md) | [力扣 ↗](https://leetcode.cn/problems/word-break/) | 前缀 DP | 中等 | 15 次 | 51% |
 | 141 | [环形链表](./141-linked-list-cycle.md) | [力扣 ↗](https://leetcode.cn/problems/linked-list-cycle/) | 快慢指针 | 简单 | 31 次 | 56% |
 | 142 | [环形链表 II](./142-linked-list-cycle-ii.md) | [力扣 ↗](https://leetcode.cn/problems/linked-list-cycle-ii/) | Floyd 判圈 | 中等 | 30 次 | 39% |
@@ -83,7 +83,7 @@ pageClass: problem-index-page
 | 206 | [反转链表](./206-reverse-linked-list.md) | [力扣 ↗](https://leetcode.cn/problems/reverse-linked-list/) | 三指针 | 简单 | 112 次 | 39% |
 | 207 | [课程表](./207-course-schedule.md) | [力扣 ↗](https://leetcode.cn/problems/course-schedule/) | 拓扑排序 | 中等 | 22 次 | 43% |
 | 209 | [长度最小的子数组](./209-minimum-size-subarray-sum.md) | [力扣 ↗](https://leetcode.cn/problems/minimum-size-subarray-sum/) | 滑动窗口 | 中等 | 43 次 | 45% |
-| 215 | [数组中的第 K 个最大元素](./215-kth-largest-element-in-an-array.md) | [力扣 ↗](https://leetcode.cn/problems/kth-largest-element-in-an-array/) | 最小堆 | 中等 | 138 次 | 53% |
+| 215 | [数组中的第 K 个最大元素](./215-kth-largest-element-in-an-array.md) | [力扣 ↗](https://leetcode.cn/problems/kth-largest-element-in-an-array/) | 最小堆 / Quickselect | 中等 | 138 次 | 53% |
 | 221 | [最大正方形](./221-maximal-square.md) | [力扣 ↗](https://leetcode.cn/problems/maximal-square/) | 矩阵 DP | 中等 | 14 次 | 52% |
 | 224 | [基本计算器](./224-basic-calculator.md) | [力扣 ↗](https://leetcode.cn/problems/basic-calculator/) | 表达式栈 | 困难 | 15 次 | 100% |
 | 226 | [翻转二叉树](./226-invert-binary-tree.md) | [力扣 ↗](https://leetcode.cn/problems/invert-binary-tree/) | 递归 | 简单 | 10 次 | 54% |
@@ -95,7 +95,7 @@ pageClass: problem-index-page
 | 240 | [搜索二维矩阵 II](./240-search-a-2d-matrix-ii.md) | [力扣 ↗](https://leetcode.cn/problems/search-a-2d-matrix-ii/) | 阶梯搜索 | 中等 | 26 次 | 39% |
 | 253 | [会议室 II](./253-meeting-rooms-ii.md) | [力扣 ↗](https://leetcode.cn/problems/meeting-rooms-ii/) | 排序 + 双指针 | 中等 | 48 次（估算） | 52% |
 | 287 | [寻找重复数](./287-find-the-duplicate-number.md) | [力扣 ↗](https://leetcode.cn/problems/find-the-duplicate-number/) | Floyd 判圈 | 中等 | 32 次 | 67% |
-| 300 | [最长递增子序列](./300-longest-increasing-subsequence.md) | [力扣 ↗](https://leetcode.cn/problems/longest-increasing-subsequence/) | 动态规划 | 简单 | 107 次 | 59% |
+| 300 | [最长递增子序列](./300-longest-increasing-subsequence.md) | [力扣 ↗](https://leetcode.cn/problems/longest-increasing-subsequence/) | DP / 最小结尾二分 | 简单 | 107 次 | 59% |
 | 322 | [零钱兑换](./322-coin-change.md) | [力扣 ↗](https://leetcode.cn/problems/coin-change/) | 完全背包 | 中等 | 49 次 | 53% |
 | 328 | [奇偶链表](./328-odd-even-linked-list.md) | [力扣 ↗](https://leetcode.cn/problems/odd-even-linked-list/) | 指针分组 | 中等 | 10 次 | 45% |
 | 331 | [验证二叉树的前序序列化](./331-verify-preorder-serialization-of-a-binary-tree.md) | [力扣 ↗](https://leetcode.cn/problems/verify-preorder-serialization-of-a-binary-tree/) | 槽位计数 | 中等 | 11 次 | 48% |

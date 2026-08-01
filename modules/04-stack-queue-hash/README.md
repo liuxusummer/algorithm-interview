@@ -26,7 +26,7 @@
 | 题目 | 栈中保存 | 核心不变量 |
 |---|---|---|
 | [020 · 有效的括号](/problems/020-valid-parentheses) | 未匹配左括号 | 右括号只匹配最近左括号 |
-| [032 · 最长有效括号](/problems/032-longest-valid-parentheses) | 下标与无效边界 | 栈顶是有效后缀左侧边界 |
+| [032 · 最长有效括号](/problems/032-longest-valid-parentheses) | 索引栈 / 双向计数 | 栈可恢复边界，只求长度可用 `O(1)` 空间 |
 
 ### 2. 数据结构设计
 
@@ -42,7 +42,7 @@
 
 | 题目 | 数据结构 | 适用信号 |
 |---|---|---|
-| [215 · 数组中的第 K 个最大元素](/problems/215-kth-largest-element-in-an-array) | 大小为 `k` 的最小堆 | 只保留最大的 `k` 个 |
+| [215 · 数组中的第 K 个最大元素](/problems/215-kth-largest-element-in-an-array) | 最小堆 / Quickselect | 数据流用堆，静态数组可平均 `O(n)` 选择 |
 | [239 · 滑动窗口最大值](/problems/239-sliding-window-maximum) | 单调双端队列 | 窗口移动中反复查询最值 |
 | [347 · 前 K 个高频元素](/problems/347-top-k-frequent-elements) | 哈希表 + 频次桶 | 按频次从高到低收集 |
 
