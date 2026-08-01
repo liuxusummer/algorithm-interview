@@ -127,7 +127,7 @@ pageClass: problem-index-page
 | 1190 | [反转每对括号间的子串](./1190-reverse-substrings-between-each-pair-of-parentheses.md) | [力扣 ↗](https://leetcode.cn/problems/reverse-substrings-between-each-pair-of-parentheses/) | 括号跳转 | 中等 | 4 次 | 60% |
 | 1262 | [可被三整除的最大和](./1262-greatest-sum-divisible-by-three.md) | [力扣 ↗](https://leetcode.cn/problems/greatest-sum-divisible-by-three/) | 余数 DP | 中等 | 10 次 | 33% |
 | 1423 | [可获得的最大点数](./1423-maximum-points-you-can-obtain-from-cards.md) | [力扣 ↗](https://leetcode.cn/problems/maximum-points-you-can-obtain-from-cards/) | 滑动窗口 | 中等 | 3 次 | 40% |
-| 原创 01 | [带过期时间的 LRU 缓存](./original-001-expiring-lru-cache.md) | 本站原创 | 哈希表 + 双向链表 + 最小堆 | 困难 | 25 次 | 36% |
+| 原创 01 | [带过期时间的 LRU 缓存](./original-001-expiring-lru-cache.md) | 本站原创 | 双向链表 + 可选过期堆 | 困难 | 25 次 | 36% |
 | 原创题单 02 | [最小整数 I](./original-002-minimum-integer-i.md) | [力扣同题 1505 ↗](https://leetcode.cn/problems/minimum-possible-integer-after-at-most-k-adjacent-swaps-on-digits/) | 贪心 + 树状数组 | 困难 | 32 次 | 23% |
 | 腾讯原创题单 03 | [蓄水池抽样](./original-003-reservoir-sampling.md) | 腾讯面试题版本 | 蓄水池抽样 | 中等 | 17 次 | 37% |
 | 腾讯原创题单 04 | [错排问题](./original-004-derangement.md) | 腾讯面试题版本 | 组合数学 + 滚动 DP | 中等 | 7 次 | — |

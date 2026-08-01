@@ -35,7 +35,7 @@
 | [155 · 最小栈](/problems/155-min-stack) | 数据栈 + 最小值栈 | 每层保存前缀最小值 |
 | [232 · 用栈实现队列](/problems/232-implement-queue-using-stacks) | 输入栈 + 输出栈 | 输出栈非空时绝不转移 |
 | [146 · LRU 缓存](/problems/146-lru-cache) | 哈希表 + 双向链表 | 链表从最近使用到最久未使用 |
-| [原创 01 · 带过期时间的 LRU 缓存](/problems/original-001-expiring-lru-cache) | 哈希表 + 双向链表 + 最小堆 | 先清过期，再按 LRU 淘汰 |
+| [原创 01 · 带过期时间的 LRU 缓存](/problems/original-001-expiring-lru-cache) | 双向链表 + 可选最小堆 | 独立 TTL 用堆，固定续期 TTL 可从尾部清理 |
 | [腾讯原创 08 · 手写小根堆](/problems/original-008-handwritten-min-heap) | 数组 + 上浮 / 下沉 | 父节点始终不大于孩子 |
 
 ### 3. 候选集合与优先级

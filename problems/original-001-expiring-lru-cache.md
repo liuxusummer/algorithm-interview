@@ -8,7 +8,7 @@
 />
 
 <ComplexityBadge
-  time="get O(1)，put / count 均摊 O(log C)"
+  time="完整版 put 均摊 O(log C)，简化版均摊 O(1)"
   space="O(C)"
 />
 
@@ -81,7 +81,7 @@
 
 这样无需在堆中线性查找旧记录。
 
-## Python 实现
+## Python 实现（完整版本：独立 TTL + 最小堆）
 
 ```python
 import heapq
@@ -89,6 +89,7 @@ from typing import Optional
 
 
 class CacheNode:
+    # __slots__ 避免为大量缓存结点创建 __dict__，降低对象开销。
     __slots__ = (
         "key",
         "value",
@@ -104,10 +105,18 @@ class CacheNode:
         value: int = 0,
         expire_at: int = 0,
     ) -> None:
+        # key 用于从链表删除结点时同步清理哈希表。
         self.key = key
         self.value = value
+
+        # expire_at 是绝对过期时刻；now >= expire_at 即为过期。
         self.expire_at = expire_at
+
+        # 同一个 key 每次更新 TTL 都递增版本号。
+        # 堆中的旧记录无法原地删除，清理时靠版本号识别并跳过。
         self.version = 1
+
+        # previous / next 只负责维护 LRU 顺序，不参与过期排序。
         self.previous: Optional["CacheNode"] = None
         self.next: Optional["CacheNode"] = None
 
@@ -115,25 +124,34 @@ class CacheNode:
 class ExpiringLRUCache:
     def __init__(self, capacity: int) -> None:
         self.capacity = capacity
+
+        # 哈希表负责 O(1) 按 key 定位真实结点。
         self.nodes: dict[int, CacheNode] = {}
+
+        # 元组依次为（过期时刻、key、版本号）。
+        # 堆中允许保留旧版本记录，真正删除采用惰性校验。
         self.expiry_heap: list[tuple[int, int, int]] = []
 
-        # 真实结点始终按“最近使用 → 最久未使用”排列。
+        # 头尾哨兵不保存业务数据，消除空链表、首结点和尾结点特判。
+        # 真实结点始终按“最近使用 → 最久未使用”排列在两者之间。
         self.head = CacheNode()
         self.tail = CacheNode()
         self.head.next = self.tail
         self.tail.previous = self.head
 
     def get(self, key: int, now: int) -> int:
+        # 第一步只查哈希表，不需要遍历双向链表。
         node = self.nodes.get(key)
         if node is None:
             return -1
 
-        # 命中过期键时立即删除；成功读取不会刷新 TTL。
+        # 命中过期键时必须同时从哈希表和链表删除。
+        # 完整版采用绝对过期时刻，成功读取只更新 LRU，不刷新 TTL。
         if node.expire_at <= now:
             self._delete(node)
             return -1
 
+        # 有效命中后移动到头部，表示它刚刚被使用。
         self._move_to_front(node)
         return node.value
 
@@ -144,12 +162,15 @@ class ExpiringLRUCache:
         ttl: int,
         now: int,
     ) -> None:
-        # 先清过期项，避免它们错误地占用容量。
+        # 写入前先清理所有到期的“当前版本”记录。
+        # 过期项不应占用容量，更不能挤掉仍然有效的 LRU 结点。
         self._purge_expired(now)
         expire_at = now + ttl
         node = self.nodes.get(key)
 
         if node is not None:
+            # 更新已有键：覆盖值和过期时刻，并产生一个新版本。
+            # 旧版本的过期记录仍留在堆中，后续会被惰性跳过。
             node.value = value
             node.expire_at = expire_at
             node.version += 1
@@ -160,26 +181,36 @@ class ExpiringLRUCache:
                 least_recent = self.tail.previous
                 self._delete(least_recent)
 
+            # 新结点先登记到哈希表，再插入链表头部。
             node = CacheNode(key, value, expire_at)
             self.nodes[key] = node
             self._add_to_front(node)
 
+        # 无论新增还是更新，都为当前版本登记一条过期记录。
         heapq.heappush(
             self.expiry_heap,
             (node.expire_at, node.key, node.version),
         )
+
+        # 频繁更新同一个 key 会留下许多历史堆记录，必要时统一压缩。
         self._compact_expiry_heap_if_needed()
 
     def count(self, now: int) -> int:
+        # 先清理再计数，保证返回的是未过期键数量。
         self._purge_expired(now)
         return len(self.nodes)
 
     def _purge_expired(self, now: int) -> None:
+        # 堆顶始终是尚未处理的最早过期记录。
         while self.expiry_heap and self.expiry_heap[0][0] <= now:
             expire_at, key, version = heapq.heappop(self.expiry_heap)
             node = self.nodes.get(key)
 
-            # 旧版本、已淘汰键都只是失效的堆记录，直接跳过。
+            # 以下三项同时匹配，才说明这条记录仍代表当前真实结点：
+            # 1. key 尚未被容量淘汰；
+            # 2. 版本号没有落后；
+            # 3. 过期时刻仍与结点一致。
+            # 否则它只是旧版本或已淘汰键留下的失效记录。
             if (
                 node is not None
                 and node.version == version
@@ -188,7 +219,8 @@ class ExpiringLRUCache:
                 self._delete(node)
 
     def _compact_expiry_heap_if_needed(self) -> None:
-        # 惰性记录超过容量常数倍时重建，避免长期更新导致堆无限增长。
+        # 惰性记录超过容量常数倍时，只用当前真实结点重建最小堆。
+        # 这避免频繁续期让历史记录无限增长，同时保持均摊复杂度。
         if len(self.expiry_heap) <= 2 * self.capacity + 8:
             return
 
@@ -199,20 +231,26 @@ class ExpiringLRUCache:
         heapq.heapify(self.expiry_heap)
 
     def _move_to_front(self, node: CacheNode) -> None:
+        # 先从原位置摘除，再作为最近使用结点插到头部。
         self._unlink(node)
         self._add_to_front(node)
 
     def _add_to_front(self, node: CacheNode) -> None:
+        # 插入前：head <-> first
+        # 插入后：head <-> node <-> first
         node.previous = self.head
         node.next = self.head.next
         self.head.next.previous = node
         self.head.next = node
 
     def _unlink(self, node: CacheNode) -> None:
+        # 双向跨过 node；调用方保证 node 是链表中的真实结点。
         node.previous.next = node.next
         node.next.previous = node.previous
 
     def _delete(self, node: CacheNode) -> None:
+        # 删除操作必须同步维护链表和哈希表，保持一一对应。
+        # 堆中的相关记录不立即查找删除，留给 _purge_expired 惰性处理。
         self._unlink(node)
         del self.nodes[node.key]
 ```
@@ -266,6 +304,152 @@ A（已经过期） → B（仍有效）
 - 堆重建为 `O(C)`，只有积累了 `Ω(C)` 条惰性记录后才触发，均摊成本为 `O(1)` 每次更新；
 - 空间复杂度：哈希表、链表和受限大小的过期堆均为 `O(C)`。
 
+## 简化实现：固定 TTL + 访问续期
+
+如果面试官给出的语义更接近下面这组规则，就不需要最小堆：
+
+1. 整个缓存共用同一个固定 `ttl`；
+2. 新增、更新和成功的 `get` 都刷新 `last_access_time`；
+3. 过期条件为 `now - last_access_time >= ttl`；
+4. 仍然使用哈希表定位结点、双向链表维护 LRU。
+
+关键观察是：每次刷新时间戳时，结点也会移动到链表头部。因此链表从头到尾不仅是“最近使用 → 最久未使用”，也同时是“最晚过期 → 最早过期”。所有过期结点必然形成链表尾部的一段连续后缀。
+
+所以写入前只需从尾部连续清理过期结点，直到尾结点仍有效，无需额外维护过期堆。
+
+### Python 实现
+
+```python
+from typing import Optional
+
+
+class SimpleCacheNode:
+    def __init__(
+        self,
+        key: int = 0,
+        value: int = 0,
+        last_access_time: int = 0,
+    ) -> None:
+        self.key = key
+        self.value = value
+
+        # 固定 TTL 从最近一次成功访问或写入时刻重新计时。
+        self.last_access_time = last_access_time
+        self.previous: Optional["SimpleCacheNode"] = None
+        self.next: Optional["SimpleCacheNode"] = None
+
+
+class SimpleExpiringLRUCache:
+    def __init__(self, capacity: int, ttl: int) -> None:
+        self.capacity = capacity
+        self.ttl = ttl
+
+        # map 保证 get / put 能够 O(1) 找到结点。
+        self.nodes: dict[int, SimpleCacheNode] = {}
+
+        # 哨兵之间保存真实结点：head 后面最新，tail 前面最旧。
+        self.head = SimpleCacheNode()
+        self.tail = SimpleCacheNode()
+        self.head.next = self.tail
+        self.tail.previous = self.head
+
+    def get(self, key: int, now: int) -> int:
+        node = self.nodes.get(key)
+        if node is None:
+            return -1
+
+        if self._is_expired(node, now):
+            # 修复常见遗漏：过期结点要同时移出链表和哈希表。
+            self._delete(node)
+            return -1
+
+        # 本简化版采用滑动过期：有效访问会刷新 TTL。
+        node.last_access_time = now
+        self._move_to_front(node)
+        return node.value
+
+    def put(self, key: int, value: int, now: int) -> None:
+        # 固定 TTL + 访问续期使过期顺序与 LRU 顺序一致，
+        # 所以过期结点一定集中在尾部，可以连续清理。
+        self._purge_expired_from_tail(now)
+        node = self.nodes.get(key)
+
+        if node is not None:
+            # 已有键仍有效：覆盖值、刷新 TTL，并标记为最近使用。
+            node.value = value
+            node.last_access_time = now
+            self._move_to_front(node)
+            return
+
+        if len(self.nodes) == self.capacity:
+            # 过期项已经清理完，仍满时才淘汰真正的 LRU。
+            self._delete(self.tail.previous)
+
+        new_node = SimpleCacheNode(key, value, now)
+        self.nodes[key] = new_node
+        self._add_to_front(new_node)
+
+    def count(self, now: int) -> int:
+        self._purge_expired_from_tail(now)
+        return len(self.nodes)
+
+    def _is_expired(
+        self,
+        node: SimpleCacheNode,
+        now: int,
+    ) -> bool:
+        # 到达边界时立即过期，使用 >= 而不是 >。
+        return now - node.last_access_time >= self.ttl
+
+    def _purge_expired_from_tail(self, now: int) -> None:
+        # tail.previous 是最久未访问、也最早过期的真实结点。
+        # 如果它尚未过期，前面的所有结点一定也未过期。
+        while (
+            self.tail.previous is not self.head
+            and self._is_expired(self.tail.previous, now)
+        ):
+            self._delete(self.tail.previous)
+
+    def _add_to_front(self, node: SimpleCacheNode) -> None:
+        node.previous = self.head
+        node.next = self.head.next
+        self.head.next.previous = node
+        self.head.next = node
+
+    def _remove_node(self, node: SimpleCacheNode) -> None:
+        node.previous.next = node.next
+        node.next.previous = node.previous
+
+    def _move_to_front(self, node: SimpleCacheNode) -> None:
+        self._remove_node(node)
+        self._add_to_front(node)
+
+    def _delete(self, node: SimpleCacheNode) -> None:
+        self._remove_node(node)
+        del self.nodes[node.key]
+```
+
+### 简化版为什么不需要 `current_count`
+
+哈希表与链表始终一一对应，所以 `len(self.nodes)` 就是真实结点数量。单独维护 `current_count` 会增加同步负担：任何过期、淘汰或更新分支漏改一次，计数就会失真。
+
+### 简化版复杂度
+
+- `get`：`O(1)`；
+- `put` / `count`：单次可能连续清理多个过期结点，但每个结点只会被删除一次，均摊 `O(1)`；
+- 空间复杂度：`O(C)`。
+
+### 两个版本如何选择
+
+| 需求 | 推荐实现 |
+|---|---|
+| 每个键可以有不同 TTL | 完整版：哈希表 + 双向链表 + 最小堆 |
+| 成功读取不延长 TTL | 完整版：绝对过期时刻 |
+| 全缓存固定 TTL，访问会续期 | 简化版：哈希表 + 双向链表 |
+| 需要主动按过期时间批量清理 | 完整版或时间轮 |
+
+不能在“每个键 TTL 不同”或“访问不续期”的语义下直接套简化版。此时过期顺序与 LRU 顺序不一致，链表中间也可能先出现过期结点，只检查尾部会漏删。
+
 ## 边界用例
 
 | 场景 | 预期 |
@@ -296,4 +480,3 @@ A（已经过期） → B（仍有效）
 
 - [力扣 146 · LRU 缓存](https://leetcode.cn/problems/lru-cache/)：有容量与 LRU，没有 TTL；
 - [力扣 2622 · 有时间限制的缓存](https://leetcode.cn/problems/cache-with-time-limit/)：有 TTL，没有容量淘汰与 LRU 顺序。
-
