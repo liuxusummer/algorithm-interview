@@ -20,6 +20,17 @@
 - `peek()`：返回队首；
 - `empty()`：判断队列是否为空。
 
+### 示例
+
+```text
+输入：
+["MyQueue", "push", "push", "peek", "pop", "empty"]
+[[], [1], [2], [], [], []]
+
+输出：[null, null, null, 1, 1, false]
+解释：1 比 2 更早入队，因此 peek 和 pop 都先访问 1。
+```
+
 ## 两个栈如何反转顺序
 
 - `input_stack` 负责接收新元素；

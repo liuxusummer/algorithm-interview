@@ -20,6 +20,17 @@ Trie 把相同前缀共享为一条路径。每个结点维护：
 
 不能仅凭路径存在判断单词存在，例如插入 `apple` 后，`app` 是前缀但还不是完整单词。
 
+## 示例
+
+```text
+输入：
+["Trie", "insert", "search", "search", "startsWith", "insert", "search"]
+[[], ["apple"], ["apple"], ["app"], ["app"], ["app"], ["app"]]
+
+输出：[null, null, true, false, true, null, true]
+解释：插入 apple 后 app 只是前缀；再次插入 app 后，它才成为完整单词。
+```
+
 ## Python 实现
 
 ```python

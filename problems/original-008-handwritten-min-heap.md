@@ -49,7 +49,7 @@ heap.is_empty() -> False
 ## 示例
 
 ```text
-输入操作：
+输入：依次执行以下操作
 heap = MinHeap([7, 2, 5, 2])
 heap.push(1)
 heap.push(6)
