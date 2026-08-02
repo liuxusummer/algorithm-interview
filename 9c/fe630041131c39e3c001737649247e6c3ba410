@@ -1,0 +1,21 @@
+problems/023-merge-k-sorted-lists.md
+  s_67d0f3858c51ab::t_8b6cf96305935d 48-55,61,65-69,72,75-76,78-79,81-83,86,92,96,99,102-103
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "9cfe630041131c39e3c001737649247e6c3ba410",
+  "prompts": {},
+  "sessions": {
+    "s_67d0f3858c51ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa7ef-2778-7c22-a178-04bb49c3a15c",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
