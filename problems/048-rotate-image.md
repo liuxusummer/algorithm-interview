@@ -40,21 +40,19 @@ class Solution:
     def rotate(self, matrix: List[List[int]]) -> None:
         n = len(matrix)
 
-        # 只处理主对角线上方，避免同一对元素交换两次。
-        for row in range(n):
-            for col in range(row + 1, n):
-                matrix[row][col], matrix[col][row] = (
-                    matrix[col][row],
-                    matrix[row][col],
+        # 第一步：沿主对角线翻转（矩阵转置）。
+        # 只遍历主对角线上方，避免同一对元素被交换两次。
+        for i in range(n):
+            for j in range(i + 1, n):
+                matrix[i][j], matrix[j][i] = (
+                    matrix[j][i],
+                    matrix[i][j],
                 )
 
-        # 转置后逐行翻转，完成顺时针旋转。
+        # 第二步：将每一行左右翻转。
+        # list.reverse() 会原地修改当前行，不会创建新的矩阵。
         for row in matrix:
-            left, right = 0, n - 1
-            while left < right:
-                row[left], row[right] = row[right], row[left]
-                left += 1
-                right -= 1
+            row.reverse()
 ```
 
 ## 正确性与复杂度

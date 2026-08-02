@@ -101,6 +101,78 @@ class Solution:
 
 如果等到出栈才标记，同一个陆地可能被多个邻居重复加入栈。入栈时立即标记可以保证每个格子至多入栈一次，使时间复杂度稳定在线性范围。
 
+## 解法二：递归 DFS（写法更直观）
+
+递归写法与上面的显式栈写法本质相同，只是把“下一步搜索什么位置”交给了函数调用栈维护。
+
+遍历网格时，只要发现一个仍为 `"1"` 的格子，就说明找到了一座还没有统计过的新岛屿：
+
+1. 将答案加一；
+2. 从当前格子开始递归搜索；
+3. 把与它四向连通的所有陆地都改成 `"0"`。
+
+递归返回后，这座岛已经被完整“淹没”。因此外层循环以后不会再次统计它。
+
+```python
+from typing import List
+
+
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        # 空网格没有岛屿，同时避免后面访问 grid[0] 越界。
+        if not grid or not grid[0]:
+            return 0
+
+        rows = len(grid)
+        columns = len(grid[0])
+        island_count = 0
+
+        for row in range(rows):
+            for column in range(columns):
+                # 仍为 "1"，说明这块陆地没有被之前的 DFS 访问过，
+                # 它一定属于一座新的岛屿。
+                if grid[row][column] == "1":
+                    island_count += 1
+                    self.dfs(grid, row, column, rows, columns)
+
+        return island_count
+
+    def dfs(
+        self,
+        grid: List[List[str]],
+        row: int,
+        column: int,
+        rows: int,
+        columns: int,
+    ) -> None:
+        # 搜索越界，或者当前位置已经是水，直接结束当前分支。
+        if (
+            row < 0
+            or column < 0
+            or row >= rows
+            or column >= columns
+            or grid[row][column] == "0"
+        ):
+            return
+
+        # 先把当前陆地改成水，相当于标记为“已访问”。
+        # 必须在递归相邻格子之前标记，否则两个相邻陆地会来回递归。
+        grid[row][column] = "0"
+
+        # 继续搜索下、右、上、左四个方向，淹没整座相连的岛屿。
+        self.dfs(grid, row + 1, column, rows, columns)
+        self.dfs(grid, row, column + 1, rows, columns)
+        self.dfs(grid, row - 1, column, rows, columns)
+        self.dfs(grid, row, column - 1, rows, columns)
+```
+
+### 递归版复杂度
+
+- 时间复杂度：`O(mn)`。每个陆地在第一次访问时就会变成水，之后不会重复展开。
+- 空间复杂度：最坏 `O(mn)`。若陆地形成一条很长的路径，递归调用栈可能包含所有格子。
+
+> 面试时可以先写这个递归版本，思路短且容易讲清楚。如果面试官追问 Python 的递归深度，再把它改成前面的显式栈版本。
+
 ## 正确性说明
 
 每当外层遍历发现未访问陆地，它不属于此前处理过的任何连通分量，因此对应一座新岛屿。随后 DFS 恰好访问所有与它四向连通的陆地并标记。这样每座岛屿只会在第一次遇到时计数一次，所有陆地又都会被外层遍历覆盖，所以结果正好是岛屿数量。
