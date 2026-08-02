@@ -45,56 +45,61 @@
 
 ```python
 import heapq
-from itertools import count
-from typing import Optional
+from typing import List, Optional
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 
 
 class Solution:
     def mergeKLists(
         self,
-        lists: list[Optional[ListNode]],
+        lists: List[Optional[ListNode]],
     ) -> Optional[ListNode]:
         heap = []
-        # 唯一序号用于打破相同结点值的平局，避免直接比较 ListNode。
-        sequence = count()
 
-        # 堆中每条非空链表最多保留一个当前候选结点。
-        for node in lists:
-            if node:
-                heapq.heappush(
-                    heap,
-                    (node.val, next(sequence), node),
-                )
+        # 将每条非空链表的头结点放入小根堆。
+        # i 是链表下标：当结点值相同时，它可以避免 Python 比较 ListNode。
+        for i, node in enumerate(lists):
+            if node is not None:
+                heapq.heappush(heap, (node.val, i, node))
 
         dummy = ListNode()
-        tail = dummy
+        current = dummy
 
         while heap:
-            _, _, node = heapq.heappop(heap)
-            next_node = node.next
+            # 堆顶是所有链表当前未合并结点中的最小值。
+            _, i, node = heapq.heappop(heap)
 
-            tail.next = node
-            tail = node
-            tail.next = None
+            current.next = node
+            current = current.next
 
-            if next_node:
+            # 当前结点来自第 i 条链表；若它还有后继，
+            # 将后继作为这条链表新的最小候选放回堆中。
+            if node.next is not None:
                 heapq.heappush(
                     heap,
-                    (next_node.val, next(sequence), next_node),
+                    (node.next.val, i, node.next),
                 )
 
         return dummy.next
 ```
 
-### 为什么堆元素需要序号
+### 为什么堆元素需要链表下标
 
 不同结点可能具有相同值。如果堆只保存 `(node.val, node)`，数值相同时 Python 会尝试比较两个 `ListNode`，从而报错。
 
-单调递增的 `sequence` 提供稳定且唯一的第二比较项：
+因此堆中保存三元组：
 
 ```text
-(结点值, 唯一序号, 结点)
+(结点值, 链表下标, 结点)
 ```
+
+堆中同一条链表始终最多只有一个候选结点：只有弹出第 `i` 条链表的当前结点后，才会把它的后继以相同下标 `i` 放回堆。因此堆内的链表下标不会重复，可以安全地作为第二比较项。
 
 ### 正确性说明
 
