@@ -756,7 +756,7 @@ def level_order(
 
 ### 二叉树右视图
 
-[199 · 二叉树的右视图](../../problems/199-binary-tree-right-side-view)只需记录每层最后出队的结点。
+[199 · 二叉树的右视图](../../problems/199-binary-tree-right-side-view)可以记录 BFS 每层最后出队的结点，也可以让 DFS 优先访问右子树并记录每层第一次到达的结点。
 
 ### 最大宽度
 

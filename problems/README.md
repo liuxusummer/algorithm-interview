@@ -78,7 +78,7 @@ pageClass: problem-index-page
 | 169 | [多数元素](./169-majority-element.md) | [力扣 ↗](https://leetcode.cn/problems/majority-element/) | 摩尔投票 | 简单 | 3 次 | 72% |
 | 179 | [最大数](./179-largest-number.md) | [力扣 ↗](https://leetcode.cn/problems/largest-number/) | 自定义排序 | 中等 | 9 次 | 45% |
 | 198 | [打家劫舍](./198-house-robber.md) | [力扣 ↗](https://leetcode.cn/problems/house-robber/) | 滚动 DP | 中等 | 12 次 | 54% |
-| 199 | [二叉树的右视图](./199-binary-tree-right-side-view.md) | [力扣 ↗](https://leetcode.cn/problems/binary-tree-right-side-view/) | BFS | 中等 | 26 次 | 48% |
+| 199 | [二叉树的右视图](./199-binary-tree-right-side-view.md) | [力扣 ↗](https://leetcode.cn/problems/binary-tree-right-side-view/) | BFS / DFS | 中等 | 26 次 | 48% |
 | 200 | [岛屿数量](./200-number-of-islands.md) | [力扣 ↗](https://leetcode.cn/problems/number-of-islands/) | 网格 DFS | 中等 | 94 次 | 30% |
 | 206 | [反转链表](./206-reverse-linked-list.md) | [力扣 ↗](https://leetcode.cn/problems/reverse-linked-list/) | 三指针 | 简单 | 112 次 | 39% |
 | 207 | [课程表](./207-course-schedule.md) | [力扣 ↗](https://leetcode.cn/problems/course-schedule/) | 拓扑排序 | 中等 | 22 次 | 43% |

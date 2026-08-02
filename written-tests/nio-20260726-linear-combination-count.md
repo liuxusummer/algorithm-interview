@@ -166,19 +166,16 @@ floor(r / g) - floor((l - 1) / g)
 import sys
 from math import gcd
 
+# 按题面的行结构读取：第一行是 T，后续每行是一组 x、y、l、r。
+input = sys.stdin.readline
+
 
 def solve() -> None:
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    if not data:
-        return
-
-    test_count = data[0]
-    index = 1
+    test_count = int(input())
     answers = []
 
     for _ in range(test_count):
-        x, y, left, right = data[index : index + 4]
-        index += 4
+        x, y, left, right = map(int, input().split())
 
         divisor = gcd(x, y)
 
@@ -186,7 +183,7 @@ def solve() -> None:
         count = right // divisor - (left - 1) // divisor
         answers.append(str(count))
 
-    sys.stdout.write("\n".join(answers))
+    print("\n".join(answers))
 
 
 if __name__ == "__main__":
@@ -197,7 +194,7 @@ if __name__ == "__main__":
 
 代码不需要真的求出裴蜀定理中的系数 `a、b`。题目只问“有多少个数可以表示”，只要用最大公约数刻画可表示集合即可。
 
-一次性读取输入能减少大量测试组下的 I/O 开销。每组数据只执行一次 `gcd` 和常数次整数除法。
+代码使用 `sys.stdin.readline` 按题面的行结构读取：先读取测试组数 `T`，再逐行读取每组的四个整数。每组数据只执行一次 `gcd` 和常数次整数除法，答案集中输出以减少频繁打印的开销。
 
 ## 复杂度分析
 
@@ -210,10 +207,10 @@ O(log min(x, y))
 因此：
 
 - 总时间复杂度：`O(T log min(x, y))`；
-- 除输入与输出数组外，单组计算只使用 `O(1)` 额外空间；
-- 当前一次性读取实现的总空间复杂度为 `O(T)`。
+- 除输出缓冲外，单组计算只使用 `O(1)` 额外空间；
+- 当前实现集中保存 `T` 个答案，总空间复杂度为 `O(T)`。
 
-如果输入规模继续扩大，可以改用 `readline()` 流式处理，把算法额外空间降到 `O(1)`。
+如果需要进一步压缩空间，可以每算出一组答案就立即输出，把算法额外空间降到 `O(1)`；当前写法通常有更好的批量输出效率。
 
 ## 边界与易错点
 

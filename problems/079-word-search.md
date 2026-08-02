@@ -9,7 +9,10 @@
   source-label="力扣原题"
 />
 
-<ComplexityBadge time="O(mn · 3ᴸ)" space="O(L)" />
+<ComplexityBadge
+  time="O(mn · 3ᴸ)"
+  space="used 版 O(mn + L)，原地版 O(L)"
+/>
 
 ## 题目
 
@@ -34,7 +37,12 @@ word = "ABCCED"
 
 `dfs(row, column, index)` 表示当前位于 `(row, column)`，并准备匹配 `word[index]`。
 
-匹配当前字符后，临时把格子改为特殊标记，再搜索四个方向；无论成功还是失败，返回前都恢复原字符。
+匹配当前字符后，需要把格子标记为“当前路径已使用”，再搜索四个方向；无论成功还是失败，返回前都要撤销标记。
+
+标记方式有两种：
+
+- 使用独立的 `used` 布尔矩阵，不修改输入，逻辑更加直观；
+- 临时修改 `board`，回溯时恢复，可以省去 `O(mn)` 的访问数组。
 
 ## 剪枝
 
@@ -48,7 +56,79 @@ word = "ABCCED"
 
 <GridSearchDemo variant="word-search" />
 
-## Python 实现
+## 解法一：`used` 布尔矩阵 + 共享结果
+
+下面是题目所给 Java 思路的 Python 写法。`found` 相当于 Java 成员变量 `ans`，用于在任意一条路径匹配成功后通知所有递归层提前停止。
+
+```python
+class Solution:
+    def exist(self, board: list[list[str]], word: str) -> bool:
+        rows = len(board)
+        columns = len(board[0])
+
+        # used 只表示“当前递归路径是否使用过该格子”。
+        # 不同起点、不同搜索分支之间仍然可以使用同一个格子。
+        used = [
+            [False] * columns
+            for _ in range(rows)
+        ]
+        found = False
+
+        def dfs(row: int, column: int, index: int) -> None:
+            nonlocal found
+
+            # 其他搜索分支已经找到答案，无需继续展开。
+            if found:
+                return
+
+            # 越界，或者当前格子已在本次路径中使用，都不能继续。
+            if not (0 <= row < rows and 0 <= column < columns):
+                return
+            if used[row][column]:
+                return
+
+            # 当前格子的字符必须与 word[index] 相同。
+            if board[row][column] != word[index]:
+                return
+
+            # 最后一个字符也匹配成功，整条单词路径已经找到。
+            # 这里直接返回，不能再用 index + 1 访问 word。
+            if index == len(word) - 1:
+                found = True
+                return
+
+            # 做选择：当前格子在这条路径中暂时不可再次使用。
+            used[row][column] = True
+
+            dfs(row + 1, column, index + 1)
+            dfs(row - 1, column, index + 1)
+            dfs(row, column + 1, index + 1)
+            dfs(row, column - 1, index + 1)
+
+            # 撤销选择：返回上一层前恢复现场，供其他路径使用。
+            used[row][column] = False
+
+        for row in range(rows):
+            for column in range(columns):
+                # 只有首字符相同的格子才可能成为搜索起点。
+                if board[row][column] == word[0]:
+                    dfs(row, column, 0)
+
+                if found:
+                    return True
+
+        return False
+```
+
+### 为什么 `found` 要使用 `nonlocal`
+
+`found` 定义在 `exist()` 内部，而赋值发生在嵌套函数 `dfs()` 中。使用 `nonlocal found` 后，所有递归调用操作的都是同一个结果变量；任意分支成功，其余递归层都能通过 `if found` 立即停止。
+
+访问数组不能定义成全局永久状态。某个格子只是不允许在同一条路径中重复使用，回溯后必须恢复为 `False`。
+
+## 解法二：原地标记 + 频次剪枝
+
+如果允许在搜索过程中临时修改 `board`，可以直接把当前格子改成特殊字符，递归返回时再恢复。这样不再需要 `used` 矩阵，同时可以加入字符频次和稀缺端点剪枝。
 
 ```python
 from collections import Counter
@@ -111,7 +191,7 @@ class Solution:
 
 ## 为什么必须恢复现场
 
-格子只能在当前搜索路径中使用一次，但可以被其他起点或其他分支使用。标记是路径级状态，递归返回时必须恢复，否则会错误地阻止后续分支访问该格子。
+格子只能在当前搜索路径中使用一次，但可以被其他起点或其他分支使用。无论使用 `used` 矩阵还是原地修改，标记都是路径级状态，递归返回时必须恢复，否则会错误地阻止后续分支访问该格子。
 
 成功提前返回前也要恢复，避免函数对输入留下难以察觉的修改。
 
@@ -121,8 +201,9 @@ class Solution:
 
 ## 复杂度
 
-- 时间复杂度：最坏 `O(mn · 3ᴸ)`，`L` 为单词长度；首步后通常最多向三个未访问方向扩展。
-- 空间复杂度：`O(L)`，递归深度最多为单词长度；频次表受字符集大小限制。
+- 两种解法的时间复杂度最坏均为 `O(mn · 3ᴸ)`，`L` 为单词长度；首步后通常最多向三个未访问方向扩展；
+- `used` 版本需要 `O(mn)` 访问数组和 `O(L)` 递归栈，总空间为 `O(mn + L)`；
+- 原地标记版本不需要访问数组，额外空间为 `O(L)`；频次表受字符集大小限制。
 
 ## 边界用例
 
@@ -135,10 +216,10 @@ class Solution:
 
 ## 90 秒面试表达
 
-“我从每个格子尝试回溯，状态是当前位置和待匹配字符下标。字符不匹配立即返回；匹配后把当前格临时标记为已访问，搜索四邻，再恢复现场。先用频次表排除字符数量不足的情况，还可以从出现更少的单词端点开始以减少分支。最坏时间 `O(mn·3^L)`，递归空间 `O(L)`。”
+“我从每个格子尝试回溯，状态是当前位置和待匹配字符下标。字符不匹配立即返回；匹配后把当前格标记为已访问，搜索四邻，再恢复现场。为了不修改输入，可以使用 `used` 矩阵；如果追求更低空间，可以原地标记并在回溯时恢复，再配合字符频次和稀缺端点剪枝。最坏时间 `O(mn·3^L)`，原地版递归空间 `O(L)`。”
 
 ## 常见追问
 
 - 多个单词同时搜索时，应把单词建成 Trie，共享前缀搜索。
-- 如果不允许修改输入，可以使用 `visited` 布尔矩阵。
+- 如果不允许修改输入，使用解法一的 `used` 布尔矩阵。
 - 更激进的剪枝可以预先检查相邻字符对是否可能出现。

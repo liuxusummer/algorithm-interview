@@ -159,6 +159,9 @@ import sys
 from bisect import bisect_right
 from math import isqrt
 
+# 按 ACM 题目的行结构读取输入：第一行是 T，后续每行一个 n。
+input = sys.stdin.readline
+
 
 def build_candidates(limit: int) -> tuple[list[int], list[int]]:
     """返回候选值 x! + 1，以及与它们一一对应的 x。"""
@@ -187,12 +190,10 @@ def build_candidates(limit: int) -> tuple[list[int], list[int]]:
 
 
 def solve() -> None:
-    data = list(map(int, sys.stdin.buffer.read().split()))
-    if not data:
-        return
+    test_count = int(input())
 
-    test_count = data[0]
-    queries = data[1 : 1 + test_count]
+    # 需要先得到全部查询中的最大值，因此这里按行读取后保留查询。
+    queries = [int(input()) for _ in range(test_count)]
     max_n = max(queries)
 
     candidate_values, candidate_xs = build_candidates(max_n)
@@ -206,7 +207,7 @@ def solve() -> None:
         else:
             answers.append(" ".join(map(str, candidate_xs[:end])))
 
-    sys.stdout.write("\n".join(answers))
+    print("\n".join(answers))
 
 
 if __name__ == "__main__":
@@ -245,7 +246,7 @@ candidate_values[i] = candidate_xs[i]! + 1
 3. 不能使用浮点平方根判断大整数；
 4. 不要为每组查询重复预处理；
 5. ACM 输出要求每组答案独占一行，不能输出 Python 列表格式；
-6. 读取后应只取前 `T` 个查询，避免把异常尾部数据误当作新测试。
+6. 第一行是查询数 `T`，随后应严格按行读取 `T` 个上界。
 
 ## 自测用例
 
