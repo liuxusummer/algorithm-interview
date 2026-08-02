@@ -1,0 +1,21 @@
+problems/043-multiply-strings.md
+  s_67d0f3858c51ab::t_b230f0d961fc71 45-46,50-51,53-54,56-60,62-65,67-81,86,90
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "ff5026f61209cf2529c598582da34378f16d0f91",
+  "prompts": {},
+  "sessions": {
+    "s_67d0f3858c51ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa7ef-2778-7c22-a178-04bb49c3a15c",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
