@@ -1,0 +1,35 @@
+modules/05-tree-recursion/README.md
+  s_67d0f3858c51ab::t_055e93e3f7a656 34
+modules/05-tree-recursion/tree-recursion.md
+  s_67d0f3858c51ab::t_3c9b4713871f89 759
+problems/079-word-search.md
+  s_67d0f3858c51ab::t_52d174d9466893 12-15,40-45,59-131,194,204-206,219,224
+problems/199-binary-tree-right-side-view.md
+  s_67d0f3858c51ab::t_fc68d54f8234d1 4,12,20,24,60-108,115-116,119-124,127-129,142,147
+problems/README.md
+  s_67d0f3858c51ab::t_ec742c32cd28ab 81
+problems/original-002-minimum-integer-i.md
+  s_67d0f3858c51ab::t_45e885fa29cc27 13-14,87-144,176-178
+written-tests/nio-20260726-factorial-square.md
+  s_67d0f3858c51ab::t_3fc740394312ab 162-164,193,195-196,210,249
+written-tests/nio-20260726-linear-combination-count.md
+  s_67d0f3858c51ab::t_cc1075401e23b7 169-170,173-174,178,186,197,210-211,213
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "464106c5d92e971decf6debe76d4de878b8d4537",
+  "prompts": {},
+  "sessions": {
+    "s_67d0f3858c51ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa7ef-2778-7c22-a178-04bb49c3a15c",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
