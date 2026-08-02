@@ -1,0 +1,117 @@
+package.json
+  s_67d0f3858c51ab::t_478ab68b7879a6 10,20
+problems/031-next-permutation.md
+  s_67d0f3858c51ab::t_555fbc43ea0c5a 18-19,21-23
+problems/039-combination-sum.md
+  s_67d0f3858c51ab::t_595a815e2ac8cc 18-19,21,23
+problems/041-first-missing-positive.md
+  s_67d0f3858c51ab::t_07057a93291351 20-27
+problems/048-rotate-image.md
+  s_67d0f3858c51ab::t_ab9aaeaaf7d22a 18-19,21-23
+problems/065-valid-number.md
+  s_67d0f3858c51ab::t_536f810127ed39 21-27
+problems/088-merge-sorted-array.md
+  s_67d0f3858c51ab::t_2b57357e894fed 25-26
+problems/094-binary-tree-inorder-traversal.md
+  s_67d0f3858c51ab::t_cdfa3c4bc75d8c 27,29
+problems/098-validate-binary-search-tree.md
+  s_67d0f3858c51ab::t_10145975caee95 20-27
+problems/101-symmetric-tree.md
+  s_67d0f3858c51ab::t_eb502d7e69a23a 18-25
+problems/104-maximum-depth-of-binary-tree.md
+  s_67d0f3858c51ab::t_74fc19ce1d1973 20-27
+problems/105-construct-binary-tree-from-preorder-and-inorder-traversal.md
+  s_67d0f3858c51ab::t_4c201579256469 23-25
+problems/110-balanced-binary-tree.md
+  s_67d0f3858c51ab::t_99424a1690ebcf 20-27
+problems/112-path-sum.md
+  s_67d0f3858c51ab::t_182b6b657b6e19 20-27
+problems/113-path-sum-ii.md
+  s_67d0f3858c51ab::t_299931bf798a23 20-27
+problems/114-flatten-binary-tree-to-linked-list.md
+  s_67d0f3858c51ab::t_c2ddf1c4ed3a71 18-25
+problems/128-longest-consecutive-sequence.md
+  s_67d0f3858c51ab::t_8fd11f71458c62 20-27
+problems/129-sum-root-to-leaf-numbers.md
+  s_67d0f3858c51ab::t_d8659f979893a8 18,20-23
+problems/138-copy-list-with-random-pointer.md
+  s_67d0f3858c51ab::t_d5353958ab30e4 20-27
+problems/141-linked-list-cycle.md
+  s_67d0f3858c51ab::t_cb62e9c516850e 18-25
+problems/142-linked-list-cycle-ii.md
+  s_67d0f3858c51ab::t_b7959c8d027d51 18-25
+problems/143-reorder-list.md
+  s_67d0f3858c51ab::t_9698937ed1c017 30-37
+problems/144-binary-tree-preorder-traversal.md
+  s_67d0f3858c51ab::t_5ce3ef1000172b 18-25
+problems/145-binary-tree-postorder-traversal.md
+  s_67d0f3858c51ab::t_7e9dc42e6ae8f0 18-25
+problems/146-lru-cache.md
+  s_67d0f3858c51ab::t_391d479bb3ba6f 24-34
+problems/148-sort-list.md
+  s_67d0f3858c51ab::t_1fd1102dab629a 18-25
+problems/151-reverse-words-in-a-string.md
+  s_67d0f3858c51ab::t_2896a0da6e6a52 18-19,23
+problems/155-min-stack.md
+  s_67d0f3858c51ab::t_c626d6e1095926 18-28
+problems/160-intersection-of-two-linked-lists.md
+  s_67d0f3858c51ab::t_47b87ac7f38cab 20-27
+problems/162-find-peak-element.md
+  s_67d0f3858c51ab::t_fb3907bb018551 18-25
+problems/199-binary-tree-right-side-view.md
+  s_67d0f3858c51ab::t_ebe6c37bd6f39a 20-27
+problems/208-implement-trie-prefix-tree.md
+  s_67d0f3858c51ab::t_98fcbc5ec7d94d 23-33
+problems/226-invert-binary-tree.md
+  s_67d0f3858c51ab::t_7e995dc61bc8bb 20-27
+problems/227-basic-calculator-ii.md
+  s_67d0f3858c51ab::t_80717a6f5d86f7 18-25
+problems/232-implement-queue-using-stacks.md
+  s_67d0f3858c51ab::t_cd6082b88bded5 23-33
+problems/236-lowest-common-ancestor-of-a-binary-tree.md
+  s_67d0f3858c51ab::t_845851af05ac4a 20-27
+problems/283-move-zeroes.md
+  s_67d0f3858c51ab::t_eaa342f46aa83a 18-25
+problems/297-serialize-and-deserialize-binary-tree.md
+  s_67d0f3858c51ab::t_4f44a71892cd6f 25-33
+problems/344-reverse-string.md
+  s_67d0f3858c51ab::t_aa3b3b37e3d219 22-23
+problems/443-string-compression.md
+  s_67d0f3858c51ab::t_e8dc81cba9d63c 28-29
+problems/470-implement-rand10-using-rand7.md
+  s_67d0f3858c51ab::t_a5deca1f38b012 20-27
+problems/518-coin-change-ii.md
+  s_67d0f3858c51ab::t_6cf77f6cb08554 18-25
+problems/543-diameter-of-binary-tree.md
+  s_67d0f3858c51ab::t_2e541cd287e8e7 20-27
+problems/572-subtree-of-another-tree.md
+  s_67d0f3858c51ab::t_2ef8ac8f5099fa 20-27
+problems/TEMPLATE.md
+  s_67d0f3858c51ab::t_299ec879d52465 18-25
+problems/offer-051-reverse-pairs.md
+  s_67d0f3858c51ab::t_852727d6abdcc9 20-27
+problems/original-001-expiring-lru-cache.md
+  s_67d0f3858c51ab::t_c00a49c37b8ffc 46-51
+problems/original-008-handwritten-min-heap.md
+  s_67d0f3858c51ab::t_95a095741e18ad 52
+scripts/check-problem-examples.mjs
+  s_67d0f3858c51ab::t_c54f2d55197ce4 1-65
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "e09e084f97afdc107b172363756d04a54d11e3b1",
+  "prompts": {},
+  "sessions": {
+    "s_67d0f3858c51ab": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fa7ef-2778-7c22-a178-04bb49c3a15c",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
