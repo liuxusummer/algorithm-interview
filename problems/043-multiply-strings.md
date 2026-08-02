@@ -42,39 +42,52 @@
 ```python
 class Solution:
     def multiply(self, num1: str, num2: str) -> str:
+        # 只要有一个乘数是 0，乘积就一定是 0。
+        # 提前返回也可以避免最终结果数组中只剩前导零。
         if num1 == "0" or num2 == "0":
             return "0"
 
-        result = [0] * (len(num1) + len(num2))
+        m = len(num1)
+        n = len(num2)
 
-        for first_index in range(len(num1) - 1, -1, -1):
-            first_digit = ord(num1[first_index]) - ord("0")
+        # 一个 m 位数与一个 n 位数相乘，结果最多有 m + n 位。
+        ans = [0] * (m + n)
 
-            for second_index in range(len(num2) - 1, -1, -1):
-                second_digit = ord(num2[second_index]) - ord("0")
-                high = first_index + second_index
-                low = high + 1
+        # 从两个字符串的个位开始，模拟竖式乘法。
+        for i in range(m - 1, -1, -1):
+            for j in range(n - 1, -1, -1):
+                x = int(num1[i])
+                y = int(num2[j])
 
-                # low 中可能已有其他乘积，合并后统一处理进位。
-                total = (
-                    first_digit * second_digit
-                    + result[low]
-                )
-                result[low] = total % 10
-                result[high] += total // 10
+                # num1[i] * num2[j] 影响结果数组中的两个位置：
+                # p2 保存当前位，p1 接收向高位产生的进位。
+                p1 = i + j
+                p2 = i + j + 1
 
-        # 结果数组最多只有第一个位置可能是无效前导零。
-        start = 1 if result[0] == 0 else 0
-        return "".join(str(digit) for digit in result[start:])
+                # ans[p2] 可能已经累积了其他数位乘积的贡献，
+                # 必须与本次的 x * y 一起计算，不能直接覆盖。
+                total = x * y + ans[p2]
+
+                # 当前位只保留个位，其余部分累加到前一位。
+                ans[p2] = total % 10
+                ans[p1] += total // 10
+
+        # 去掉结果数组开头没有实际数值意义的 0。
+        # 在力扣约束下最多只有一个，但循环写法更直观、也更通用。
+        start = 0
+        while start < len(ans) and ans[start] == 0:
+            start += 1
+
+        return "".join(map(str, ans[start:]))
 ```
 
 ## 为什么高位累加不会超过一位
 
-内层循环从右向左处理。某一轮给 `result[high]` 加进位后，这个位置会在后续作为另一次计算的 `low`，届时会与新乘积一起执行 `% 10` 和 `// 10`，继续向左传递。因此最终每个位置都会被规范成单个数字。
+内层循环从右向左处理。某一轮给 `ans[p1]` 加进位后，这个位置会在后续作为另一次计算的 `ans[p2]`，届时会与新的数位乘积一起执行 `% 10` 和 `// 10`，继续向左传递。因此最终每个位置都会被规范成单个数字。
 
 ## 正确性说明
 
-竖式乘法会把每对数字的乘积放到由它们十进制位权决定的位置。算法按照 `i+j`、`i+j+1` 的对应关系累加每一对乘积，并完整传播进位，因此结果数组表示所有部分积之和。去掉唯一可能的前导零后，返回值就是两个输入数的十进制乘积。
+竖式乘法会把每对数字的乘积放到由它们十进制位权决定的位置。算法按照 `i+j`、`i+j+1` 的对应关系累加每一对乘积，并完整传播进位，因此结果数组表示所有部分积之和。去掉开头多余的零后，返回值就是两个输入数的十进制乘积。
 
 ## 复杂度
 
