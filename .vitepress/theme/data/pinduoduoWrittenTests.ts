@@ -142,5 +142,26 @@ export const pinduoduoWrittenTests = [
       "横版接金币游戏",
       "单环图告警翻转维护"
     ]
+  },
+  {
+    "id": "PDD-GENERAL-20260802",
+    "company": "拼多多",
+    "role": "秋招 · 通用岗",
+    "date": "2026-08-02",
+    "year": "2026",
+    "href": "/written-tests/pinduoduo-general-20260802",
+    "difficulty": "中等偏难",
+    "topics": [
+      "前缀和与最早位置",
+      "字典序贪心与可行性判定",
+      "分层图与 Dijkstra",
+      "环图多重染色"
+    ],
+    "questions": [
+      "平衡队伍",
+      "评价展示序列",
+      "多多送快递",
+      "环形分厂协调补货"
+    ]
   }
 ]
