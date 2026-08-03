@@ -1,0 +1,31 @@
+.vitepress/theme/data/pinduoduoWrittenTests.ts
+  s_a76da050b32e4e::t_d8e894d6c1e3f8 145-165
+ANALYSIS.md
+  s_a76da050b32e4e::t_aa1a3d69354a33 3,15,29,230
+README.md
+  s_a76da050b32e4e::t_f086fa85e26d5f 7
+written-tests/ANALYSIS.md
+  s_a76da050b32e4e::t_8eb7e44c8c4c09 3,8,12-15,25-26,28,30-32,34,53-56,64,72-78,89-96,105-106,108-109,122,126-131,133,148-151,153,169-174,217,321-322
+written-tests/README.md
+  s_a76da050b32e4e::t_44410e9641a1ff 19,21,42,66
+written-tests/pinduoduo-general-20260802.md
+  s_a76da050b32e4e::t_e6f1a919ccca96 1-617
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "7d2fbee682d5e2850de7f8804a12dcfc187bf3fb",
+  "prompts": {},
+  "sessions": {
+    "s_a76da050b32e4e": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "019fc5a4-d7a9-7390-b394-f5e0e969ab3a",
+        "model": "unknown"
+      },
+      "human_author": "OpenAI Codex <codex@openai.com>"
+    }
+  },
+  "attestation_metadata": {},
+  "remote_transcripts": {}
+}
