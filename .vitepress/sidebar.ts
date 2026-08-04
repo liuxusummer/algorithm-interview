@@ -610,3 +610,28 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     ]
   }
 ]
+
+const writtenTestDatePattern = /^(\d{4}-\d{2}-\d{2}) · /u
+
+function sortWrittenTestSessionsByDate(
+  items: DefaultTheme.SidebarItem[] | undefined
+) {
+  if (!items?.length) return
+
+  // 只有当同一层全部是“日期 · 岗位”时才排序，避免改变题号和普通导航顺序。
+  const datedItems = items.map((item) => ({
+    item,
+    date: item.text?.match(writtenTestDatePattern)?.[1]
+  }))
+
+  if (datedItems.every(({ date }) => date)) {
+    items.sort((first, second) => (
+      second.text!.slice(0, 10).localeCompare(first.text!.slice(0, 10))
+      || first.text!.localeCompare(second.text!, 'zh-CN')
+    ))
+  }
+
+  items.forEach((item) => sortWrittenTestSessionsByDate(item.items))
+}
+
+sortWrittenTestSessionsByDate(sidebar)

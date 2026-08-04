@@ -722,6 +722,10 @@ ${normalizeBody(body, questions, topics, stem)}
 
 const dataDirectory = path.join(projectRoot, '.vitepress/theme/data')
 await mkdir(dataDirectory, { recursive: true })
+catalogSessions.sort((first, second) => (
+  second.date.localeCompare(first.date)
+  || first.role.localeCompare(second.role, 'zh-CN')
+))
 await writeFile(
   path.join(dataDirectory, 'pinduoduoWrittenTests.ts'),
   `// 由 scripts/import-pinduoduo.mjs 根据公开题面目录生成。
