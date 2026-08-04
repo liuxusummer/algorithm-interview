@@ -30,7 +30,8 @@ const roleByStem = {
   'data-20260702': '暑期实习 · 数据岗',
   'algo-20260702': '暑期实习 · 大模型算法岗',
   'general-20260719': '云弧计划提前批 · 通用岗',
-  'data-20260719': '秋招 · 数据分析岗'
+  'data-20260719': '秋招 · 数据分析岗',
+  'data-20260802': '秋招 · 数据分析 / 数据开发岗'
 }
 
 const decimalHelpers = `from decimal import Decimal, ROUND_HALF_UP

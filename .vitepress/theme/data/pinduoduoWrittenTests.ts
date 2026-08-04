@@ -60,6 +60,25 @@ export const pinduoduoWrittenTests = [
     ]
   },
   {
+    "id": "PDD-DATA-20260802",
+    "company": "拼多多",
+    "role": "秋招 · 数据分析 / 数据开发岗",
+    "date": "2026-08-02",
+    "year": "2026",
+    "href": "/written-tests/pinduoduo-data-20260802",
+    "difficulty": "中等偏难",
+    "topics": [
+      "分组 TopN 与 ROW_NUMBER",
+      "月度环比与 LAG 窗口函数",
+      "RFM 聚合与 CASE WHEN"
+    ],
+    "questions": [
+      "各品类销售额最高商品",
+      "月度 GMV 环比增长率",
+      "RFM 用户分层"
+    ]
+  },
+  {
     "id": "PDD-GENERAL-20260412",
     "company": "拼多多",
     "role": "暑期实习 · 通用岗",
