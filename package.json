@@ -16,9 +16,10 @@
     "docs:check:interview": "node scripts/check-company-interview-content.mjs",
     "docs:check:ai-specialty": "node scripts/check-nlp-llm-agent-content.mjs",
     "docs:check:assessments": "node scripts/check-assessment-content.mjs",
+    "docs:check:ai-coding": "node scripts/check-ai-coding-content.mjs",
     "docs:analyze:interview": "node scripts/analyze-interview-problems.mjs",
     "docs:analyze:written-tests": "node scripts/analyze-written-tests.mjs",
-    "docs:check": "pnpm docs:check:problems && pnpm docs:check:ai-specialty && pnpm docs:check:interview && pnpm docs:check:assessments && pnpm docs:check:alibaba && pnpm docs:check:meituan && pnpm docs:check:huawei && pnpm docs:check:pinduoduo && pnpm docs:check:remaining"
+    "docs:check": "pnpm docs:check:problems && pnpm docs:check:ai-specialty && pnpm docs:check:interview && pnpm docs:check:assessments && pnpm docs:check:ai-coding && pnpm docs:check:alibaba && pnpm docs:check:meituan && pnpm docs:check:huawei && pnpm docs:check:pinduoduo && pnpm docs:check:remaining"
   },
   "devDependencies": {
     "@phosphor-icons/vue": "^2.2.1",

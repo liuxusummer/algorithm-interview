@@ -455,6 +455,19 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     ]
   },
   {
+    text: 'AI Coding',
+    collapsed: true,
+    items: [
+      { text: '专题说明与训练路线', link: '/ai-coding/README' },
+      { text: '01 安全邮件系统', link: '/ai-coding/ant-secure-mail' },
+      { text: '02 简历筛选与排序', link: '/ai-coding/ant-resume-ranking' },
+      { text: '03 真实仓库需求变更', link: '/ai-coding/meituan-repository-change' },
+      { text: '04 智能客服 MVP', link: '/ai-coding/meituan-customer-service' },
+      { text: '05 最小负载调度器', link: '/ai-coding/microsoft-load-balancer' },
+      { text: '06 多文件代码库排错', link: '/ai-coding/codebase-debugging' }
+    ]
+  },
+  {
     text: '面试手撕题',
     collapsed: true,
     items: [

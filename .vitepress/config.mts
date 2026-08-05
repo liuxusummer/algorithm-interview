@@ -47,6 +47,7 @@ export default defineConfig({
       { text: '学习路线', link: '/ROADMAP' },
       { text: '专题模块', link: '/modules/01-complexity/README' },
       { text: 'AI 算法岗', link: '/modules/nlp-llm-agent/README' },
+      { text: 'AI Coding', link: '/ai-coding/README' },
       { text: '面试真题', link: '/modules/company-interview-questions/README' },
       { text: '大厂测评', link: '/assessments/README' },
       { text: '笔试真题', link: '/written-tests/README' },
