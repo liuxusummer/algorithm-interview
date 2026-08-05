@@ -1,463 +1,243 @@
 ---
 pageClass: ai-coding-page
 title: 安全邮件系统
-description: 拆解双域服务、邮件投递、鉴权、限流、附件和威胁模型的 AI Coding 项目题。
+description: 用完整的需求澄清、Prompt 设计、风险审查和验收过程拆解安全邮件系统 AI Coding 项目题。
 ---
 
 <div class="exam-session-banner">
   <div>
     <span>CASE 01 / ANT GROUP / PUBLIC PROMPT</span>
     <strong>安全邮件系统</strong>
-    <small>在线 IDE · 完整项目 · Python · 公开题目拆解</small>
+    <small>在线 IDE · 完整项目 · 过程拆解 · 公开题目</small>
   </div>
   <div class="exam-session-banner__meta">
-    <span>服务隔离</span>
-    <span>安全设计</span>
-    <span>可复现测试</span>
+    <span>边界澄清</span><span>Prompt 迭代</span><span>安全验收</span>
   </div>
 </div>
 
 # 安全邮件系统
 
 <div class="ai-trend-callout">
-  <strong>任务画像</strong>
-  <p>这类题同时检查功能实现、工程组织和安全判断。最容易失分的地方不是少做一个页面，而是没有先定义信任边界，最后交出一个能演示却不能验证的系统。</p>
+  <strong>训练重点</strong>
+  <p>这页不提供一份可以复制的成品代码，而是复盘两小时里每一步该想什么、怎样向 AI 提问、哪些回答不能直接相信，以及最后用什么证据证明系统可以交付。</p>
 </div>
 
 ## 资料边界
 
-牛客公开记录给出了较完整的 README，要求候选人在在线 IDE 中实现服务端与客户端，
-运行两个相互隔离的邮件域，支持基本邮箱功能、至少两项算法增强、安全防护和可复现测试。
-本页根据公开要求重新组织讲解，代码和测试由本站编写。
+牛客公开记录给出了较完整的 README，要求候选人在在线 IDE 中实现两个相互隔离的邮件域，
+支持基础邮件功能、算法增强、安全防护和可复现测试。本页重新组织作答过程，不声称还原考生
+当时使用的 Prompt 或实现。
 
 来源为[蚂蚁集团 AI Coding 笔试公开记录](https://www.nowcoder.com/discuss/865336111655051264?sourceSSR=subject)。
 
 ## 训练题目
 
-实现一个简化的安全邮件系统。系统包含两个独立邮件域，每个域运行自己的服务实例，
-维护自己的用户和邮件数据。两个域可以通过明确的投递接口互发邮件，但不得直接读取
-对方的数据目录。
+你需要在两小时内交付一个简化的安全邮件系统。两个邮件域分别保存用户和邮件数据，只能通过
+公开投递接口通信。系统还要覆盖注册、登录、发信、收信、草稿、群发、快捷回复、撤回、图片
+附件、至少两项算法增强、安全防护和自动测试。
 
-必须完成下面的能力。
+真正的难点不是功能数量，而是需求互相牵制。例如撤回既涉及发送者身份，也涉及跨域状态；
+附件既涉及上传，也涉及授权下载；限流既要挡攻击，也不能让测试无法复现。
 
-1. 用户注册、登录和会话鉴权。
-2. 写信、收件箱、发件箱、草稿、群发、快捷回复和邮件撤回。
-3. 图片附件收发，并限制类型、大小和访问权限。
-4. 至少两项增强能力，例如搜索、分类、关键词提取或附件去重。
-5. 登录防爆破、发信限流、敏感信息保护和基础垃圾邮件识别。
-6. 双域互发、并发访问、安全攻击和附件行为的自动化测试。
+## 面试官究竟在观察什么
 
-交付物至少包含源码、启动配置、协议说明、测试命令、测试结果和威胁模型。
+拿到题目后，先把评价目标从“做完十几个功能”改写成下面五件事。
 
-## 第一步先划信任边界
+1. 能否把模糊需求转成可验收的行为。
+2. 能否识别两个域之间、用户之间和附件访问之间的信任边界。
+3. 能否在有限时间里确定 P0、P1 和主动放弃项。
+4. 能否约束 AI 只解决当前问题，而不是一次生成整个项目。
+5. 能否用测试记录、安全清单和未完成项解释交付质量。
 
-先把系统中的参与者和可访问资源写清楚。
+## 总路线：先画边界，再让 AI 动手
 
 ```text
-客户端 A ──登录/读写──> 域服务 A ──投递协议──> 域服务 B
-                         │                  │
-                         └─只读写 A 的库    └─只读写 B 的库
+读 README
+  → 写出歧义清单
+  → 画参与者与数据边界
+  → 定义最小演示闭环
+  → 让 AI 只读评审
+  → 分模块生成计划
+  → 小步实现与逐步验证
+  → 红队审查
+  → 整理证据和未完成项
 ```
 
-这里有四条关键规则。
+不要在读完题目后直接发送“请帮我实现一个安全邮箱”。这种 Prompt 会迫使 AI 自行补全认证、
+存储、协议和安全假设，代码看起来完整，但每个模块都可能建立在不同前提上。
 
-- 客户端不能通过传入任意文件路径读取附件。
-- 域 A 投递邮件时只能调用域 B 的公开接口，不能打开域 B 的数据库。
-- 用户会话只能访问当前用户的邮箱数据。
-- 撤回请求需要同时证明发送者身份和邮件当前状态允许撤回。
+## 第一轮：把需求改写成验收条件
 
-若 AI 一上来就生成数据库表和页面，可以先让它停下来。没有信任边界，后面的鉴权和测试
-很容易零散地堆在路由中。
+先由自己写出 P0 闭环：用户 A 注册并登录，在域 A 发信给域 B 的用户 B，B 能看到邮件；
+未登录用户、错误用户和直接读取另一个域数据的行为必须失败。
 
-## 第二步砍出最小闭环
-
-两小时左右的工程题不适合同时开发全部功能。推荐按下面顺序推进。
-
-| 优先级 | 闭环 | 完成标志 |
-|---|---|---|
-| P0 | 注册、登录、发信、收信 | 两个域可以互发纯文本邮件 |
-| P0 | 鉴权和数据隔离 | 用户不能查看别人的邮件，域不能直读对方存储 |
-| P0 | 自动测试 | 正常流程和越权流程都有可复现结果 |
-| P1 | 撤回和限流 | 状态检查、身份检查、频率检查全部生效 |
-| P1 | 图片附件 | 类型、大小、哈希和下载权限均受控 |
-| P2 | 搜索、分类、快捷回复 | 核心功能稳定后再增加 |
-
-## 第三步设计领域模型
-
-邮件状态不应散落为字符串。先定义状态和所有者，后面的权限判断才有可靠入口。
-
-```python
-from dataclasses import dataclass, field
-from datetime import datetime, timezone
-from enum import StrEnum
-
-
-class MailState(StrEnum):
-    DRAFT = "DRAFT"
-    SENT = "SENT"
-    DELIVERED = "DELIVERED"
-    RECALLED = "RECALLED"
-
-
-@dataclass(frozen=True)
-class Address:
-    local_part: str
-    domain: str
-
-    @classmethod
-    def parse(cls, raw: str) -> "Address":
-        local_part, separator, domain = raw.strip().partition("@")
-        if not separator or not local_part or not domain:
-            raise ValueError("邮箱地址格式错误")
-        return cls(local_part=local_part, domain=domain.lower())
-
-    def __str__(self) -> str:
-        return f"{self.local_part}@{self.domain}"
-
-
-@dataclass
-class Mail:
-    id: str
-    sender: Address
-    recipients: tuple[Address, ...]
-    subject: str
-    body: str
-    state: MailState = MailState.DRAFT
-    created_at: datetime = field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
-```
-
-### 为什么收件人使用元组
-
-邮件提交后，收件人集合属于历史事实。使用不可变元组可以降低后续代码误改收件人的风险。
-系统仍需在创建邮件时去重，并限制群发人数。
-
-## 第四步把身份验证做对
-
-密码不能明文存储。仅使用 Python 标准库时，可以用 `scrypt` 派生密码摘要，并为每个用户
-生成独立盐值。
-
-```python
-import hashlib
-import hmac
-import secrets
-
-
-def hash_password(password: str) -> str:
-    if len(password) < 10:
-        raise ValueError("密码至少 10 个字符")
-
-    salt = secrets.token_bytes(16)
-    digest = hashlib.scrypt(
-        password.encode("utf-8"),
-        salt=salt,
-        n=2**14,
-        r=8,
-        p=1,
-    )
-    return f"{salt.hex()}:{digest.hex()}"
-
-
-def verify_password(password: str, encoded: str) -> bool:
-    salt_hex, digest_hex = encoded.split(":", maxsplit=1)
-    actual = hashlib.scrypt(
-        password.encode("utf-8"),
-        salt=bytes.fromhex(salt_hex),
-        n=2**14,
-        r=8,
-        p=1,
-    )
-    return hmac.compare_digest(actual.hex(), digest_hex)
-```
-
-`compare_digest` 避免普通字符串比较带来的明显时序差异。正式项目还要处理参数升级、密码
-重置和密钥管理，考试中至少要把尚未覆盖的风险写进说明。
-
-## 第五步实现可审核的投递服务
-
-领域服务只接收已经解析并验证的对象。路由负责读取请求，服务负责业务规则，仓库负责存储。
-
-```python
-from collections.abc import Callable
-from dataclasses import replace
-
-
-class MailRepository:
-    def __init__(self, domain: str) -> None:
-        self.domain = domain
-        self._mails: dict[str, Mail] = {}
-
-    def save(self, mail: Mail) -> None:
-        self._mails[mail.id] = mail
-
-    def get(self, mail_id: str) -> Mail:
-        try:
-            return self._mails[mail_id]
-        except KeyError as error:
-            raise LookupError("邮件不存在") from error
-
-    def inbox(self, owner: Address) -> list[Mail]:
-        return [
-            mail
-            for mail in self._mails.values()
-            if owner in mail.recipients
-            and mail.state is MailState.DELIVERED
-        ]
-
-
-class MailService:
-    def __init__(
-        self,
-        domain: str,
-        repository: MailRepository,
-        remote_delivery: Callable[[str, Mail], None],
-    ) -> None:
-        self.domain = domain
-        self.repository = repository
-        self.remote_delivery = remote_delivery
-
-    def send(self, actor: Address, draft: Mail) -> Mail:
-        if actor != draft.sender:
-            raise PermissionError("不能冒用其他用户发信")
-        if draft.state is not MailState.DRAFT:
-            raise ValueError("只有草稿可以发送")
-        if not draft.recipients or len(draft.recipients) > 50:
-            raise ValueError("收件人数必须在 1 到 50 之间")
-
-        sent = replace(draft, state=MailState.SENT)
-        self.repository.save(sent)
-
-        for domain in {address.domain for address in sent.recipients}:
-            self.remote_delivery(domain, sent)
-        return sent
-
-    def receive_from_domain(self, source_domain: str, mail: Mail) -> Mail:
-        if source_domain != mail.sender.domain:
-            raise PermissionError("来源域与发件地址不一致")
-
-        local_recipients = tuple(
-            recipient
-            for recipient in mail.recipients
-            if recipient.domain == self.domain
-        )
-        if not local_recipients:
-            raise ValueError("当前域没有收件人")
-
-        delivered = replace(
-            mail,
-            recipients=local_recipients,
-            state=MailState.DELIVERED,
-        )
-        self.repository.save(delivered)
-        return delivered
-```
-
-这段代码仍然是核心示例，不是完整生产邮件协议。它刻意保留了清晰的接口边界，便于后续把
-`remote_delivery` 替换为 HTTP 客户端，并在入口增加域间签名、超时和重试。
-
-## 第六步处理撤回
-
-撤回不是把数据库记录删除。删除会让审计和并发行为都无法解释。更稳妥的做法是保留邮件，
-把状态改为 `RECALLED`，并让收件箱查询排除该状态。
-
-撤回至少要验证下面四项。
-
-1. 操作者是原始发送者。
-2. 邮件已经发送或投递，草稿不需要撤回。
-3. 邮件尚未撤回。
-4. 各域对同一个撤回请求采用幂等处理。
-
-```python
-def recall(self, actor: Address, mail_id: str) -> Mail:
-    mail = self.repository.get(mail_id)
-    if actor != mail.sender:
-        raise PermissionError("只有发件人可以撤回")
-    if mail.state not in {MailState.SENT, MailState.DELIVERED}:
-        raise ValueError("当前状态不能撤回")
-
-    recalled = replace(mail, state=MailState.RECALLED)
-    self.repository.save(recalled)
-    return recalled
-```
-
-分布式情况下，发送域还要向每个收件域发送带邮件 ID、操作者和签名的撤回命令。网络失败时
-应记录部分失败，不能向用户谎报“全部撤回成功”。
-
-## 第七步给附件设防
-
-只检查文件名后缀不够。图片附件至少要同时检查文件大小、允许的 MIME 类型、文件头和哈希。
-
-```python
-import hashlib
-
-
-PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
-JPEG_PREFIX = b"\xff\xd8\xff"
-MAX_IMAGE_BYTES = 5 * 1024 * 1024
-
-
-def validate_image(content: bytes, declared_type: str) -> str:
-    if not content or len(content) > MAX_IMAGE_BYTES:
-        raise ValueError("附件为空或超过 5 MiB")
-
-    actual_type: str | None = None
-    if content.startswith(PNG_SIGNATURE):
-        actual_type = "image/png"
-    elif content.startswith(JPEG_PREFIX):
-        actual_type = "image/jpeg"
-
-    if actual_type is None or actual_type != declared_type:
-        raise ValueError("附件内容与声明类型不一致")
-
-    return hashlib.sha256(content).hexdigest()
-```
-
-哈希可以用于去重，但不能把“拥有相同哈希”等同于“有权下载”。附件元数据仍要记录所有者和
-邮件关系，下载接口必须再次鉴权。
-
-## 第八步实现限流和防爆破
-
-下面是单进程测试可用的滑动窗口限流器。多进程或多实例部署时，需要把状态迁移到具备原子
-操作的共享存储。
-
-```python
-from collections import defaultdict, deque
-from time import monotonic
-
-
-class SlidingWindowLimiter:
-    def __init__(self, limit: int, window_seconds: float) -> None:
-        self.limit = limit
-        self.window_seconds = window_seconds
-        self._events: dict[str, deque[float]] = defaultdict(deque)
-
-    def allow(self, key: str, now: float | None = None) -> bool:
-        current = monotonic() if now is None else now
-        events = self._events[key]
-        boundary = current - self.window_seconds
-
-        while events and events[0] <= boundary:
-            events.popleft()
-        if len(events) >= self.limit:
-            return False
-
-        events.append(current)
-        return True
-```
-
-登录限流的键可以组合账号和来源 IP，发信限流则组合用户和域。只按账号限制会允许攻击者
-轮换账号，只按 IP 限制又可能误伤共享出口用户。
-
-## 第九步用测试证明系统成立
-
-先写最小领域测试，再补接口和并发测试。
-
-```python
-def test_cross_domain_delivery() -> None:
-    repositories = {
-        "alpha.test": MailRepository("alpha.test"),
-        "beta.test": MailRepository("beta.test"),
-    }
-    services: dict[str, MailService] = {}
-
-    def deliver(domain: str, mail: Mail) -> None:
-        services[domain].receive_from_domain(mail.sender.domain, mail)
-
-    for domain, repository in repositories.items():
-        services[domain] = MailService(domain, repository, deliver)
-
-    alice = Address.parse("alice@alpha.test")
-    bob = Address.parse("bob@beta.test")
-    draft = Mail(
-        id="mail-001",
-        sender=alice,
-        recipients=(bob,),
-        subject="meeting",
-        body="10:00",
-    )
-
-    services["alpha.test"].send(alice, draft)
-
-    inbox = repositories["beta.test"].inbox(bob)
-    assert [mail.id for mail in inbox] == ["mail-001"]
-    assert repositories["alpha.test"] is not repositories["beta.test"]
-
-
-def test_rejects_spoofed_sender() -> None:
-    repository = MailRepository("alpha.test")
-    service = MailService("alpha.test", repository, lambda _domain, _mail: None)
-    alice = Address.parse("alice@alpha.test")
-    mallory = Address.parse("mallory@alpha.test")
-    draft = Mail("mail-002", alice, (mallory,), "x", "y")
-
-    try:
-        service.send(mallory, draft)
-    except PermissionError:
-        pass
-    else:
-        raise AssertionError("冒用发件人必须失败")
-
-
-def test_rate_limiter_expires_old_events() -> None:
-    limiter = SlidingWindowLimiter(limit=2, window_seconds=10)
-    assert limiter.allow("alice", now=0)
-    assert limiter.allow("alice", now=1)
-    assert not limiter.allow("alice", now=2)
-    assert limiter.allow("alice", now=11)
-```
-
-接口层还应补充未登录访问、跨用户读取、非法附件、错误域签名、重复撤回和高频发送测试。
-每个测试都要能说明它在防止哪一种真实失败。
-
-## AI 协作怎么做
-
-### 第一次提示只让 AI 建图
-
+::: tip Prompt 01｜只做需求审查
 ```text
-阅读 README 和当前目录，不修改文件。
-输出参与者、数据所有者、跨域调用、信任边界、必须交付物和最小可运行闭环。
-标出题目没有说明但实现前必须决定的五个问题。
+你是需求评审者，暂时不要写代码。
+
+任务：两小时内实现两个隔离邮件域，支持注册、登录、跨域发信、收件箱、撤回、图片附件、
+限流和自动测试。
+
+请输出：
+1. 必须向面试官确认的歧义，按“会改变数据模型 / 会改变接口 / 只影响体验”分类；
+2. 一条最小端到端演示路径；
+3. P0、P1、明确不做三组清单；
+4. 每个 P0 的可观察验收条件。
+
+不要补写面试官没有给出的业务规则，不要给实现代码。
 ```
+:::
 
-### 第二次提示限定一个模块
+### 你要审查 AI 的什么
 
+- 是否把“撤回”偷换成删除本地发件箱。
+- 是否默认两个域共享数据库。
+- 是否把“支持附件”理解成保存任意文件路径。
+- 是否列了很多功能，却没有给出一条能从头跑到尾的演示路径。
+
+这一轮的产物应是一页验收清单，而不是源码。
+
+## 第二轮：建立威胁模型
+
+至少列出四类主体：匿名访问者、已登录用户、域服务、管理员或测试程序。再列出它们能读写的
+资源。只要出现“客户端传入路径后服务端直接读取”“域 A 打开域 B 的库”“通过邮件 ID 就能
+读取内容”，都要立刻标红。
+
+::: tip Prompt 02｜让 AI 做攻击者
 ```text
-只实现 domain.py 中的 Address、MailState 和 Mail。
-不得引入第三方依赖，不创建路由，不实现数据库。
-完成后给出三个最小单元测试，覆盖非法地址、默认状态和收件人不可变性。
+基于下面的边界做威胁建模，不写修复代码：
+- 域 A 和域 B 独立保存用户、会话、邮件和附件；
+- 两个域只通过投递接口通信；
+- 普通用户只能访问自己的邮箱；
+- 撤回只能由原发送者发起；
+- 图片附件需要上传和下载。
+
+请按“攻击路径、被破坏的安全属性、最小防护、验收测试”输出风险表。
+优先检查越权读取、路径穿越、暴力登录、伪造投递、重复投递、附件炸弹和日志泄密。
+对无法从题目确定的地方明确写 UNKNOWN。
 ```
+:::
 
-### 第三次提示让 AI 审查自己的假设
+::: danger 不能直接接受的 AI 回答
+“使用 JWT 就安全”“对密码做哈希即可”“限制文件扩展名即可”都不是完整结论。你要追问令牌如何
+失效、哈希是否带盐且足够慢、文件实际类型如何判断、下载时如何再次鉴权。
+:::
 
+## 第三轮：把项目拆成可验证的小步
+
+合理的顺序不是按页面数量，而是按证据链推进。
+
+1. 先证明两个服务实例真的隔离。
+2. 再证明注册、登录和当前用户身份能贯穿请求。
+3. 跑通纯文本跨域投递。
+4. 补越权、重复投递和失败路径。
+5. 再做撤回、限流和附件。
+6. 最后才选择搜索、分类等增强能力。
+
+::: tip Prompt 03｜生成实施计划，不生成项目
 ```text
-检查刚才的实现。逐项列出你自行假设的需求、尚未覆盖的安全风险和可能导致测试不稳定的地方。
-不要直接改代码，先等我确认。
+现在只规划接下来的 35 分钟，不写代码。
+
+已完成：需求清单和威胁模型。
+目标：跑通“域 A 用户向域 B 用户发送纯文本邮件”的最小闭环。
+限制：两个域不能共享存储；不引入新依赖；每一步必须能单独测试。
+
+请给出不超过 6 个有依赖顺序的任务。每个任务写明：
+- 需要查看或修改的模块职责；
+- 输入和输出；
+- 完成证据；
+- 如果失败，先检查什么。
+
+不要编造文件名和现有接口；不确定时给出需要搜索的关键词。
 ```
+:::
 
-关键点在于每次提示都给出范围、完成条件和禁止事项。生成结果仍需逐行阅读并运行测试。
+好的计划应该能让你每十分钟得到一次新证据，而不是到最后十分钟才第一次运行系统。
 
-## 两小时作答安排
+## 第四轮：每次只让 AI 处理一个边界
 
-| 时间 | 工作 |
-|---|---|
-| 0 至 15 分钟 | 读题、画边界、确定 P0、检查环境和依赖 |
-| 15 至 35 分钟 | 建领域模型、内存仓库和第一组测试 |
-| 35 至 70 分钟 | 跑通双域注册、登录、发信和收信 |
-| 70 至 90 分钟 | 加入鉴权、限流、撤回和失败测试 |
-| 90 至 105 分钟 | 完成一到两项增强能力 |
-| 105 至 120 分钟 | 清理密钥、运行全量测试、写 README 和未完成项 |
+在实际编辑器里，把 Prompt 约束到当前模块。提供必要上下文，但不要把整个仓库无差别塞给模型。
 
-功能做不完时，应保住可运行闭环、测试和诚实说明。留下六个半成品通常比不上三个可以证明
-正确的核心功能。
+::: tip Prompt 04｜局部实现前的接口评审
+```text
+请评审“跨域投递”这一处设计，不要修改其他模块。
 
-## 最终复盘
+上下文：
+- 发送方已经完成用户鉴权；
+- 接收域只接受服务间投递请求；
+- 消息需要防止重复投递；
+- 当前阶段只支持纯文本。
 
-面试官继续追问时，至少能回答下面的问题。
+先列出接口契约、身份校验点、幂等键来源和失败语义。
+然后指出我现有方案中最危险的两个假设。
+等我确认后再建议最小修改范围。
+```
+:::
 
-1. 两个域为什么算隔离，隔离在哪一层得到保证。
-2. 为什么密码哈希选 `scrypt`，盐值和密钥分别解决什么问题。
-3. 撤回失败一半时，用户会看到什么状态。
-4. 附件去重为什么不能自动授予访问权限。
-5. 当前限流器为什么不适合多实例部署。
-6. 哪些代码来自 AI，你采用什么证据确认它可以提交。
+每次接受 AI 建议前问自己三件事：它引用的是仓库事实还是猜测；它是否扩大了修改范围；它提出的
+成功条件能否通过当前环境观察到。
+
+## 第五轮：设计测试，不让 AI 只测快乐路径
+
+测试清单要从威胁模型反推，而不是从已有函数名正向生成。
+
+- 正常路径：同域与跨域发送都能到达正确用户。
+- 身份边界：用户不能读、删、撤回其他人的邮件。
+- 域边界：域 A 的存储中找不到域 B 的用户数据。
+- 重复行为：相同投递请求不会产生两封邮件。
+- 时间行为：撤回窗口边界和限流窗口边界都可控。
+- 附件行为：错误类型、超大文件、伪造扩展名和越权下载失败。
+
+::: tip Prompt 05｜生成反例，不生成测试代码
+```text
+下面是我的验收清单。请只补充反例和边界，不写测试代码。
+
+[粘贴当前验收清单]
+
+要求：
+1. 每个反例说明它想推翻哪条系统假设；
+2. 给出测试前置状态、动作和可观察结果；
+3. 标出需要可控时钟、并发或两个服务实例的测试；
+4. 不要重复正常路径，不要只改输入字符串。
+```
+:::
+
+## 第六轮：用红队 Prompt 做交付前审查
+
+::: tip Prompt 06｜攻击自己的交付
+```text
+扮演严格的安全评审者。根据我的 README、威胁模型、测试名称和本次 diff 做审查。
+
+请分别列出：
+- 已有证据支持的安全结论；
+- 只有口头声明、没有测试支持的结论；
+- 可能泄露用户数据或密钥的位置；
+- 可能在并发、重试、跨域失败时出错的位置；
+- 两小时内必须修复和可以写入“已知限制”的问题。
+
+不要因为测试通过就假设没有漏洞，不要建议重写整个项目。
+```
+:::
+
+这一步的目标不是让 AI 宣布“代码质量良好”，而是得到一份可以逐项关闭或明确延期的风险清单。
+
+## 两小时节奏怎么掌握
+
+- **0—15 分钟**：读题、问歧义、确定 P0 和主动放弃项。
+- **15—30 分钟**：画信任边界，确定最小演示路径和测试入口。
+- **30—70 分钟**：完成身份链路与纯文本跨域投递，每一步都运行验证。
+- **70—95 分钟**：补越权、重试、撤回和限流中的高价值部分。
+- **95—110 分钟**：选择一个附件或算法增强，避免同时铺开多个半成品。
+- **110—120 分钟**：全量验证、清理日志与配置、写已知限制和演示脚本。
+
+## 最终交付要说什么
+
+面试复述不要从技术栈开始，可以按这个顺序。
+
+1. 我先把两个域和四类主体的信任边界固定下来。
+2. 我选择跨域纯文本投递作为最小闭环，因为它能同时验证身份、隔离和通信。
+3. AI 主要用于需求反例、局部接口评审和红队检查，我没有让它一次生成整个项目。
+4. 我拒绝或改写了哪些 AI 建议，以及原因是什么。
+5. 哪些结论有测试或运行记录支持，哪些能力仍是已知限制。
+
+这样的回答能证明你是在驾驶 AI 完成工程任务，而不是把任务描述转发给模型后等待结果。

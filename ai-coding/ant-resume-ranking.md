@@ -1,423 +1,215 @@
 ---
 pageClass: ai-coding-page
 title: 简历筛选与排序助手
-description: 拆解 Markdown 简历解析、同义词归一化、可解释评分、稳定排序和 JSON 交付。
+description: 用规则澄清、Prompt 迭代、证据审查和公平性检查拆解简历筛选 AI Coding 任务。
 ---
 
 <div class="exam-session-banner">
   <div>
     <span>CASE 02 / ANT GROUP / README TASK</span>
     <strong>简历筛选与排序助手</strong>
-    <small>约 60 份 Markdown 简历 · result.json · Python</small>
+    <small>Markdown 简历 · 结果解释 · Prompt 过程 · 公开记录扩展</small>
   </div>
   <div class="exam-session-banner__meta">
-    <span>特征提取</span>
-    <span>同义词归一化</span>
-    <span>可解释评分</span>
+    <span>规则澄清</span><span>证据链</span><span>公平审查</span>
   </div>
 </div>
 
 # 简历筛选与排序助手
 
 <div class="ai-trend-callout">
-  <strong>任务画像</strong>
-  <p>题目表面是文本处理，真正的难点是把“看起来合适”改写成透明、稳定、可测试的评分规则。一个结果排序正确还不够，还要说清为什么排成这样。</p>
+  <strong>训练重点</strong>
+  <p>真正被评估的不是谁能让模型吐出一个排序，而是谁能把“适合岗位”拆成透明规则，保护候选人数据，识别模型偏差，并让每一分都能追溯到简历证据。</p>
 </div>
 
 ## 资料边界
 
-公开笔经记录了任务骨架。输入为约 60 份 Markdown 简历和岗位要求，输出为排序后的
-`result.json`，系统需要包含特征提取、同义词归一化和评分，并提交源码、测试、说明与
-改进方向。公开记录没有给出完整字段和评分公式，因此本页补充的是本站训练规则。
+公开笔经记录了任务骨架：输入约 60 份 Markdown 简历和岗位要求，输出排序后的
+`result.json`，需要完成特征提取、同义词归一化、评分、测试和说明。完整字段与评分公式没有
+公开，因此本页的规则和作答过程是本站训练设计。
 
 来源为[蚂蚁 AI Coding 笔经](https://www.nowcoder.com/feed/main/detail/6671d50b92f24a229d0e89e5dd19d9bf?urlSource=home-api)。
 
 ## 训练题目
 
-目录 `resumes/` 中存放多份 Markdown 简历，`job.md` 描述岗位要求。实现命令行程序，
-读取全部简历，输出 `result.json`。
+读取一批 Markdown 简历和一份岗位描述，输出稳定排序的候选人列表。结果不仅要有总分，还要
+列出已匹配技能、缺失技能、命中证据和解析错误。相同输入必须得到相同结果，姓名、性别、年龄、
+照片等无关属性不能参与评分。
 
-每条结果至少包含下面字段。
+## 开始前先做两次刹车
 
-```json
-{
-  "candidate_id": "candidate-017",
-  "score": 82.5,
-  "matched_required_skills": ["python", "sql"],
-  "missing_required_skills": ["redis"],
-  "matched_preferred_skills": ["fastapi"],
-  "evidence": {
-    "python": ["项目经历: 使用 Python 开发数据处理服务"]
-  }
-}
-```
+第一道刹车是隐私。不要默认把整份简历发送给外部模型。先确认考试工具是否在授权环境、数据
+是否会离开平台、日志是否保留。如果无法确认，核心流程应当使用本地确定性规则，AI 只查看
+脱敏后的字段定义、伪造样本和错误摘要。
 
-验收规则如下。
+第二道刹车是公平性。学校、公司名和工作间断很容易被 AI 当作“质量信号”，但它们不一定是
+岗位规则。任何进入分数的特征都应能在岗位要求中找到依据。
 
-1. 相同输入多次运行得到完全相同的排序和 JSON。
-2. 必备技能缺失必须在结果中明确列出。
-3. 同义表达应映射到统一技能，例如 `PostgreSQL` 归入 `sql`。
-4. 评分必须能由结构化特征复算，不能只保存模型给出的总分。
-5. 空文件、字段缺失和无法解析的文件需要给出可定位错误。
-
-## 先定义什么不能做
-
-简历可能包含姓名、邮箱、电话、学校和公司经历。若考试环境提供外部模型，不能默认把原文
-全部发送出去。先确认工具授权和数据规则，再决定是否调用模型。本训练版使用确定性规则完成
-核心评分，AI 只帮助分析代码、补测试和改进说明。
-
-评分中也不使用姓名、性别、年龄、照片等与岗位能力无关的个人属性。学校或公司名称若不在
-明确岗位规则中，同样不应偷偷进入分数。
-
-## 第一步定义数据契约
-
-用数据类约束解析结果，避免后续函数在字典里猜字段。
-
-```python
-from dataclasses import dataclass, field
-
-
-@dataclass(frozen=True)
-class JobRequirement:
-    required_skills: frozenset[str]
-    preferred_skills: frozenset[str]
-    minimum_years: int = 0
-
-
-@dataclass(frozen=True)
-class ResumeFeatures:
-    candidate_id: str
-    skills: frozenset[str]
-    years: int
-    evidence: dict[str, tuple[str, ...]] = field(default_factory=dict)
-
-
-@dataclass(frozen=True)
-class RankedCandidate:
-    candidate_id: str
-    score: float
-    matched_required_skills: tuple[str, ...]
-    missing_required_skills: tuple[str, ...]
-    matched_preferred_skills: tuple[str, ...]
-    evidence: dict[str, tuple[str, ...]]
-```
-
-这里将技能集合设为不可变集合，结果中的技能再按字母排序。这样可以避免集合遍历顺序导致
-输出文件每次变化。
-
-## 第二步解析 Markdown
-
-不要用一个巨大的正则表达式理解全部简历。先按标题分段，再分别解析技能和年限。
-
-训练数据采用下面约定。
-
-```markdown
-# candidate-017
-
-## 技能
-Python、PostgreSQL、FastAPI
-
-## 工作年限
-3
-
-## 项目经历
-使用 Python 和 FastAPI 开发订单服务。
-```
-
-```python
-import re
-
-
-HEADING_PATTERN = re.compile(r"^##\s+(.+?)\s*$")
-
-
-def split_sections(markdown: str) -> dict[str, list[str]]:
-    sections: dict[str, list[str]] = {"基本信息": []}
-    current = "基本信息"
-
-    for raw_line in markdown.splitlines():
-        line = raw_line.strip()
-        match = HEADING_PATTERN.match(line)
-        if match:
-            current = match.group(1)
-            sections.setdefault(current, [])
-        elif line:
-            sections[current].append(line)
-
-    return sections
-
-
-def parse_candidate_id(markdown: str, fallback: str) -> str:
-    for line in markdown.splitlines():
-        if line.startswith("# "):
-            candidate_id = line[2:].strip()
-            return candidate_id or fallback
-    return fallback
-```
-
-解析器先保留原始文本。归一化属于下一层，两件事混在一起会让错误很难定位。
-
-## 第三步归一化技能
-
-同义词表必须可审查。若把 `JavaScript` 错归到 `Java`，一个隐藏错误就会影响全部结果。
-
-```python
-import re
-
-
-ALIASES: dict[str, str] = {
-    "py": "python",
-    "python3": "python",
-    "postgres": "sql",
-    "postgresql": "sql",
-    "mysql": "sql",
-    "structured query language": "sql",
-    "redis cluster": "redis",
-    "fast api": "fastapi",
-}
-
-
-def normalize_skill(raw: str) -> str:
-    lowered = raw.casefold().strip()
-    compact = re.sub(r"\s+", " ", lowered)
-    return ALIASES.get(compact, compact)
-
-
-def parse_skill_list(lines: list[str]) -> frozenset[str]:
-    joined = " ".join(lines)
-    parts = re.split(r"[,，、;/|]", joined)
-    return frozenset(
-        normalized
-        for part in parts
-        if (normalized := normalize_skill(part))
-    )
-```
-
-### 同义词表的边界
-
-- `PostgreSQL` 可以归入通用 `sql`，但也可能需要保留具体数据库特征。
-- `Spring` 可能指 Java 框架，也可能是普通英文单词，需要结合技能段落。
-- `LLM` 与 `NLP` 有交集，但不能直接视为同一个技能。
-- 只在明确技能段落中提取，可以减少项目描述里的偶然词汇造成误判。
-
-更完整的实现可以同时保存 `canonical_skill` 和 `raw_skill`，便于解释匹配依据。
-
-## 第四步抽取证据
-
-评分结果应该能指回简历中的原句。下面函数按技能建立证据索引。
-
-```python
-def build_evidence(
-    sections: dict[str, list[str]],
-    skills: frozenset[str],
-) -> dict[str, tuple[str, ...]]:
-    evidence: dict[str, list[str]] = {skill: [] for skill in skills}
-
-    for section, lines in sections.items():
-        if section == "基本信息":
-            continue
-        for line in lines:
-            normalized_line = line.casefold()
-            for skill in skills:
-                aliases = {
-                    raw for raw, canonical in ALIASES.items()
-                    if canonical == skill
-                } | {skill}
-                if any(alias in normalized_line for alias in aliases):
-                    evidence[skill].append(f"{section}: {line}")
-
-    return {
-        skill: tuple(lines[:3])
-        for skill, lines in evidence.items()
-        if lines
-    }
-```
-
-真实项目不能依赖简单子串完成所有匹配，例如 `go` 会命中大量普通文本。考试时间有限时，
-可以主动列出这一限制，并针对短技能名使用词边界正则。
-
-## 第五步设计透明评分
-
-训练版使用以下 100 分规则。
-
-| 部分 | 分值 | 规则 |
-|---|---:|---|
-| 必备技能 | 60 | 按已匹配必备技能占比计算 |
-| 加分技能 | 20 | 按已匹配加分技能占比计算 |
-| 年限 | 20 | 达到要求得满分，不足时按比例计算 |
-
-如果任何必备技能缺失，最终分数最多为 69 分。这个上限需要写进说明，不能藏在代码里。
-
-```python
-def ratio(part: int, whole: int) -> float:
-    return 1.0 if whole == 0 else part / whole
-
-
-def score_resume(
-    job: JobRequirement,
-    resume: ResumeFeatures,
-) -> RankedCandidate:
-    matched_required = resume.skills & job.required_skills
-    missing_required = job.required_skills - resume.skills
-    matched_preferred = resume.skills & job.preferred_skills
-
-    required_score = 60 * ratio(
-        len(matched_required),
-        len(job.required_skills),
-    )
-    preferred_score = 20 * ratio(
-        len(matched_preferred),
-        len(job.preferred_skills),
-    )
-    years_score = 20 * min(
-        1.0,
-        ratio(resume.years, job.minimum_years),
-    )
-
-    total = required_score + preferred_score + years_score
-    if missing_required:
-        total = min(total, 69.0)
-
-    return RankedCandidate(
-        candidate_id=resume.candidate_id,
-        score=round(total, 2),
-        matched_required_skills=tuple(sorted(matched_required)),
-        missing_required_skills=tuple(sorted(missing_required)),
-        matched_preferred_skills=tuple(sorted(matched_preferred)),
-        evidence={
-            skill: resume.evidence.get(skill, ())
-            for skill in sorted(matched_required | matched_preferred)
-        },
-    )
-```
-
-### 为什么不让模型直接打分
-
-模型总分很难稳定复算，也容易受措辞、顺序和无关个人信息影响。模型可以帮助提取候选技能，
-但每条提取结果仍应带原文证据，最后由显式规则计算分数。
-
-## 第六步稳定排序和 JSON 输出
-
-同分时按必备技能缺失数、加分技能命中数和候选人 ID 决定顺序。
-
-```python
-import json
-from dataclasses import asdict
-from pathlib import Path
-
-
-def rank_candidates(
-    candidates: list[RankedCandidate],
-) -> list[RankedCandidate]:
-    return sorted(
-        candidates,
-        key=lambda item: (
-            -item.score,
-            len(item.missing_required_skills),
-            -len(item.matched_preferred_skills),
-            item.candidate_id,
-        ),
-    )
-
-
-def write_result(
-    path: Path,
-    candidates: list[RankedCandidate],
-) -> None:
-    payload = [asdict(candidate) for candidate in rank_candidates(candidates)]
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-```
-
-注意 `dataclasses.asdict` 会保留元组，`json.dumps` 会把它们编码为 JSON 数组，符合这里的
-输出约定。
-
-## 第七步写能拦住回归的测试
-
-```python
-def make_job() -> JobRequirement:
-    return JobRequirement(
-        required_skills=frozenset({"python", "sql"}),
-        preferred_skills=frozenset({"redis", "fastapi"}),
-        minimum_years=2,
-    )
-
-
-def test_aliases_are_normalized() -> None:
-    assert parse_skill_list(["Python3、PostgreSQL、Fast API"]) == {
-        "python",
-        "sql",
-        "fastapi",
-    }
-
-
-def test_missing_required_skill_caps_score() -> None:
-    resume = ResumeFeatures(
-        candidate_id="candidate-b",
-        skills=frozenset({"python", "redis", "fastapi"}),
-        years=5,
-    )
-    result = score_resume(make_job(), resume)
-
-    assert result.score == 69.0
-    assert result.missing_required_skills == ("sql",)
-
-
-def test_ranking_is_deterministic_for_ties() -> None:
-    first = RankedCandidate("candidate-b", 80, (), (), (), {})
-    second = RankedCandidate("candidate-a", 80, (), (), (), {})
-
-    assert [
-        item.candidate_id
-        for item in rank_candidates([first, second])
-    ] == ["candidate-a", "candidate-b"]
-```
-
-还应增加空技能段、非法年限、重复技能、大小写差异、中文分隔符和损坏 Markdown 测试。
-
-## AI 协作步骤
-
-### 先让 AI 评审规则
+## 总路线：先定义可解释规则，再谈模型
 
 ```text
-下面是简历排序任务和我的显式评分公式。
-不要写代码。请找出规则中可能造成不稳定、无法解释或不公平的部分。
-每个问题必须给出一个可以写成测试的反例。
+读取岗位描述
+  → 抽取明确要求
+  → 定义允许使用和禁止使用的特征
+  → 采样简历，观察版式差异
+  → 设计解析失败策略
+  → 定义同义词和证据格式
+  → 定义评分与稳定排序
+  → 用反例审查偏差
+  → 输出结果与质量报告
 ```
 
-### 再让 AI 生成局部实现
+## 第一轮：把“匹配”拆成能复算的规则
 
+先确认岗位要求中的三类信息：必备技能、加分技能、最低经验。不要让 AI 根据整段职位描述直接
+生成一个模糊的“综合匹配度”。
+
+::: tip Prompt 01｜岗位规则结构化
 ```text
-只实现 Markdown 分段函数 split_sections。
-输入是一段字符串，输出 dict[str, list[str]]。
-只识别二级标题，不解析技能，不读取文件。
-请先给五个测试，再给最小实现。
+你是规则分析员，不是招聘决策者。请基于下面的岗位描述做结构化拆解，不对候选人打分。
+
+[粘贴岗位描述]
+
+只输出：
+1. 明确写出的必备技能；
+2. 明确写出的加分技能；
+3. 可量化的经验要求；
+4. 含糊、冲突或无法量化的表述；
+5. 不应进入评分的个人属性。
+
+每一项必须引用原文证据。无法确定时写 UNKNOWN，不要自行推断学校、年龄或公司级别。
 ```
+:::
 
-### 最后让 AI 做对抗性检查
+你要逐项检查 AI 有没有把“熟悉”“了解”“优先”混为同一权重，有没有把岗位没有要求的技术
+栈加进去。最终规则必须由你确认，而不是模型自动发布。
 
+## 第二轮：先观察输入，再设计解析策略
+
+不要看到 Markdown 就假设所有简历都有相同标题。抽样检查标题层级、技能分隔方式、工作年限
+写法、项目段落和空文件。记录“可稳定解析”“可降级提取”“必须报错”三类。
+
+::: tip Prompt 02｜让 AI 帮你找版式差异
 ```text
-尝试构造十份会让当前解析器或排序器给出错误结果的简历。
-重点覆盖短技能名、同义词冲突、字段缺失、重复内容、大小写、同分排序和提示词注入文本。
-只输出测试输入与预期，不修改实现。
+下面是 8 份已脱敏简历的结构摘要，只包含标题名称、段落长度和字段是否存在。
+[粘贴摘要]
+
+请聚类可能的版式，列出会让固定解析规则失败的差异。
+针对每类差异给出：可接受的降级策略、必须记录的错误信息、需要补充的验收样本。
+不要还原个人信息，不要提出把原始简历上传到外部服务。
 ```
+:::
 
-## 常见失败方式
+这一轮的产物是解析决策表。关键原则是“失败要可见”：解析不到工作年限时不能默默当成零年，
+否则排序结果看似正常，实际在惩罚版式不同的候选人。
 
-1. 让模型读取全部简历并只返回一个分数，没有证据和复算规则。
-2. 同义词由模型临时决定，导致每次运行结果变化。
-3. 使用集合顺序直接输出 JSON，同分候选人的顺序不稳定。
-4. 把候选人的学校、姓名或简历排版质量暗中当作能力信号。
-5. 只展示前几名，没有输出被扣分的原因和缺失项。
-6. 只测试一个理想样例，没有测试空文件、损坏字段和并列结果。
+## 第三轮：建立同义词边界
 
-## 面试复述
+同义词归一化看似简单，最容易出现过度合并。
 
-可以用下面的结构说明方案。
+- `PostgreSQL` 可以归到 SQL 能力，但 SQL 不能反推出 PostgreSQL 实战。
+- `PyTorch` 和 `TensorFlow` 都是深度学习框架，但不是同一技能。
+- `JavaScript` 和 `Java` 绝不能因字符串相似而合并。
+- “了解 Redis”与“负责 Redis 集群治理”证据强度不同。
 
-> 我把系统拆成解析、归一化、特征、评分和输出五层。核心分数由显式规则计算，模型即使参与
-> 特征提取，也必须返回原文证据。排序键包含确定的并列规则，所以相同输入可以稳定复现。
-> 当前版本对短技能名和上下文消歧仍有限制，我用测试记录了这些边界，没有让模型自行补全
-> 缺失经历。
+::: tip Prompt 03｜审查同义词表
+```text
+请审查下面的技能归一化表，不要扩写代码。
+
+[粘贴 canonical skill → aliases]
+
+找出三类问题：
+1. 误合并：两个名称相关但不能视为等价；
+2. 漏合并：大小写、缩写或常见别名没有覆盖；
+3. 证据强度丢失：归一化后会把“接触过”和“主导过”混为一谈。
+
+每个问题给一个最小反例，并标出建议由规则处理还是保留人工复核。
+```
+:::
+
+## 第四轮：规定证据长什么样
+
+每个技能命中至少保存候选人 ID、原始片段、所在章节和归一化理由。证据片段要足够解释命中，
+又不能把整份简历复制到结果中。若一个技能只在“兴趣”或“计划学习”中出现，不应默认等同于
+项目经验。
+
+::: tip Prompt 04｜证据质量审查
+```text
+这是某位候选人的脱敏证据列表和岗位规则。请只审查证据质量，不给最终录用建议。
+
+[粘贴岗位规则与证据列表]
+
+逐条标注：直接证据、弱证据、否定语境、未来计划、无法判断。
+说明依据，并指出哪些命中必须从分数中移除。
+不要使用姓名、学校、公司品牌或年龄推断能力。
+```
+:::
+
+## 第五轮：评分规则必须透明且稳定
+
+在让 AI 评审前，你需要先写出自己的公式。比如必备技能占主要权重，加分技能和经验只占较小
+部分；缺少任一关键技能是否设置上限，需要由岗位规则明确。并列时使用稳定、与能力无关的字段
+排序，例如候选人 ID，确保重复运行结果一致。
+
+::: tip Prompt 05｜用反例挑战评分
+```text
+下面是一套候选人评分规则。不要重新设计一套更复杂的模型，请用反例挑战它。
+
+[粘贴评分规则]
+
+至少构造 8 个边界候选人，包括：
+- 必备技能全中但没有经验；
+- 经验很长但缺少关键技能；
+- 只在技能清单写词、项目没有证据；
+- 同分候选人；
+- 解析字段缺失；
+- 包含否定语句；
+- 包含大量关键词堆砌；
+- 简历格式异常。
+
+对每个反例说明预期排序关系以及它验证的规则。
+```
+:::
+
+## 第六轮：审查结果，而不是欣赏结果
+
+输出前做三种检查。
+
+1. **可复算检查**：从结构化特征重新算总分，必须一致。
+2. **稳定性检查**：打乱文件读取顺序，最终排序不变。
+3. **敏感性检查**：删除姓名、学校等禁用字段，分数不变。
+
+::: tip Prompt 06｜最终红队审查
+```text
+扮演模型风险与招聘公平性评审者。输入包括规则说明、脱敏后的结果摘要、错误报告和测试名称。
+
+请找出：
+- 没有证据却获得分数的字段；
+- 可能间接使用敏感属性的规则；
+- 解析失败被误当成能力不足的情况；
+- 同一输入可能得到不同排序的来源；
+- README 声称做到但没有测试证明的能力。
+
+按“必须修复 / 需要人工复核 / 可以记录为限制”分类。不要替我做招聘决定。
+```
+:::
+
+## 遇到 AI 自信地胡说怎么办
+
+如果 AI 说“该候选人更资深”“这所学校更好”“这个项目看起来更复杂”，立即要求它指出允许
+使用的结构化字段和原文证据。找不到就删除结论。AI 的自然语言解释不能成为额外的隐藏评分项。
+
+## 60 分钟作答节奏
+
+- **0—10 分钟**：读岗位规则，确定禁用特征和输出字段。
+- **10—20 分钟**：抽样观察简历版式，写解析失败策略。
+- **20—35 分钟**：确定归一化、证据和评分规则，先用三个样本走通。
+- **35—48 分钟**：补反例、稳定性与敏感性检查。
+- **48—56 分钟**：生成完整结果和错误报告，人工抽查头尾样本。
+- **56—60 分钟**：记录取舍、隐私边界和需要人工复核的情况。
+
+## 面试复述模板
+
+先说明你没有让模型直接决定排名；再解释哪些规则来自岗位原文，哪些字段被明确禁用；然后展示
+一条分数如何回溯到证据；最后说明 AI 帮你发现了哪些边界问题、你拒绝了哪些带偏见或不可验证
+的建议。这样的复述比展示一份很长的实现更能体现 AI Coding 能力。

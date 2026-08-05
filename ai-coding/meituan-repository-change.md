@@ -1,408 +1,226 @@
 ---
 pageClass: ai-coding-page
 title: 真实仓库需求变更
-description: 在已有 Python 服务中理解调用关系、修复分页缺陷并加入幂等写入。
+description: 用仓库探索、影响面分析、最小修改 Prompt 和回归证据拆解真实项目 AI Coding 面试。
 ---
 
 <div class="exam-session-banner">
   <div>
     <span>CASE 03 / MEITUAN / REPOSITORY TASK</span>
     <strong>真实仓库需求变更</strong>
-    <small>现场修改 · 陌生代码库 · Python · 公开形式训练版</small>
+    <small>现场修改 · 陌生代码库 · 过程拆解 · 公开形式训练版</small>
   </div>
   <div class="exam-session-banner__meta">
-    <span>仓库探索</span>
-    <span>小范围 Diff</span>
-    <span>回归测试</span>
+    <span>仓库探索</span><span>最小 Diff</span><span>回归证据</span>
   </div>
 </div>
 
 # 真实仓库需求变更
 
 <div class="ai-trend-callout">
-  <strong>任务画像</strong>
-  <p>面试官从候选人的 GitHub 克隆仓库，再临时要求增加或修改模块。你的优势来自对自己代码的理解，以及能否让 AI 在明确边界内工作。</p>
+  <strong>训练重点</strong>
+  <p>这类题不是考你能否让 AI 新建很多文件，而是考你能否先理解陌生仓库，再把 AI 限制在正确的调用链内完成小范围修改，并证明没有破坏旧行为。</p>
 </div>
 
 ## 资料边界
 
-公开面经确认了“从候选人 GitHub 克隆项目，根据现场需求增加或修改模块”的形式，但没有
-公开具体需求。本页因此设计一组等价训练任务，不宣称是美团原题。
+公开面经确认了“从候选人 GitHub 克隆项目，根据现场需求增加或修改模块”的形式，但没有公开
+具体需求。本页设计等价训练场景，不宣称是美团原题。
 
 来源为[美团软件开发全栈实习面经](https://www.nowcoder.com/feed/main/detail/3e0b975bc77d4379bcdd710130f1105f)。
 
 ## 训练题目
 
-你接手一个小型任务服务。
+你接手一个小型任务服务。面试官要求修复列表接口重复请求第一页的问题，并为创建任务增加
+幂等语义：同一用户使用相同幂等键重试时返回第一次结果，不能创建重复任务。不能修改既有仓储
+接口签名，不能引入第三方依赖，也不能重写无关模块。
 
+## 最危险的开局
+
+把需求直接发给 AI，然后接受它建议的“顺便重构”。AI 很可能会新建通用分页器、更换数据层、
+加入全局缓存甚至调整公开接口。需求似乎完成了，但影响面已经无法在现场解释。
+
+正确开局是把仓库探索和代码修改分成两个阶段。在你能说清调用链之前，AI 只能读，不能写。
+
+## 第一轮：只读仓库，建立事实地图
+
+先自己找到启动命令、测试命令、目录层级和变更前基线。然后让 AI 帮你整理事实，明确要求它
+区分“文件里能看到的事实”和“基于命名的猜测”。
+
+::: tip Prompt 01｜只读仓库地图
 ```text
-task_service/
-├── app.py
-├── service.py
-├── repository.py
-├── models.py
-└── tests/
-    ├── test_service.py
-    └── test_repository.py
+你现在只能做仓库探索，不要修改代码，也不要提出重构。
+
+目标需求：
+1. 修复列表接口重复第一页；
+2. 创建任务支持同一用户范围内的幂等键。
+
+请根据我提供的目录树、搜索结果和关键文件摘要输出：
+- 程序入口与测试入口；
+- 列表请求从入口到仓储层的调用链；
+- 任务创建从入口到 ID 生成与持久化的调用链；
+- 当前可以确认的接口契约；
+- 仍然需要搜索的符号或测试名称。
+
+每条结论标记 FACT 或 HYPOTHESIS。不要编造不存在的文件。
 ```
+:::
 
-面试官提出两个需求。
+### 仓库地图至少回答什么
 
-1. 修复 `list_all_tasks` 一直重复请求第一页的问题。
-2. 为创建任务增加幂等键。相同用户使用相同幂等键重复请求时，必须返回第一次创建的任务，
-   不能产生重复记录。
+- 页码或游标由谁持有，下一页信息从哪里产生。
+- 任务 ID 在服务层、仓储层还是数据库生成。
+- 用户身份从哪个入口进入调用链。
+- 现有测试使用真实仓储、内存替身还是 Mock。
+- 幂等结果需要保存多久，当前仓库有没有可复用机制。
 
-约束如下。
+如果 AI 没有给证据路径，只说“通常在 service 层”，这仍然是假设。
 
-- 不改变现有 `TaskRepository.list_page` 的签名。
-- 不引入第三方依赖。
-- 不重写无关模块。
-- 补充自动化测试并说明并发边界。
+## 第二轮：先复现，再讨论修复
 
-## 第一阶段先读仓库
+分页问题必须先变成一个稳定失败。记录请求参数序列、返回页和终止条件。幂等需求则先写行为表：
+同一用户同一键、同一用户不同键、不同用户同一键、第一次失败后的重试分别应该怎样。
 
-拿到仓库后先回答四个问题。
-
-1. 程序入口在哪里。
-2. 领域对象由谁创建，ID 由谁生成。
-3. 分页结束条件是什么。
-4. 现有测试如何运行，测试替身在哪里。
-
-可以先使用下面的只读命令。
-
-```bash
-find . -maxdepth 3 -type f
-python -m unittest discover -v
-rg "list_page|create_task|TaskRepository" .
-```
-
-不要第一时间把整个仓库交给 AI 重构。先自己建立最小调用图。
-
+::: tip Prompt 02｜设计最小复现
 ```text
-HTTP handler → TaskService → TaskRepository → in-memory storage
-                         ↘ IdempotencyStore
+不要写修复。根据下面的接口契约，帮我设计最小复现步骤。
+
+[粘贴列表接口、任务创建接口和现有测试约定]
+
+输出两组场景：
+A. 能证明列表重复请求第一页的最短调用序列；
+B. 能区分四种幂等语义的行为矩阵。
+
+每个场景写前置状态、动作、可观察结果，以及如果现象没有出现应该继续检查什么。
+不要使用尚未确认存在的工具或依赖。
 ```
+:::
 
-## 现有代码和第一个缺陷
+这一轮留下的是失败证据。没有失败证据，后面即使测试变绿，也无法说明修复命中了真正问题。
 
-```python
-class TaskService:
-    def __init__(self, repository: "TaskRepository") -> None:
-        self.repository = repository
+## 第三轮：圈定最小影响面
 
-    def list_all_tasks(self, page_size: int = 20) -> list["Task"]:
-        page = 1
-        result: list[Task] = []
+把候选修改点分为必须改、可能改、禁止改三组。
 
-        while True:
-            current = self.repository.list_page(page, page_size)
-            if not current:
-                return result
-            result.extend(current)
-```
+- 必须改：实际丢失下一页状态的位置；创建任务的服务编排位置。
+- 可能改：幂等记录抽象、测试替身、错误类型。
+- 禁止改：仓储公开签名、无关领域模型、全局依赖版本。
 
-循环变量 `page` 没有变化。只要第一页不为空，服务就会不停请求第一页，最终可能耗尽内存或
-拖死依赖服务。
-
-## 先写一个会失败的测试
-
-```python
-import unittest
-
-
-class FakeTaskRepository:
-    def __init__(self) -> None:
-        self.requested_pages: list[int] = []
-
-    def list_page(self, page: int, page_size: int) -> list["Task"]:
-        self.requested_pages.append(page)
-        pages = {
-            1: [Task(id="1", owner_id="u1", title="first")],
-            2: [Task(id="2", owner_id="u1", title="second")],
-            3: [],
-        }
-        return pages[page]
-
-
-class TaskServicePaginationTest(unittest.TestCase):
-    def test_reads_each_page_once_until_empty_page(self) -> None:
-        repository = FakeTaskRepository()
-        service = TaskService(repository)
-
-        result = service.list_all_tasks(page_size=1)
-
-        self.assertEqual([task.id for task in result], ["1", "2"])
-        self.assertEqual(repository.requested_pages, [1, 2, 3])
-```
-
-原代码运行这个测试时不会结束。实际面试中可先增加一个调用次数保护，让失败快速暴露，避免
-测试进程一直挂住。
-
-```python
-if len(self.requested_pages) > 5:
-    raise AssertionError("可能重复请求同一页")
-```
-
-## 最小修复
-
-```python
-def list_all_tasks(self, page_size: int = 20) -> list["Task"]:
-    if page_size <= 0:
-        raise ValueError("page_size 必须为正数")
-
-    page = 1
-    result: list[Task] = []
-
-    while True:
-        current = self.repository.list_page(page, page_size)
-        if not current:
-            return result
-
-        result.extend(current)
-        page += 1
-```
-
-这个修改保留了原有分页协议。不要趁机改成游标分页，除非面试官明确要求。可以在复盘里说明
-页码分页面对并发插入可能出现重复或遗漏，但这不属于当前修复范围。
-
-## 第二个需求先定义幂等语义
-
-“支持幂等”至少要回答下面的问题。
-
-- 幂等键在所有用户之间唯一，还是只在单个用户内唯一。
-- 相同键但请求内容不同怎么办。
-- 幂等记录保存多久。
-- 创建成功但响应丢失时，重试返回什么。
-
-训练版采用以下规则。
-
-1. 唯一范围为 `(owner_id, idempotency_key)`。
-2. 重复请求内容相同则返回原任务。
-3. 重复请求内容不同则抛出冲突错误。
-4. 内存实现暂不自动过期，生产方案需要配置 TTL。
-
-## 数据模型
-
-```python
-from dataclasses import dataclass
-import hashlib
-import json
-
-
-@dataclass(frozen=True)
-class Task:
-    id: str
-    owner_id: str
-    title: str
-
-
-@dataclass(frozen=True)
-class IdempotencyRecord:
-    request_hash: str
-    task_id: str
-
-
-def hash_create_request(owner_id: str, title: str) -> str:
-    canonical = json.dumps(
-        {"owner_id": owner_id, "title": title},
-        ensure_ascii=False,
-        sort_keys=True,
-        separators=(",", ":"),
-    )
-    return hashlib.sha256(canonical.encode("utf-8")).hexdigest()
-```
-
-对规范化后的请求求哈希，可以判断同一幂等键是否被用于不同内容。这里的哈希用于一致性检查，
-不用于保存密码或创建安全签名。
-
-## 实现幂等存储接口
-
-幂等状态不应藏在 HTTP handler 的全局字典里。先定义接口，便于测试和替换数据库实现。
-
-```python
-from collections.abc import Callable
-from threading import Lock
-from typing import TypeVar
-
-
-T = TypeVar("T")
-
-
-class IdempotencyConflictError(Exception):
-    pass
-
-
-class InMemoryIdempotencyStore:
-    def __init__(self) -> None:
-        self._records: dict[tuple[str, str], IdempotencyRecord] = {}
-        self._lock = Lock()
-
-    def execute_once(
-        self,
-        owner_id: str,
-        key: str,
-        request_hash: str,
-        create: Callable[[], tuple[IdempotencyRecord, T]],
-        load_existing: Callable[[str], T],
-    ) -> T:
-        compound_key = (owner_id, key)
-
-        with self._lock:
-            existing = self._records.get(compound_key)
-            if existing is not None:
-                if existing.request_hash != request_hash:
-                    raise IdempotencyConflictError(
-                        "同一幂等键不能用于不同请求"
-                    )
-                return load_existing(existing.task_id)
-
-            record, value = create()
-            self._records[compound_key] = record
-            return value
-```
-
-锁覆盖了“检查、创建、记录”的完整过程，能够避免单进程多线程中的重复创建。缺点是创建操作
-期间会持有全局锁，吞吐量有限。考试中可以先保证语义正确，再说明数据库实现应使用唯一索引
-和事务缩小锁范围。
-
-## 服务层组合
-
-```python
-from uuid import uuid4
-
-
-class TaskService:
-    def __init__(
-        self,
-        repository: "TaskRepository",
-        idempotency: InMemoryIdempotencyStore,
-    ) -> None:
-        self.repository = repository
-        self.idempotency = idempotency
-
-    def create_task(
-        self,
-        owner_id: str,
-        title: str,
-        idempotency_key: str,
-    ) -> Task:
-        clean_title = title.strip()
-        if not clean_title:
-            raise ValueError("任务标题不能为空")
-        if not idempotency_key.strip():
-            raise ValueError("幂等键不能为空")
-
-        request_hash = hash_create_request(owner_id, clean_title)
-
-        def create() -> tuple[IdempotencyRecord, Task]:
-            task = Task(
-                id=str(uuid4()),
-                owner_id=owner_id,
-                title=clean_title,
-            )
-            self.repository.save(task)
-            record = IdempotencyRecord(request_hash, task.id)
-            return record, task
-
-        return self.idempotency.execute_once(
-            owner_id=owner_id,
-            key=idempotency_key,
-            request_hash=request_hash,
-            create=create,
-            load_existing=self.repository.get,
-        )
-```
-
-## 幂等测试
-
-```python
-class InMemoryTaskRepository:
-    def __init__(self) -> None:
-        self.tasks: dict[str, Task] = {}
-
-    def save(self, task: Task) -> None:
-        self.tasks[task.id] = task
-
-    def get(self, task_id: str) -> Task:
-        return self.tasks[task_id]
-
-
-class IdempotentCreateTest(unittest.TestCase):
-    def setUp(self) -> None:
-        self.repository = InMemoryTaskRepository()
-        self.service = TaskService(
-            self.repository,
-            InMemoryIdempotencyStore(),
-        )
-
-    def test_same_request_returns_original_task(self) -> None:
-        first = self.service.create_task("u1", "read docs", "request-1")
-        second = self.service.create_task("u1", "read docs", "request-1")
-
-        self.assertEqual(first, second)
-        self.assertEqual(len(self.repository.tasks), 1)
-
-    def test_same_key_with_different_payload_conflicts(self) -> None:
-        self.service.create_task("u1", "first", "request-1")
-
-        with self.assertRaises(IdempotencyConflictError):
-            self.service.create_task("u1", "second", "request-1")
-
-    def test_key_is_scoped_by_owner(self) -> None:
-        first = self.service.create_task("u1", "task", "request-1")
-        second = self.service.create_task("u2", "task", "request-1")
-
-        self.assertNotEqual(first.id, second.id)
-        self.assertEqual(len(self.repository.tasks), 2)
-```
-
-## AI 协作步骤
-
-### 先让 AI 做只读探索
-
+::: tip Prompt 03｜修改前影响面评审
 ```text
-不要修改文件。请找出 list_all_tasks 和 create_task 的定义、所有调用方、仓库接口和相关测试。
-用五行以内画出调用关系，并列出修改这两个函数可能影响的行为。
+这是已确认的调用链、失败复现和约束。
+[粘贴事实地图与复现摘要]
+
+请给出最小修改计划，不写代码。每一步必须包含：
+1. 修改职责，不猜具体实现；
+2. 为什么必须改这里；
+3. 可能影响的旧行为；
+4. 修改后立刻运行的验证；
+5. 明确不触碰的文件或接口。
+
+如果存在两种方案，请比较 diff 范围、并发语义和回滚难度，不要只比较代码行数。
 ```
+:::
 
-### 再要求最小补丁
+AI 如果建议一次性抽象通用框架，要求它证明当前需求必须依赖该抽象。证明不了就推迟。
 
+## 第四轮：分页修复的思考过程
+
+分页缺陷通常不是“循环写错”这么简单。你要沿着状态流问问题。
+
+1. 下一页状态是页码、游标还是响应中的 token。
+2. 每轮请求前，状态是否更新。
+3. 空页、最后一页和重复 token 如何结束。
+4. 数据在翻页期间变化时是否允许重复或遗漏。
+5. 是否需要防御服务端永远返回相同游标。
+
+::: tip Prompt 04｜让 AI 审查循环不变量
 ```text
-只修复 list_all_tasks 的无限循环和非法 page_size。
-保持 TaskRepository.list_page 签名不变，不修改路由，不顺便重构。
-先给补丁，再说明哪个测试能在修改前失败、修改后通过。
+下面是分页流程的文字描述和一次失败轨迹，不要生成实现代码。
+[粘贴流程与参数序列]
+
+请写出：
+- 循环开始前成立的条件；
+- 每轮结束后必须推进的状态；
+- 正常终止与异常保护条件；
+- 三个最容易漏掉的边界轨迹。
+
+最后用一张状态表手算两页数据和一个重复游标场景。
 ```
+:::
 
-### 对幂等方案进行反例审查
+只要你能把不变量说清，真正的修改通常很小。
 
+## 第五轮：先定义幂等语义，再选存储
+
+“加一个 set 记录 key”不是完整方案。先回答这些业务问题。
+
+- 幂等范围是全局、用户、接口还是资源。
+- 相同键但请求体不同，是返回旧结果还是报冲突。
+- 第一次请求处理中，第二次请求如何处理。
+- 第一次请求失败后是否允许重试。
+- 记录何时过期，服务重启后是否仍需有效。
+- 任务写入成功但幂等记录失败时如何恢复。
+
+::: tip Prompt 05｜幂等语义对抗审查
 ```text
-这是我定义的幂等语义和实现草案。
-请构造相同键不同请求、相同请求不同用户、并发重复请求、创建后响应丢失四个反例。
-指出当前实现在哪些部署方式下不成立，不要直接重写整个模块。
+我的暂定语义是：幂等键按用户隔离；首次成功后重复请求返回原任务；相同键配不同请求体报冲突；
+首次失败不占用键。
+
+不要写实现。请从并发、崩溃恢复、超时重试和多实例四个角度找反例。
+每个反例写出事件顺序、可能的错误结果、在当前单机训练环境中的最小处理，以及生产环境需要的升级。
 ```
+:::
 
-## 面试官可能继续追问
+面试中很加分的一句话是：当前实现只保证什么，不保证什么，升级到数据库唯一约束或分布式协调
+时需要改变哪一层。
 
-### 为什么不直接用一个全局 `set`
+## 第六轮：审查 AI 建议和最终 Diff
 
-`set` 只能记住键出现过，无法返回第一次创建的任务，也无法检测相同键对应不同请求。
+::: tip Prompt 06｜小范围 Diff 审查
+```text
+请审查这次需求对应的 diff 和新增测试，不要提出无关重构。
 
-### 数据库里怎样实现
+按下面顺序输出：
+1. 需求中的每条验收条件对应哪一处修改和哪条测试；
+2. 修改是否越过已声明的禁止范围；
+3. 分页状态是否保证推进和终止；
+4. 幂等键是否按用户隔离，失败和并发语义是否一致；
+5. 哪些结论仍然只有推测，没有运行证据。
 
-可以在幂等表上建立 `(owner_id, idempotency_key)` 唯一索引，在事务中写业务记录和幂等记录。
-遇到唯一键冲突后读取旧记录并比较请求哈希。还需要处理业务记录写入成功、幂等记录失败的
-原子性问题。
+引用文件和符号；无法确认时明确写 UNKNOWN。
+```
+:::
 
-### 为什么不让 AI 重构所有文件
+不要接受“代码看起来没问题”。要求 AI 把每个结论绑定到需求、修改和测试三者之一。
 
-现场需求只有两个目标。扩大修改范围会增加回归风险，也让面试官难以判断你是否理解原设计。
-保留小范围 diff 更容易验证和解释。
+## 现场遇到测试失败时怎么问
 
-## 交付清单
+不要把整段日志丢给 AI 问“哪里错了”。先提取第一个失败、输入、期望、实际结果和最近修改。
 
-- 原有测试全部通过。
-- 新测试在旧实现上能够稳定失败。
-- 分页请求序列被明确断言。
-- 幂等键的作用域、冲突规则和生命周期写入 README。
-- 说明内存锁只能保证单进程语义。
-- `git diff` 中没有无关格式化、依赖升级或密钥文件。
+::: tip 调试 Prompt｜一次只验证一个假设
+```text
+失败测试：同一用户相同幂等键并发提交时创建了两个任务。
+已知事实：[粘贴锁边界、存储调用顺序和事件日志]
+
+请提出最多三个按可能性排序的根因假设。每个假设给一个最小观察动作来证伪。
+在我返回观察结果前，不给修复方案。
+```
+:::
+
+这样做能防止 AI 根据一段堆栈一次改动多个位置，让根因越来越难确认。
+
+## 60 分钟节奏
+
+- **0—10 分钟**：运行基线、画调用链、确认约束。
+- **10—20 分钟**：复现分页问题，写幂等行为矩阵。
+- **20—35 分钟**：完成最小分页修复并回归。
+- **35—50 分钟**：加入幂等语义和关键测试。
+- **50—56 分钟**：审查影响面、并发与失败路径。
+- **56—60 分钟**：整理 diff、命令结果、已知限制和生产升级方向。
+
+## 面试复述模板
+
+先展示你如何找到调用链和稳定复现，再解释为什么修改范围只落在这些职责上；说明 AI 提出的哪个
+重构建议被你拒绝；最后把每条需求连接到一个修改和一条验证证据。重点是让面试官看到你控制了
+过程，而不是 AI 控制了仓库。

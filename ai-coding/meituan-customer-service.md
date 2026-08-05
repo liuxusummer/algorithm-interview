@@ -1,384 +1,207 @@
 ---
 pageClass: ai-coding-page
 title: 智能客服 MVP
-description: 两小时完成意图路由、知识检索、人工转接、会话记录和安全降级。
+description: 用场景收敛、事实边界、Prompt 迭代、失败降级和演示证据拆解智能客服 AI Coding 任务。
 ---
 
 <div class="exam-session-banner">
   <div>
     <span>CASE 04 / MEITUAN / AI EDITOR</span>
     <strong>智能客服 MVP</strong>
-    <small>两小时 · 产品原型 · Python · 公开记录扩展</small>
+    <small>两小时 · 产品原型 · 过程拆解 · 公开记录扩展</small>
   </div>
   <div class="exam-session-banner__meta">
-    <span>意图路由</span>
-    <span>知识检索</span>
-    <span>人工兜底</span>
+    <span>场景收敛</span><span>事实接地</span><span>安全降级</span>
   </div>
 </div>
 
 # 智能客服 MVP
 
 <div class="ai-trend-callout">
-  <strong>任务画像</strong>
-  <p>候选人需要在很短时间内把一个宽泛产品词变成可演示的流程。先让三条真实用户路径跑通，再考虑模型、页面动画和复杂工作流。</p>
+  <strong>训练重点</strong>
+  <p>“做一个智能客服”是故意宽泛的题目。高质量作答要展示你如何把产品词收敛成三条可演示路径，怎样限制模型不能编造订单与规则，以及失败时如何安全转人工。</p>
 </div>
 
 ## 资料边界
 
-公开面经记录了一次使用美团 AI 代码编辑器、限时两小时完成智能客服系统的经历，但没有给出
-完整需求和评分规则。本页据此设计可独立练习的训练版。
+公开面经记录了一次使用美团 AI 代码编辑器、限时两小时完成智能客服系统的经历，但没有公开
+完整需求和评分规则。本页据此设计过程型训练案例，不声称是原题复现。
 
 来源为[美团秋招面经中的 AI Coding 记录](https://www.nowcoder.com/feed/main/detail/171cdf9e44f8469e873e0ba74f4cac81)。
 
 ## 训练题目
 
-为外卖订单场景实现一个智能客服 MVP。用户输入自然语言问题，系统返回回答或转人工建议。
+为外卖订单场景设计一个智能客服 MVP。需要处理配送查询、退款规则咨询和高风险投诉。订单状态
+必须来自授权工具，退款答案必须引用本地知识条目，食品安全、异常扣款或强烈投诉要转人工。
 
-必须跑通三条路径。
+## 第一步不是选模型，而是选场景
 
-1. 用户询问配送进度，系统读取订单状态并给出事实性回答。
-2. 用户询问退款规则，系统从本地知识库返回带来源的答案。
-3. 用户表达食品安全、扣款异常或强烈投诉时，系统立即转人工，不让模型自行承诺赔偿。
+两小时不可能覆盖所有客服问题。先固定三条黄金路径和一条失败路径。
 
-交付包含 Python 源码、示例知识库、自动测试、启动说明和一次完整演示记录。
+1. 配送查询：身份通过后读取真实订单状态。
+2. 规则咨询：从知识库检索，并把来源展示给用户。
+3. 高风险投诉：在生成回答前直接转人工。
+4. 无法识别：澄清一次，仍失败就转人工。
 
-## 先把“智能”拆成确定步骤
-
+::: tip Prompt 01｜把产品词变成用户路径
 ```text
-用户问题
-   ↓
-输入检查
-   ↓
-高风险规则 ──命中──> 转人工
-   ↓ 未命中
-意图识别
-   ├── 订单查询 ──> 读取订单工具 ──> 模板回答
-   ├── 规则咨询 ──> 检索知识库 ──> 带来源回答
-   └── 无法识别 ──> 澄清一次 ──> 仍失败则转人工
+你是产品需求分析员，暂时不要设计技术方案。
+
+目标：两小时完成外卖智能客服 MVP。
+已知范围：配送进度、退款规则、高风险投诉、无法识别。
+
+请为每条路径写：
+- 用户目标；
+- 必要输入和前置权限；
+- 成功时可观察输出；
+- 必须转人工的条件；
+- 一条最小演示对话。
+
+不要增加优惠券、推荐、语音或多语言等新功能。所有未知业务规则标记 UNKNOWN。
 ```
+:::
 
-这里最重要的决定是把订单状态和退款规则当作外部事实。语言模型可以组织表达，不能凭记忆
-编造订单状态或公司规则。
+审查时重点看 AI 是否偷偷承诺了赔偿金额、退款时效或配送时间。这些都必须来自工具或知识库，
+不能由模型常识补全。
 
-## 定义完成条件
+## 第二步：画清事实与语言的边界
 
-| 场景 | 输入 | 成功输出 |
-|---|---|---|
-| 配送查询 | 用户 ID、订单 ID、问题 | 当前状态、更新时间、可执行下一步 |
-| 退款咨询 | 问题 | 答案、知识条目 ID、知识库版本 |
-| 高风险投诉 | 问题 | 人工工单 ID、预计响应方式 |
-| 无关问题 | 问题 | 一次澄清，不虚构答案 |
+系统里有三类信息。
 
-一旦写成这张表，AI 就能针对每一条生成实现和测试。只说“做一个智能客服”，生成结果通常
-会停留在一个聊天框和几段硬编码回答。
+- **交易事实**：订单状态、金额、地址，只能通过已鉴权工具读取。
+- **政策事实**：退款条件、申诉流程，只能从版本化知识条目获取。
+- **语言表达**：解释、礼貌措辞、澄清问题，可以由模型组织。
 
-## 核心数据模型
-
-```python
-from dataclasses import dataclass
-from datetime import datetime, timezone
-from enum import StrEnum
-
-
-class Route(StrEnum):
-    ORDER_STATUS = "ORDER_STATUS"
-    POLICY_SEARCH = "POLICY_SEARCH"
-    HUMAN_SUPPORT = "HUMAN_SUPPORT"
-    CLARIFY = "CLARIFY"
-
-
-@dataclass(frozen=True)
-class KnowledgeEntry:
-    id: str
-    title: str
-    content: str
-    keywords: frozenset[str]
-    version: str
-
-
-@dataclass(frozen=True)
-class SupportReply:
-    route: Route
-    message: str
-    sources: tuple[str, ...] = ()
-    ticket_id: str | None = None
-
-
-@dataclass(frozen=True)
-class OrderSnapshot:
-    order_id: str
-    owner_id: str
-    status: str
-    updated_at: datetime
-```
-
-回复对象显式记录路由和来源，测试不需要从自然语言中猜系统走了哪条分支。
-
-## 高风险请求优先处理
-
-食品安全、重复扣款和人身威胁不能交给普通 FAQ 流程。训练版用透明规则先拦截。
-
-```python
-import re
-
-
-HIGH_RISK_PATTERNS: tuple[re.Pattern[str], ...] = (
-    re.compile(r"食物中毒|异物|过敏|住院"),
-    re.compile(r"重复扣款|盗刷|不是我付的"),
-    re.compile(r"报警|人身安全|威胁"),
-)
-
-
-def needs_human_support(message: str) -> bool:
-    normalized = re.sub(r"\s+", "", message.casefold())
-    return any(pattern.search(normalized) for pattern in HIGH_RISK_PATTERNS)
-```
-
-规则会漏掉同义表达，也可能误判。MVP 中先保证高风险词能稳定触发，再在说明中提出使用分类器
-和人工标注数据改进召回率。不能为了显得智能而隐藏当前限制。
-
-## 意图路由
-
-```python
-ORDER_WORDS = frozenset({"订单", "骑手", "配送", "送到", "进度"})
-POLICY_WORDS = frozenset({"退款", "取消", "优惠券", "规则", "赔付"})
-
-
-def route_message(message: str) -> Route:
-    if needs_human_support(message):
-        return Route.HUMAN_SUPPORT
-
-    order_hits = sum(word in message for word in ORDER_WORDS)
-    policy_hits = sum(word in message for word in POLICY_WORDS)
-
-    if order_hits > policy_hits and order_hits > 0:
-        return Route.ORDER_STATUS
-    if policy_hits > 0:
-        return Route.POLICY_SEARCH
-    return Route.CLARIFY
-```
-
-这里故意使用简单实现，便于两小时内验证。若调用大模型识别意图，也应要求它输出受约束枚举，
-并在解析失败、超时或低置信时回到 `CLARIFY`，不能让任意文本直接决定后续工具调用。
-
-## 知识检索
-
-训练版使用关键词交集和词频完成可解释检索。知识库很小，不需要急着引入向量数据库。
-
-```python
-import re
-
-
-TOKEN_PATTERN = re.compile(r"[a-z0-9]+|[\u4e00-\u9fff]")
-
-
-def tokenize(text: str) -> set[str]:
-    return set(TOKEN_PATTERN.findall(text.casefold()))
-
-
-def search_knowledge(
-    query: str,
-    entries: list[KnowledgeEntry],
-    limit: int = 3,
-) -> list[KnowledgeEntry]:
-    query_tokens = tokenize(query)
-    scored: list[tuple[int, str, KnowledgeEntry]] = []
-
-    for entry in entries:
-        searchable = tokenize(entry.title + entry.content) | set(entry.keywords)
-        score = len(query_tokens & searchable)
-        if score > 0:
-            scored.append((-score, entry.id, entry))
-
-    scored.sort(key=lambda item: (item[0], item[1]))
-    return [item[2] for item in scored[:limit]]
-```
-
-单字切分对中文语义的表达能力有限，但它是可运行基线。后续可以替换分词器或向量检索，测试
-和 `KnowledgeEntry` 数据契约无需一起推翻。
-
-## 订单工具必须鉴权
-
-```python
-class OrderStore:
-    def __init__(self, orders: list[OrderSnapshot]) -> None:
-        self._orders = {order.order_id: order for order in orders}
-
-    def get_for_owner(self, order_id: str, owner_id: str) -> OrderSnapshot:
-        try:
-            order = self._orders[order_id]
-        except KeyError as error:
-            raise LookupError("订单不存在") from error
-
-        if order.owner_id != owner_id:
-            raise PermissionError("不能查看其他用户的订单")
-        return order
-```
-
-不能只在前端隐藏其他订单。所有者校验必须发生在读取订单的服务端工具里，这样即使 AI 生成
-错误的订单 ID，也无法越权读取。
-
-## 组合客服服务
-
-```python
-from collections.abc import Callable
-
-
-class CustomerService:
-    def __init__(
-        self,
-        orders: OrderStore,
-        knowledge: list[KnowledgeEntry],
-        create_ticket: Callable[[str, str], str],
-    ) -> None:
-        self.orders = orders
-        self.knowledge = knowledge
-        self.create_ticket = create_ticket
-
-    def answer(
-        self,
-        owner_id: str,
-        message: str,
-        order_id: str | None = None,
-    ) -> SupportReply:
-        clean_message = message.strip()
-        if not clean_message:
-            return SupportReply(Route.CLARIFY, "请描述需要帮助的问题。")
-
-        route = route_message(clean_message)
-
-        if route is Route.HUMAN_SUPPORT:
-            ticket_id = self.create_ticket(owner_id, clean_message)
-            return SupportReply(
-                route,
-                "问题已转交人工客服，请保留相关凭证。",
-                ticket_id=ticket_id,
-            )
-
-        if route is Route.ORDER_STATUS:
-            if order_id is None:
-                return SupportReply(Route.CLARIFY, "请提供需要查询的订单号。")
-            order = self.orders.get_for_owner(order_id, owner_id)
-            updated = order.updated_at.astimezone(timezone.utc).isoformat()
-            return SupportReply(
-                route,
-                f"订单 {order.order_id} 当前状态为 {order.status}，更新时间 {updated}。",
-            )
-
-        if route is Route.POLICY_SEARCH:
-            matches = search_knowledge(clean_message, self.knowledge, limit=1)
-            if not matches:
-                return SupportReply(Route.CLARIFY, "没有找到对应规则，请补充具体场景。")
-            entry = matches[0]
-            return SupportReply(
-                route,
-                entry.content,
-                sources=(f"{entry.id}@{entry.version}",),
-            )
-
-        return SupportReply(
-            Route.CLARIFY,
-            "请问你想查询订单进度、退款规则，还是需要人工帮助？",
-        )
-```
-
-## 自动测试
-
-```python
-def make_service() -> CustomerService:
-    orders = OrderStore([
-        OrderSnapshot(
-            order_id="o-1",
-            owner_id="u-1",
-            status="配送中",
-            updated_at=datetime(2026, 4, 1, 8, 0, tzinfo=timezone.utc),
-        )
-    ])
-    knowledge = [
-        KnowledgeEntry(
-            id="refund-01",
-            title="订单取消与退款",
-            content="商家接单前取消，退款原路退回。",
-            keywords=frozenset({"退款", "取消"}),
-            version="2026-04-01",
-        )
-    ]
-    return CustomerService(
-        orders,
-        knowledge,
-        create_ticket=lambda owner, _message: f"ticket-{owner}",
-    )
-
-
-def test_reads_verified_order_state() -> None:
-    reply = make_service().answer("u-1", "订单送到哪里了", "o-1")
-    assert reply.route is Route.ORDER_STATUS
-    assert "配送中" in reply.message
-
-
-def test_rejects_cross_user_order_access() -> None:
-    try:
-        make_service().answer("u-2", "查询订单进度", "o-1")
-    except PermissionError:
-        pass
-    else:
-        raise AssertionError("不能读取其他用户订单")
-
-
-def test_high_risk_message_skips_normal_answering() -> None:
-    reply = make_service().answer("u-1", "餐里有异物，我要投诉")
-    assert reply.route is Route.HUMAN_SUPPORT
-    assert reply.ticket_id == "ticket-u-1"
-
-
-def test_policy_answer_contains_source() -> None:
-    reply = make_service().answer("u-1", "取消以后怎么退款")
-    assert reply.route is Route.POLICY_SEARCH
-    assert reply.sources == ("refund-01@2026-04-01",)
-```
-
-## 两小时实现顺序
-
-| 时间 | 工作 | 暂时不做 |
-|---|---|---|
-| 0 至 15 分钟 | 定义三条用户路径和输出对象 | 动画、账号体系 |
-| 15 至 35 分钟 | 完成路由、订单工具和高风险规则 | 大模型接入 |
-| 35 至 60 分钟 | 完成知识检索和来源展示 | 向量数据库 |
-| 60 至 85 分钟 | 写四条端到端测试 | 大规模压测 |
-| 85 至 105 分钟 | 加一个简单网页或命令行演示 | 复杂视觉效果 |
-| 105 至 120 分钟 | 跑测试、清理配置、写 README | 新功能 |
-
-## AI 协作怎么做
-
-### 先让 AI 画状态流程
-
+::: tip Prompt 02｜设计事实边界
 ```text
-这是三条必须跑通的客服路径。
-不要写代码。请列出每条路径需要的数据、外部工具、失败分支和最终验收条件。
-任何涉及订单事实、退款规则或赔偿承诺的内容都必须来自工具或知识库。
+请把下面的客服需求拆成“模型可以决定 / 必须调用工具 / 必须检索知识库 / 必须转人工”四类。
+[粘贴用户路径]
+
+对每个判断说明理由、所需证据和失败时的降级动作。
+特别检查：订单越权、旧知识版本、工具超时、检索无结果和高风险关键词。
+不要给实现代码，不要假设模型记忆中的公司规则可靠。
 ```
+:::
 
-### 用 AI 生成界面时固定数据契约
+如果 AI 把订单 ID 当成访问凭证，或建议“工具失败时根据经验回答”，必须拒绝。
 
+## 第三步：定义路由优先级
+
+高风险判断必须先于普通意图路由。否则一句“食品有异物，订单什么时候到”可能被归类为配送查询，
+模型继续给模板回答，错过人工处理。
+
+推荐的判断顺序是输入安全检查、高风险规则、身份与权限、普通意图、事实查询、回答生成、结果审查。
+
+::: tip Prompt 03｜用冲突样本挑战路由
 ```text
-根据 SupportReply 的字段生成一个单页聊天界面。
-不得改动后端字段，不添加虚构订单，不把 sources 隐藏。
-转人工回复必须展示 ticket_id，加载失败时显示可重试状态。
+下面是客服路由优先级和意图定义。请只生成冲突样本，不修改流程。
+[粘贴路由规则]
+
+至少给出 12 条一句话用户输入，覆盖：
+- 同时包含高风险与普通查询；
+- 含否定词；
+- 情绪强烈但不是安全事件；
+- 多个订单号；
+- 诱导系统泄露他人订单；
+- 无法判断。
+
+为每条标注预期路由和理由，指出最可能被关键词规则误判的样本。
 ```
+:::
 
-### 让 AI 做安全审查
+这批样本比继续增加意图数量更有价值，因为它能验证优先级是否真的成立。
 
+## 第四步：先设计工具契约，再让 AI 生成调用
+
+订单工具至少要明确用户身份、订单 ID、允许返回的字段、错误类型和审计信息。知识检索要返回
+条目 ID、版本、命中片段和置信信号。只有这些契约稳定后，AI 才能帮助组织编排流程。
+
+::: tip Prompt 04｜工具契约评审
 ```text
-审查当前客服服务，重点寻找越权订单读取、提示词注入、规则来源缺失、敏感信息日志、
-高风险投诉误走自动回复五类问题。每个问题给出复现输入和应增加的测试。
+不要写工具实现。请评审订单查询和知识检索两个工具契约。
+
+目标：模型不能看到无关个人数据；每个回答能追溯到订单事实或知识条目；工具失败时不得猜测。
+
+请输出：
+1. 必要输入、最小输出和错误分类；
+2. 调用前权限检查；
+3. 模型绝不能接收的字段；
+4. 超时、无权限、无结果、版本过期时的用户可见行为；
+5. 验收这些约束所需的记录。
 ```
+:::
 
-## 复盘重点
+## 第五步：Prompt 要约束回答，不只是规定语气
 
-1. 为什么高风险规则位于模型调用之前。
-2. 为什么知识回答要携带条目 ID 和版本。
-3. 当前中文检索有什么已知限制。
-4. 模型超时或返回非法路由时如何降级。
-5. 会话日志应保存什么，哪些个人信息需要脱敏。
-6. 如果再增加一小时，先改进召回率、界面还是监控，理由是什么。
+系统 Prompt 最重要的部分不是“友好专业”，而是事实来源、禁止行为和降级条件。
+
+::: tip Prompt 05｜回答生成约束
+```text
+角色：外卖客服回答整理器。
+
+你只能使用 <order_fact> 和 <knowledge_evidence> 中的事实。
+要求：
+- 明确区分当前订单事实和一般政策；
+- 政策回答附带知识条目 ID 与版本；
+- 缺少证据时只提出一个澄清问题；
+- 涉及食品安全、异常扣款、威胁或多次失败时输出 HANDOFF，不生成解决承诺；
+- 不猜测配送时间、退款金额、责任归属或用户身份。
+
+输出前自检：每个事实能否指向输入证据。不能则删除。
+```
+:::
+
+### 怎么审查模型回答
+
+逐句标记“订单事实”“政策证据”“纯表达”。任何无法归类的陈述都可能是幻觉。尤其检查时间、
+金额、概率、承诺和责任判断，它们最容易被模型用自然语气悄悄补出来。
+
+## 第六步：设计失败路径
+
+演示不能只展示三次成功。至少准备这些失败。
+
+- 用户查询不属于自己的订单。
+- 订单工具超时或返回不存在。
+- 知识库没有命中，或命中的是旧版本。
+- 用户在普通问题中夹带食品安全投诉。
+- 模型输出包含没有证据的赔偿承诺。
+- 连续澄清仍无法识别。
+
+::: tip Prompt 06｜失败注入与降级审查
+```text
+请根据我的三条用户路径、工具错误类型和回答约束，设计失败注入清单。
+
+每项包含：注入位置、用户输入、系统应该记录什么、用户应该看到什么、是否转人工。
+优先覆盖越权、超时、空检索、旧知识、高风险漏判和模型越界承诺。
+不要写测试代码，不要把“返回友好提示”当成完整验收结果。
+```
+:::
+
+## AI 编辑器里怎样分轮协作
+
+不要一次提交整个需求。推荐六轮会话，每轮都有停止条件。
+
+1. 需求轮：只输出用户路径和歧义。
+2. 边界轮：只输出事实来源、工具和降级。
+3. 契约轮：只评审输入输出与错误语义。
+4. 实施轮：一次只处理一条用户路径。
+5. 对抗轮：生成冲突样本和失败注入。
+6. 交付轮：把需求、证据、限制映射成 README。
+
+每轮结束后先运行或人工检查当前产物，再把观察结果反馈给 AI。不要用下一轮 Prompt 掩盖上一轮
+没有验证的问题。
+
+## 两小时节奏
+
+- **0—15 分钟**：收敛三条路径，确定禁止承诺与转人工条件。
+- **15—30 分钟**：定义事实边界、工具契约和演示数据。
+- **30—65 分钟**：逐条跑通配送、规则和高风险路径。
+- **65—90 分钟**：补身份检查、来源展示和失败降级。
+- **90—105 分钟**：用冲突样本与失败注入做对抗验证。
+- **105—120 分钟**：录制或演示完整路径，整理日志、限制与下一步。
+
+## 面试复述模板
+
+先说你把“智能客服”砍成了哪三条路径；再说明交易事实、政策事实和语言表达分别由谁负责；展示
+一条冲突输入怎样优先转人工；最后说明 AI 在哪些轮次提供帮助、你怎样发现并删除了没有证据的
+回答。面试官由此能看到产品判断、AI 驾驶和风险意识，而不只是一个聊天页面。

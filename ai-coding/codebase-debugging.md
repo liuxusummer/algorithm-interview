@@ -1,27 +1,25 @@
 ---
 pageClass: ai-coding-page
 title: 多文件代码库排错
-description: 在一小时内根据失败测试定位跨文件缺陷，并在受限 AI 环境中完成验证。
+description: 用失败聚类、调用链追踪、假设驱动 Prompt 和最小回归证据拆解受限 AI 代码库面试。
 ---
 
 <div class="exam-session-banner">
   <div>
     <span>CASE 06 / CODE REPOSITORY / DEBUGGING</span>
     <strong>多文件代码库排错</strong>
-    <small>60 分钟 · 四个缺陷 · Python · 海外形式训练版</small>
+    <small>60 分钟 · 四个缺陷 · 调试过程 · 海外形式训练版</small>
   </div>
   <div class="exam-session-banner__meta">
-    <span>陌生仓库</span>
-    <span>失败测试</span>
-    <span>受限 AI</span>
+    <span>失败聚类</span><span>假设驱动</span><span>受限 AI</span>
   </div>
 </div>
 
 # 多文件代码库排错
 
 <div class="ai-trend-callout">
-  <strong>任务画像</strong>
-  <p>候选人拿到仓库和 README，在限定时间里修复多个缺陷。AI 可能只能解释仓库、语法和测试命令，最终定位仍依赖你对代码、日志和失败用例的阅读。</p>
+  <strong>训练重点</strong>
+  <p>在陌生仓库中，AI 最容易把一个失败解释成“重写这一层”。高质量过程要先建立基线、聚类失败、沿调用链验证假设，一次只改一个根因，并用回归证据证明影响范围。</p>
 </div>
 
 ## 资料边界
@@ -35,337 +33,190 @@ AI 只能提供仓库信息和方向性帮助”的经历。公开材料没有�
 
 ## 训练题目
 
-推荐服务根据社交关系给用户返回候选好友。仓库中已有测试，但四个缺陷导致部分测试失败。
-请在 60 分钟内定位并修复，保持公开接口不变。
+推荐服务根据社交关系返回候选好友。仓库中有四类缺陷：可能推荐用户自己、排序方向不稳定、
+缓存结果在用户间泄露、零曝光时指标计算失败。你要在 60 分钟内定位并修复，保持公开接口不变，
+并补充最小回归证据。
 
+## 开场三分钟必须留下基线
+
+在向 AI 提问前记录这些事实。
+
+1. 当前分支和工作区是否干净。
+2. 测试总数、失败数和第一个失败。
+3. 测试命令是否可重复。
+4. 仓库目录、入口、核心领域对象和外部依赖。
+5. 是否存在网络、依赖安装或 AI 访问范围限制。
+
+如果后面失败数减少，你需要能证明是本次修改造成的，而不是环境变化。
+
+## 第一轮：让 AI 做索引，不让它做结论
+
+::: tip Prompt 01｜失败索引
 ```text
-friend_recommendation/
-├── README.md
-├── recommendation/
-│   ├── models.py
-│   ├── repository.py
-│   ├── service.py
-│   ├── cache.py
-│   └── metrics.py
-└── tests/
-    ├── test_service.py
-    ├── test_cache.py
-    └── test_metrics.py
+你只能分析我提供的目录树、测试列表和失败摘要，暂时不要修改代码。
+
+请输出：
+- 每个失败测试涉及的业务行为；
+- 可能共享的调用路径；
+- 值得优先查看的符号和搜索词；
+- 哪些失败可能是同一根因；
+- 哪些信息目前不足，必须标记 UNKNOWN。
+
+不要根据文件名猜实现，不要建议重构整个推荐服务。
 ```
+:::
 
-验收条件如下。
+目标是把十几个失败压缩成少数行为簇，而不是得到十几个独立补丁。
 
-1. 不能推荐用户自己或已经是好友的人。
-2. 推荐按共同好友数从高到低排序，同分时用户 ID 升序。
-3. 不同用户的缓存结果必须隔离。
-4. 没有推荐曝光时，接受率返回 `0.0`，不能抛异常。
-5. 所有原有测试和新增回归测试通过。
+## 第二轮：画最小调用链
 
-## 第一步建立仓库地图
+推荐结果通常经过候选生成、过滤、打分、排序、缓存和指标记录。只读取与当前失败簇有关的路径，
+不要让 AI 无差别总结所有文件。
 
-先运行测试，不要凭 README 猜错误。
-
-```bash
-python -m unittest discover -v
-rg "def recommend|def valid|cache|acceptance_rate" recommendation tests
-```
-
-把失败信息按调用路径分组。
-
+::: tip Prompt 02｜调用链事实表
 ```text
-test_excludes_self
-  → RecommendationService.recommend
-    → RecommendationService._is_valid
+当前失败簇：结果中包含用户自己，并且某些已是好友的人也出现。
+下面是搜索到的符号定义、调用位置和相关测试。
+[粘贴上下文]
 
-test_cache_is_scoped_by_user
-  → RecommendationCache.get / put
-
-test_zero_impressions
-  → acceptance_rate
+请生成调用链事实表，包含：输入从哪里来、每一步如何变换、过滤发生在哪里、结果在哪里被缓存。
+每个结论引用具体符号。最后列出最多三个根因假设，不给修复方案。
 ```
+:::
 
-先找“第一个错误状态出现在哪里”，不要看到一个断言失败就重写整条调用链。
+如果 AI 直接说“在 service 层过滤 self”，先要求它证明候选集合、好友集合和当前用户 ID 在该层
+同时可用，否则这个建议可能把问题挪到错误职责。
 
-## 缺陷一　把自己加入候选人
+## 第三轮：用最小观察证伪假设
 
-现有实现如下。
+每次只验证一个假设。观察动作可以是运行一条测试、打印一个中间集合、检查缓存键或手算排序键。
+不要同时修改过滤、排序和缓存，这会让绿灯失去解释力。
 
-```python
-def _is_valid(self, user_id: str, candidate_id: str) -> bool:
-    user = self.repository.get(user_id)
-    return candidate_id not in user.friend_ids
-```
-
-它只排除了已有好友，没有排除 `candidate_id == user_id`。
-
-### 回归测试
-
-```python
-def test_does_not_recommend_user_to_themself() -> None:
-    repository = UserRepository([
-        User("u1", frozenset()),
-        User("u2", frozenset()),
-    ])
-    service = RecommendationService(repository, RecommendationCache())
-
-    assert service.recommend("u1", limit=10) == ["u2"]
-```
-
-### 最小修复
-
-```python
-def _is_valid(self, user_id: str, candidate_id: str) -> bool:
-    if candidate_id == user_id:
-        return False
-
-    user = self.repository.get(user_id)
-    return candidate_id not in user.friend_ids
-```
-
-修复保持了函数职责，没有新增一套候选过滤流程。
-
-## 缺陷二　排序键方向错误
-
-```python
-scored.sort(key=lambda item: (item.mutual_count, item.user_id))
-```
-
-共同好友数应该降序，用户 ID 应该升序。不能简单加 `reverse=True`，否则两个字段都会反转。
-
-```python
-scored.sort(key=lambda item: (-item.mutual_count, item.user_id))
-```
-
-### 为什么需要同分测试
-
-```python
-def test_orders_by_mutual_count_then_user_id() -> None:
-    scored = [
-        CandidateScore("u3", 1),
-        CandidateScore("u2", 2),
-        CandidateScore("u1", 2),
-    ]
-
-    scored.sort(key=lambda item: (-item.mutual_count, item.user_id))
-
-    assert [item.user_id for item in scored] == ["u1", "u2", "u3"]
-```
-
-若只测试共同好友数不同的情况，`reverse=True` 也可能通过，隐藏同分规则错误。
-
-## 缺陷三　缓存键泄露其他用户结果
-
-现有缓存只使用 `limit` 作为键。
-
-```python
-class RecommendationCache:
-    def __init__(self) -> None:
-        self._values: dict[int, list[str]] = {}
-
-    def get(self, user_id: str, limit: int) -> list[str] | None:
-        return self._values.get(limit)
-
-    def put(self, user_id: str, limit: int, values: list[str]) -> None:
-        self._values[limit] = values
-```
-
-用户 A 请求 `limit=10` 后，用户 B 会读到 A 的结果。这既是正确性缺陷，也可能暴露社交关系。
-
-### 修复
-
-```python
-class RecommendationCache:
-    def __init__(self) -> None:
-        self._values: dict[tuple[str, int], tuple[str, ...]] = {}
-
-    def get(self, user_id: str, limit: int) -> list[str] | None:
-        cached = self._values.get((user_id, limit))
-        return None if cached is None else list(cached)
-
-    def put(self, user_id: str, limit: int, values: list[str]) -> None:
-        self._values[(user_id, limit)] = tuple(values)
-```
-
-缓存内部保存元组，读取时返回新列表，避免调用方修改缓存中的原始对象。
-
-### 测试隔离和防御性复制
-
-```python
-def test_cache_is_scoped_by_user() -> None:
-    cache = RecommendationCache()
-    cache.put("u1", 2, ["u3"])
-    cache.put("u2", 2, ["u4"])
-
-    assert cache.get("u1", 2) == ["u3"]
-    assert cache.get("u2", 2) == ["u4"]
-
-
-def test_caller_cannot_mutate_cached_value() -> None:
-    cache = RecommendationCache()
-    cache.put("u1", 2, ["u3"])
-
-    result = cache.get("u1", 2)
-    assert result is not None
-    result.append("u9")
-
-    assert cache.get("u1", 2) == ["u3"]
-```
-
-## 缺陷四　零曝光时除零
-
-```python
-def acceptance_rate(accepted: int, impressions: int) -> float:
-    return accepted / impressions
-```
-
-在监控系统刚启动或筛选条件没有结果时，曝光数可能为零。题目规定返回 `0.0`。
-
-```python
-def acceptance_rate(accepted: int, impressions: int) -> float:
-    if accepted < 0 or impressions < 0:
-        raise ValueError("计数不能为负数")
-    if accepted > impressions:
-        raise ValueError("接受数不能超过曝光数")
-    if impressions == 0:
-        return 0.0
-    return accepted / impressions
-```
-
-### 测试
-
-```python
-def test_acceptance_rate_handles_zero_impressions() -> None:
-    assert acceptance_rate(0, 0) == 0.0
-
-
-def test_acceptance_rate_rejects_impossible_counts() -> None:
-    for accepted, impressions in [(-1, 1), (2, 1)]:
-        try:
-            acceptance_rate(accepted, impressions)
-        except ValueError:
-            pass
-        else:
-            raise AssertionError("非法计数必须失败")
-```
-
-## 修复后的核心服务
-
-```python
-from dataclasses import dataclass
-
-
-@dataclass(frozen=True)
-class User:
-    id: str
-    friend_ids: frozenset[str]
-
-
-@dataclass(frozen=True)
-class CandidateScore:
-    user_id: str
-    mutual_count: int
-
-
-class UserRepository:
-    def __init__(self, users: list[User]) -> None:
-        self._users = {user.id: user for user in users}
-
-    def get(self, user_id: str) -> User:
-        try:
-            return self._users[user_id]
-        except KeyError as error:
-            raise LookupError("用户不存在") from error
-
-    def all(self) -> list[User]:
-        return list(self._users.values())
-
-
-class RecommendationService:
-    def __init__(
-        self,
-        repository: UserRepository,
-        cache: RecommendationCache,
-    ) -> None:
-        self.repository = repository
-        self.cache = cache
-
-    def _is_valid(self, user_id: str, candidate_id: str) -> bool:
-        if candidate_id == user_id:
-            return False
-        return candidate_id not in self.repository.get(user_id).friend_ids
-
-    def recommend(self, user_id: str, limit: int) -> list[str]:
-        if limit <= 0:
-            raise ValueError("limit 必须为正数")
-
-        cached = self.cache.get(user_id, limit)
-        if cached is not None:
-            return cached
-
-        user = self.repository.get(user_id)
-        scored: list[CandidateScore] = []
-
-        for candidate in self.repository.all():
-            if not self._is_valid(user_id, candidate.id):
-                continue
-            mutual_count = len(user.friend_ids & candidate.friend_ids)
-            scored.append(CandidateScore(candidate.id, mutual_count))
-
-        scored.sort(key=lambda item: (-item.mutual_count, item.user_id))
-        result = [item.user_id for item in scored[:limit]]
-        self.cache.put(user_id, limit, result)
-        return result
-```
-
-## 修复顺序怎么选
-
-60 分钟里不要平均分配时间。推荐按照“定位成本”和“影响范围”排序。
-
-| 时间 | 动作 |
-|---|---|
-| 0 至 8 分钟 | 读 README、运行全量测试、画调用关系 |
-| 8 至 18 分钟 | 修复零曝光和排序方向，快速减少失败数 |
-| 18 至 32 分钟 | 修复自推荐并补回归测试 |
-| 32 至 46 分钟 | 修复缓存隔离和可变对象问题 |
-| 46 至 54 分钟 | 全量回归，检查修改范围 |
-| 54 至 60 分钟 | 解释根因、风险和未处理边界 |
-
-真实失败可能互相影响。每修复一个根因就运行相关测试，再运行一次全量测试，避免最后才发现
-前一个修改破坏了其他模块。
-
-## 受限 AI 环境怎么用
-
-如果 AI 只允许解释代码和测试命令，可以问下面的问题。
-
+::: tip Prompt 03｜假设—观察循环
 ```text
-请说明 RecommendationService.recommend 的调用关系和数据流。
-只引用仓库中存在的类和函数，不提出重构方案。
-```
+现象：[粘贴失败的输入、期望和实际结果]
+已确认调用链：[粘贴事实表]
 
+请提出最多三个互相可区分的根因假设，按可能性排序。
+每个假设只给一个成本最低的观察动作，并说明：
+- 观察到什么支持它；
+- 观察到什么能证伪它；
+- 该观察会不会改变程序状态。
+
+在我返回观察结果前，不提供修改建议。
+```
+:::
+
+这个 Prompt 能抑制 AI 常见的“读到错误后立刻生成补丁”倾向。
+
+## 缺陷一：自推荐与好友过滤
+
+思考重点不是写一个过滤条件，而是确认过滤输入来自哪里、ID 类型是否一致、过滤在缓存前还是缓存后。
+
+要准备三个最小样本：只有自己、自己加一个陌生人、自己加已有好友和陌生人。再加入字符串 ID 与
+数字 ID 混用的样本，防止表面相等但比较失败。
+
+::: tip Prompt 04｜过滤规则对抗样本
 ```text
-test_cache_is_scoped_by_user 为什么能证明缓存键不完整。
-请根据测试输入逐行追踪 put 和 get，不直接给修复代码。
-```
+不要写过滤实现。根据规则“不能推荐自己或已有好友”，生成最小决策表。
+覆盖空集合、ID 类型不一致、重复候选、双向好友数据缺失和缓存命中。
 
+每一行写输入集合、期望输出、它验证的假设，以及过滤应该发生在缓存前还是后。
+```
+:::
+
+## 缺陷二：排序方向与稳定性
+
+“共同好友数降序，用户 ID 升序”包含两个方向。AI 很容易把整个元组统一反转，导致第二关键字也
+降序。不要先看实现，先写三个候选人的手算表，再对照实际结果。
+
+::: tip Prompt 05｜排序键走查
 ```text
-列出运行单个测试文件和全量测试的命令。
-如果仓库没有声明测试框架，请先检查配置文件，不要猜。
-```
+规则：共同好友数从高到低；同分时用户 ID 从低到高。
+请构造最小候选集，分别暴露主键方向错误、次键方向错误和不稳定排序。
 
-即使平台允许完整生成代码，也可以先用解释模式。自己先定位根因，再让 AI 生成一个小补丁，
-更容易控制范围和判断对错。
+只输出手算输入、预期顺序和错误排序会得到什么，不提供代码。
+```
+:::
+
+## 缺陷三：缓存隔离与可变结果
+
+缓存错误至少有两个维度：键没有包含用户上下文，以及返回的可变集合被调用方修改。复现顺序很
+重要：先请求用户 A，再请求用户 B；或者第一次拿到结果后修改它，再次读取同一键。
+
+::: tip Prompt 06｜缓存时间线
+```text
+下面是缓存接口契约和两次请求日志。
+[粘贴上下文]
+
+请用时间线分析：缓存键由哪些输入决定、值在何时创建和返回、调用方是否可能修改同一对象。
+构造“跨用户污染”和“返回值被修改”两个独立复现。
+不要建议直接关闭缓存；先说明哪条隔离或所有权规则被破坏。
+```
+:::
+
+## 缺陷四：零曝光指标
+
+零曝光时接受率没有数学定义，但产品通常要求返回约定值。你要确认题目要求的是 `0`、空值还是
+不展示，而不是让 AI 自己选择。再检查负数、重复事件和接受数大于曝光数是否要拒绝。
+
+::: tip Prompt 07｜业务边界确认
+```text
+指标为 accepted / impressions。请不要写计算实现。
+
+列出需要产品或面试官确认的边界语义：零曝光、负数、接受数大于曝光数、缺失值、重复事件。
+对已明确“零曝光返回 0.0”的训练规则，给出验收场景和仍然不能推断的行为。
+```
+:::
+
+## 修复顺序不是按文件顺序
+
+优先处理能快速降低噪声、且根因清晰的失败。推荐顺序通常是零曝光、排序、自推荐、缓存隔离，
+但如果测试显示多个失败由缓存污染触发，就应先清理污染源。排序依据是依赖关系和信息增益，
+不是哪个补丁最短。
+
+## 每次修改后的验证协议
+
+1. 先运行刚才稳定失败的最小样本。
+2. 再运行同一行为簇的相关测试。
+3. 再运行全量测试，记录失败数量变化。
+4. 查看 diff，确认没有顺手改动其他职责。
+5. 删除临时日志，确认复现仍成立。
+
+::: tip Prompt 08｜回归范围审查
+```text
+我刚修复了 [根因]。这是需求、最小失败轨迹、修改摘要和当前测试结果。
+
+请审查：
+- 修改是否只针对已证实根因；
+- 哪些相邻行为可能回归；
+- 还缺哪一个最有信息量的反例；
+- 是否残留临时调试、过宽异常处理或不可解释改动。
+
+不要提出风格重构，不要用“建议增加更多测试”代替具体反例。
+```
+:::
+
+## 受限 AI 环境下怎样提问
+
+如果 AI 看不到整个仓库，就提供最小上下文包：目录树、失败测试、相关符号、输入输出和你已经
+做过的观察。不要把“仓库访问受限”当成一次粘贴十个文件的理由。上下文越杂，AI 越容易把不同
+层的对象和接口混在一起。
+
+遇到 AI 引用不存在的文件或函数时，直接指出“该符号搜索结果为零”，要求它撤回相关假设并基于
+现有事实重新排序根因。记录这次纠正，它正是面试官想观察的 AI 驾驶能力。
+
+## 60 分钟节奏
+
+- **0—6 分钟**：运行基线，记录环境和失败总览。
+- **6—14 分钟**：聚类失败，画第一条调用链。
+- **14—28 分钟**：修复两个低耦合根因，每次独立回归。
+- **28—44 分钟**：处理过滤与缓存，重点验证隔离和所有权。
+- **44—53 分钟**：运行全量测试，补最有信息量的反例。
+- **53—60 分钟**：清理 diff，整理四个根因、AI 纠错记录和未解决风险。
 
 ## 面试复述模板
 
-> 我先运行测试并按调用路径分组。四个失败分别来自候选过滤、复合排序、缓存键和指标边界。
-> 每次只修一个根因，并增加能在旧实现上失败的测试。缓存问题还涉及跨用户数据泄露，所以我
-> 同时加入了用户维度的键和防御性复制。最后运行全量测试，并保留了公开接口。
-
-## 继续追问
-
-1. 用户好友关系变化后，缓存如何失效。
-2. 多实例服务如何共享缓存并防止击穿。
-3. 共同好友数为零的候选人是否应该返回。
-4. 用户 ID 排序是否满足真实产品需求。
-5. 现有测试是否可能只验证实现细节，没有验证业务行为。
-6. 哪个问题 AI 最容易给出“看起来正确”的错误修复。
+按“现象、假设、观察、根因、最小修复、回归证据”复述每个缺陷。特别讲一处 AI 最初判断错误
+的地方，以及你用什么事实纠正它。最后说明为什么没有接受全局重构建议。这样的过程能证明你
+面对陌生代码库仍能保持可验证的调试纪律。

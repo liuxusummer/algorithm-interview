@@ -4,7 +4,7 @@ sidebar: true
 aside: false
 pageClass: ai-coding-hub
 title: AI Coding
-description: 用真实工程任务训练需求拆解、代码库理解、AI 协作、测试验证与交付复盘。
+description: 用真实工程任务训练需求拆解、代码库理解、Prompt 迭代、AI 输出审查与交付复盘。
 ---
 
 <div class="ai-coding-hero">
@@ -12,12 +12,12 @@ description: 用真实工程任务训练需求拆解、代码库理解、AI 协�
     <p>AI PAIR PROGRAMMING / FIELD MANUAL / 2026</p>
     <h1>AI Coding<br><em>实战档案</em></h1>
     <div class="ai-coding-hero__rule"></div>
-    <p class="ai-coding-hero__lead">拿到陌生需求，先定义完成条件；让 AI 动手之后，用代码审查、测试和证据决定能不能交付。</p>
+    <p class="ai-coding-hero__lead">拿到陌生需求，先定义完成条件；让 AI 给出建议之后，用事实、反例和验证证据决定下一步。</p>
   </div>
   <div class="ai-coding-hero__console" aria-label="AI Coding 训练流程">
     <span>01 / READ</span><strong>读需求与仓库</strong>
     <span>02 / PLAN</span><strong>拆任务与风险</strong>
-    <span>03 / BUILD</span><strong>小步实现</strong>
+    <span>03 / PROMPT</span><strong>分轮提问</strong>
     <span>04 / VERIFY</span><strong>测试与解释</strong>
     <i>READY FOR REVIEW</i>
   </div>
@@ -25,13 +25,13 @@ description: 用真实工程任务训练需求拆解、代码库理解、AI 协�
 
 <div class="ai-coding-manifesto">
   <strong>专题目标</strong>
-  <p>这里不评选“最会写提示词的人”。每个案例都要求你在有限时间里留下可以运行的代码、可以复现的测试、可以说明的取舍，以及没有被 AI 悄悄带入项目的错误假设。</p>
+  <p>这里不展示可以复制的成品代码。每个案例都拆解人的前置判断、分轮 Prompt、AI 输出中的风险、下一步观察动作、验收证据与面试复述。</p>
 </div>
 
 ## 案例目录
 
 公开面经提供的信息完整程度不同。本专题将案例分为“公开题目拆解”和“公开形式训练版”。
-前者可以核对到较完整的任务描述，后者只采用公开出现过的考查形式，训练需求和代码由本站重新设计。
+前者可以核对到较完整的任务描述，后者只采用公开出现过的考查形式，训练情境与解题过程由本站重新设计。
 
 <div class="ai-coding-case-grid">
   <a href="./ant-secure-mail">
@@ -49,7 +49,7 @@ description: 用真实工程任务训练需求拆解、代码库理解、AI 协�
   <a href="./meituan-repository-change">
     <span>CASE 03 · 公开形式训练版</span>
     <h3>真实仓库需求变更</h3>
-    <p>在已有 Python 服务中修复分页缺陷、加入幂等写入，并控制修改范围。</p>
+    <p>从只读探索、失败复现到影响面评审，逐轮控制分页修复和幂等需求的修改范围。</p>
     <small>美团 · 候选人仓库 · 现场修改</small>
   </a>
   <a href="./meituan-customer-service">
@@ -61,7 +61,7 @@ description: 用真实工程任务训练需求拆解、代码库理解、AI 协�
   <a href="./microsoft-load-balancer">
     <span>CASE 05 · 社区面经训练版</span>
     <h3>最小负载调度器</h3>
-    <p>用堆维护服务器负载，检查 AI 代码中的陈旧节点、并列规则和输入边界。</p>
+    <p>用状态不变量和手算反例，定位 AI 建议中的时间推进、同时释放和并列规则错误。</p>
     <small>Microsoft · Live Coding · AI 辅助</small>
   </a>
   <a href="./codebase-debugging">
@@ -101,9 +101,9 @@ description: 用真实工程任务训练需求拆解、代码库理解、AI 协�
     <span role="cell">可复查的提示记录</span>
   </div>
   <div class="ai-coding-delivery-matrix__row" role="row">
-    <strong role="cell"><i>05</i>实现</strong>
-    <span role="cell">一次完成一个可验证的小改动</span>
-    <span role="cell">小范围 diff</span>
+    <strong role="cell"><i>05</i>迭代</strong>
+    <span role="cell">一次验证一个假设，根据证据调整 Prompt</span>
+    <span role="cell">提问、回答与纠正记录</span>
   </div>
   <div class="ai-coding-delivery-matrix__row" role="row">
     <strong role="cell"><i>06</i>验证</strong>
@@ -127,25 +127,48 @@ description: 用真实工程任务训练需求拆解、代码库理解、AI 协�
   <article><span>03 · 0—2 分</span><strong>任务拆解</strong><p>先跑通最小闭环，再增加功能和质量。</p></article>
   <article><span>04 · 0—2 分</span><strong>AI 驾驶</strong><p>提供上下文、限制范围，并纠正不合适的建议。</p></article>
   <article><span>05 · 0—2 分</span><strong>验证能力</strong><p>覆盖正常路径、边界、失败路径和回归风险。</p></article>
-  <article><span>06 · 0—2 分</span><strong>技术表达</strong><p>独立解释提交的代码以及没有完成的部分。</p></article>
+  <article><span>06 · 0—2 分</span><strong>技术表达</strong><p>独立解释判断、取舍、证据以及没有完成的部分。</p></article>
 </div>
 
 <div class="ai-coding-score-note">
   <strong>9 / 12</strong><span>可以完成基本工程任务</span>
-  <strong>11 / 12</strong><span>测试证据完整、取舍清楚，并且没有无法解释的生成代码</span>
+  <strong>11 / 12</strong><span>验证证据完整、取舍清楚，并且没有无法解释的 AI 结论</span>
 </div>
 
-## 资料边界
-
-- [蚂蚁集团安全邮箱 AI Coding 公开记录](https://www.nowcoder.com/discuss/865336111655051264?sourceSSR=subject)
-- [蚂蚁集团简历筛选 AI Coding 笔经](https://www.nowcoder.com/feed/main/detail/6671d50b92f24a229d0e89e5dd19d9bf?urlSource=home-api)
-- [美团全栈实习 AI Coding 面经](https://www.nowcoder.com/feed/main/detail/3e0b975bc77d4379bcdd710130f1105f)
-- [美团智能客服 AI Coding 记录](https://www.nowcoder.com/feed/main/detail/171cdf9e44f8469e873e0ba74f4cac81)
-- [Microsoft AI 辅助编码社区复盘](https://www.reddit.com/r/leetcode/comments/1sfgtu3/ai_assisted_coding_interview_experience_microsoft/)
-- [CoderPad 对 Meta AI 编码试点的介绍](https://coderpad.io/blog/hiring-developers/ai-in-the-interview-is-not-cheating-it-is-the-job-according-to-meta/)
-- [HackerRank AI 辅助面试说明](https://support.hackerrank.com/articles/5821380141-ai-assisted-interviews)
-- [CodeSignal Agentic Interviewing 说明](https://support.codesignal.com/hc/en-us/articles/38841637349015-How-can-I-use-Agentic-Interviewing-in-my-recruiting-process)
-
-公司、岗位和批次会改变题目与工具权限。页面中的“训练版”是本站根据公开形式重新命题，
-用于练习，不宣称是对应公司的完整原题。正式面试中是否允许使用外部 AI，以邀请邮件和
-面试官说明为准。
+<section class="ai-coding-sources" aria-labelledby="ai-coding-sources-title">
+  <header class="ai-coding-sources__head">
+    <span>SOURCE LEDGER / EVIDENCE FIRST</span>
+    <h2 id="ai-coding-sources-title">资料边界</h2>
+    <p>每条案例先说明信息来自哪里，再决定能还原到什么程度。点击卡片可以回到公开记录核对。</p>
+  </header>
+  <div class="ai-coding-sources__grid">
+    <a href="https://www.nowcoder.com/discuss/865336111655051264?sourceSSR=subject" target="_blank" rel="noreferrer">
+      <span>公开记录 · 蚂蚁</span><strong>安全邮箱 AI Coding</strong><small>NOWCODER ↗</small>
+    </a>
+    <a href="https://www.nowcoder.com/feed/main/detail/6671d50b92f24a229d0e89e5dd19d9bf?urlSource=home-api" target="_blank" rel="noreferrer">
+      <span>公开笔经 · 蚂蚁</span><strong>简历筛选与排序</strong><small>NOWCODER ↗</small>
+    </a>
+    <a href="https://www.nowcoder.com/feed/main/detail/3e0b975bc77d4379bcdd710130f1105f" target="_blank" rel="noreferrer">
+      <span>公开面经 · 美团</span><strong>真实仓库需求修改</strong><small>NOWCODER ↗</small>
+    </a>
+    <a href="https://www.nowcoder.com/feed/main/detail/171cdf9e44f8469e873e0ba74f4cac81" target="_blank" rel="noreferrer">
+      <span>公开记录 · 美团</span><strong>智能客服 AI Coding</strong><small>NOWCODER ↗</small>
+    </a>
+    <a href="https://www.reddit.com/r/leetcode/comments/1sfgtu3/ai_assisted_coding_interview_experience_microsoft/" target="_blank" rel="noreferrer">
+      <span>社区复盘 · Microsoft</span><strong>AI 辅助现场编码</strong><small>REDDIT ↗</small>
+    </a>
+    <a href="https://coderpad.io/blog/hiring-developers/ai-in-the-interview-is-not-cheating-it-is-the-job-according-to-meta/" target="_blank" rel="noreferrer">
+      <span>平台观察 · Meta</span><strong>AI 编码面试试点</strong><small>CODERPAD ↗</small>
+    </a>
+    <a href="https://support.hackerrank.com/articles/5821380141-ai-assisted-interviews" target="_blank" rel="noreferrer">
+      <span>官方说明 · HackerRank</span><strong>AI-Assisted Interviews</strong><small>HACKERRANK ↗</small>
+    </a>
+    <a href="https://support.codesignal.com/hc/en-us/articles/38841637349015-How-can-I-use-Agentic-Interviewing-in-my-recruiting-process" target="_blank" rel="noreferrer">
+      <span>官方说明 · CodeSignal</span><strong>Agentic Interviewing</strong><small>CODESIGNAL ↗</small>
+    </a>
+  </div>
+  <div class="ai-coding-boundary-note">
+    <strong>使用边界</strong>
+    <p>公司、岗位和批次会改变题目与工具权限。页面中的“训练版”由本站根据公开考查形式重新命题，不宣称是对应公司的完整原题。正式面试能否使用外部 AI，以邀请邮件和面试官说明为准。</p>
+  </div>
+</section>

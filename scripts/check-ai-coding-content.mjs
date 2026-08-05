@@ -1,6 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
-import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url))
@@ -18,9 +17,10 @@ const cases = [
 const requiredPatterns = [
   [/^## 资料边界$/mu, '资料边界'],
   [/^## 训练题目$/mu, '训练题目'],
-  [/```python/u, 'Python 示例'],
-  [/(测试|验收)/u, '测试或验收说明'],
-  [/(AI 协作|向 AI 提问|AI 环境)/u, 'AI 协作说明'],
+  [/(Prompt|提示词)/u, 'Prompt 设计'],
+  [/(审查|拒绝|纠正)/u, 'AI 输出审查'],
+  [/(验证|验收|证据)/u, '验证证据'],
+  [/(复述|复盘)/u, '面试复述或复盘'],
   [/(来源|https:\/\/)/u, '公开来源']
 ]
 
@@ -40,28 +40,16 @@ for (const filename of cases) {
     }
   }
 
-  const pythonBlocks = content.match(/```python\n[\s\S]*?```/gu) ?? []
-  if (pythonBlocks.length < 3) {
-    failures.push(`${filename} 的 Python 示例少于 3 组`)
+  const promptBlocks = content.match(/::: tip (?:调试 )?Prompt[^\n]*\n[\s\S]*?:::/gu) ?? []
+  if (promptBlocks.length < 5) {
+    failures.push(`${filename} 的分阶段 Prompt 少于 5 组`)
   }
 
-  pythonBlocks.forEach((fencedBlock, index) => {
-    const source = fencedBlock
-      .replace(/^```python\n/u, '')
-      .replace(/```$/u, '')
-    const validation = spawnSync(
-      'python3',
-      ['-c', 'import sys; compile(sys.stdin.read(), "<markdown>", "exec")'],
-      { input: source, encoding: 'utf8' }
-    )
-    if (validation.status !== 0) {
-      failures.push(
-        `${filename} 的第 ${index + 1} 个 Python 示例语法错误：${validation.stderr.trim()}`
-      )
-    }
-  })
+  if (/```(?:python|javascript|typescript|java|cpp|c|go|rust|bash|sh)\b/u.test(content)) {
+    failures.push(`${filename} 不应包含成品实现代码，专题应聚焦思路、Prompt 和验证过程`)
+  }
 
-  if (!/(训练版|本站编写|本站训练规则|重新组织讲解)/u.test(content)) {
+  if (!/(不声称|训练版|本站.*(?:训练|设计|组织)|重新组织|重新设计)/u.test(content)) {
     failures.push(`${filename} 没有说明公开资料与本站训练内容的边界`)
   }
 }

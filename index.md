@@ -48,6 +48,6 @@ title: 解题现场
   <article class="algo-card algo-card--coding">
     <span class="algo-card__number">AI / ENGINEERING INTERVIEW</span>
     <h2><a href="./ai-coding/README">AI Coding 实战档案 →</a></h2>
-    <p>用公开面经中的项目、仓库和调试形式，训练需求拆解、AI 协作、代码审查、测试与交付。</p>
+    <p>用公开面经中的项目、仓库和调试形式，拆解人的判断、分轮 Prompt、AI 输出审查与验证证据。</p>
   </article>
 </div>
