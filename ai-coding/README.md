@@ -74,29 +74,66 @@ description: 用真实工程任务训练需求拆解、代码库理解、AI 协�
 
 ## 一次完整作答应该留下什么
 
-| 阶段 | 你要完成的动作 | 可以检查的产物 |
-|---|---|---|
-| 读题 | 圈出输入、输出、约束和交付物 | 一页任务清单 |
-| 探索 | 找入口、数据结构、测试和运行命令 | 仓库地图 |
-| 计划 | 拆出最小闭环和可推迟内容 | 有顺序的 TODO |
-| 协作 | 给 AI 必要上下文和修改边界 | 可复查的提示记录 |
-| 实现 | 一次完成一个可验证的小改动 | 小范围 diff |
-| 验证 | 运行测试并补充边界用例 | 命令、输出和失败记录 |
-| 交付 | 解释实现、取舍、风险和下一步 | README 与复盘 |
+<div class="ai-coding-delivery-matrix" role="table" aria-label="AI Coding 完整作答流程">
+  <div class="ai-coding-delivery-matrix__head" role="row">
+    <span role="columnheader">阶段</span>
+    <span role="columnheader">你要完成的动作</span>
+    <span role="columnheader">可以检查的产物</span>
+  </div>
+  <div class="ai-coding-delivery-matrix__row" role="row">
+    <strong role="cell"><i>01</i>读题</strong>
+    <span role="cell">圈出输入、输出、约束和交付物</span>
+    <span role="cell">一页任务清单</span>
+  </div>
+  <div class="ai-coding-delivery-matrix__row" role="row">
+    <strong role="cell"><i>02</i>探索</strong>
+    <span role="cell">找入口、数据结构、测试和运行命令</span>
+    <span role="cell">仓库地图</span>
+  </div>
+  <div class="ai-coding-delivery-matrix__row" role="row">
+    <strong role="cell"><i>03</i>计划</strong>
+    <span role="cell">拆出最小闭环和可推迟内容</span>
+    <span role="cell">有顺序的 TODO</span>
+  </div>
+  <div class="ai-coding-delivery-matrix__row" role="row">
+    <strong role="cell"><i>04</i>协作</strong>
+    <span role="cell">给 AI 必要上下文和修改边界</span>
+    <span role="cell">可复查的提示记录</span>
+  </div>
+  <div class="ai-coding-delivery-matrix__row" role="row">
+    <strong role="cell"><i>05</i>实现</strong>
+    <span role="cell">一次完成一个可验证的小改动</span>
+    <span role="cell">小范围 diff</span>
+  </div>
+  <div class="ai-coding-delivery-matrix__row" role="row">
+    <strong role="cell"><i>06</i>验证</strong>
+    <span role="cell">运行测试并补充边界用例</span>
+    <span role="cell">命令、输出和失败记录</span>
+  </div>
+  <div class="ai-coding-delivery-matrix__row" role="row">
+    <strong role="cell"><i>07</i>交付</strong>
+    <span role="cell">解释实现、取舍、风险和下一步</span>
+    <span role="cell">README 与复盘</span>
+  </div>
+</div>
 
 ## 评分视角
 
 题目做得多不等于 AI Coding 表现好。训练时按下面六项逐一打分，每项 0 到 2 分。
 
-1. **需求理解**　有没有把含糊描述改成可验证条件。
-2. **仓库理解**　能否快速找到真正需要修改的文件和调用关系。
-3. **任务拆解**　能否先跑通最小闭环，再增加功能和质量。
-4. **AI 驾驶**　能否提供上下文、限制范围，并纠正不合适的建议。
-5. **验证能力**　有没有测试正常路径、边界、失败路径和回归风险。
-6. **技术表达**　能否独立解释提交的代码以及没有完成的部分。
+<div class="ai-coding-score-grid">
+  <article><span>01 · 0—2 分</span><strong>需求理解</strong><p>把含糊描述改写成可以验证的条件。</p></article>
+  <article><span>02 · 0—2 分</span><strong>仓库理解</strong><p>快速找到真正需要修改的文件和调用关系。</p></article>
+  <article><span>03 · 0—2 分</span><strong>任务拆解</strong><p>先跑通最小闭环，再增加功能和质量。</p></article>
+  <article><span>04 · 0—2 分</span><strong>AI 驾驶</strong><p>提供上下文、限制范围，并纠正不合适的建议。</p></article>
+  <article><span>05 · 0—2 分</span><strong>验证能力</strong><p>覆盖正常路径、边界、失败路径和回归风险。</p></article>
+  <article><span>06 · 0—2 分</span><strong>技术表达</strong><p>独立解释提交的代码以及没有完成的部分。</p></article>
+</div>
 
-达到 9 分说明可以完成基本工程任务。达到 11 分还需要做到测试证据完整、取舍清楚，
-并且没有无法解释的生成代码。
+<div class="ai-coding-score-note">
+  <strong>9 / 12</strong><span>可以完成基本工程任务</span>
+  <strong>11 / 12</strong><span>测试证据完整、取舍清楚，并且没有无法解释的生成代码</span>
+</div>
 
 ## 资料边界
 
