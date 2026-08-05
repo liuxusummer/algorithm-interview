@@ -155,6 +155,33 @@ body {
   background: var(--vp-c-bg-soft);
 }
 
+.vp-doc .assessment-options {
+  display: grid;
+  gap: 8px;
+  margin: 18px 0 22px;
+  padding: 0;
+  list-style: none;
+  counter-reset: assessment-option;
+}
+
+.vp-doc .assessment-options > li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  margin: 0;
+  padding: 8px 12px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--vp-c-bg) 90%, var(--vp-c-bg-soft));
+  counter-increment: assessment-option;
+}
+
+.vp-doc .assessment-options > li::before {
+  content: counter(assessment-option, upper-alpha) ".";
+  color: var(--vp-c-brand-1);
+  font-family: var(--vp-font-family-mono);
+  font-weight: 800;
+}
+
 .complexity-badge {
   display: inline-flex;
   flex-wrap: wrap;

@@ -7,7 +7,7 @@ description: 系统训练网申后的通用认知、性格动机、情景判断�
 
 投完简历以后收到的链接，可能是通用测评，也可能是专业笔试或 AI 面试。
 这几类考察的能力、答题方式和准备方法差异很大。本章先帮你认清类型，再用
-39 道原创练习覆盖常见形式。
+46 组原创练习覆盖常见形式。
 
 ## 内容边界
 
@@ -29,13 +29,15 @@ description: 系统训练网申后的通用认知、性格动机、情景判断�
 | 专业能力笔试 | 8 | 研发、数据、产品、运营与财务代表题 | [进入](/assessments/professional-skills) |
 | AI 视频面试 | 6 | 自我介绍、失败、冲突、学习、风险与动机 | [进入](/assessments/ai-video-interview) |
 | AI 实操与 AI Coding | 5 | 代码审查、提示词、事实核验、仓库任务与隐私 | [进入](/assessments/ai-practical) |
+| 游戏化测评与任务模拟 | 7 | 工作记忆、注意、任务切换、规划、归纳、风险与消息处理 | [进入](/assessments/game-based-simulations) |
 
 ## 推荐顺序
 
 第一次参加测评时，先完成通用认知能力的八题，熟悉限时读题和排除选项。
 随后阅读性格与职业动机页面，理解问卷在观察什么。情景判断需要单独练习，
 因为它考的是工作环境中的判断顺序。专业笔试按目标岗位选做。收到视频或 AI
-实操邀请以后，再进入最后两页进行录制和实际操作。
+实操邀请以后，再进入对应页面进行录制和实际操作。若邀请里出现小游戏、工作消息
+或虚拟任务，最后练习游戏化测评与任务模拟。
 
 建议每次练习保留三份记录。
 
@@ -55,4 +57,6 @@ description: 系统训练网申后的通用认知、性格动机、情景判断�
 - [SHL 情景判断测评](https://www.shlglobal.cn/zh-cn/products/assessments/behavioral-assessments/situation-judgement-tests-sjt/)
 - [SHL 公开练习类型](https://www.shlglobal.cn/en/shldirect/en/practice-tests/)
 - [北森认知能力测评](https://www.beisen.com/product/evaluation/cata/)
+- [Aon 在线测评准备与公开任务类型](https://www.aon.com/en/capabilities/talent-and-rewards/prepare-for-your-online-assessment)
+- [HireVue 游戏化与视频测评准备说明](https://www.hirevue.com/blog/candidates/how-to-prepare-for-your-hirevue-assessment)
 - [HackerRank 测评题型](https://support.hackerrank.com/articles/2354192461-question-types-in-hackerrank-tests)

@@ -42,6 +42,13 @@ const pages = [
     expectedItems: 5,
     answerPattern: /^### (答案|参考答案)$/gmu,
     expectedAnswers: 5
+  },
+  {
+    path: 'assessments/game-based-simulations.md',
+    itemPattern: /^## 任务 \d{2}/gmu,
+    expectedItems: 7,
+    answerPattern: /^### (参考答案|参考判断)$/gmu,
+    expectedAnswers: 7
   }
 ]
 
@@ -66,6 +73,25 @@ for (const page of pages) {
 
   if (!content.includes('原创')) {
     failures.push(`${page.path} is missing its original-content boundary`)
+  }
+
+  if (/^(?:-\s*)?[A-D]\.\s/gmu.test(content)) {
+    failures.push(`${page.path} contains a loose A-D option line`)
+  }
+
+  const optionBlocks = [
+    ...content.matchAll(
+      /<ol class="assessment-options" type="A">([\s\S]*?)<\/ol>/gmu
+    )
+  ]
+
+  for (const [index, block] of optionBlocks.entries()) {
+    const optionCount = [...block[1].matchAll(/<li>[\s\S]*?<\/li>/gmu)].length
+    if (optionCount < 2 || optionCount > 5) {
+      failures.push(
+        `${page.path} option block ${index + 1} contains ${optionCount} items`
+      )
+    }
   }
 }
 

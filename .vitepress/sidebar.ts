@@ -450,6 +450,7 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       { text: '04 专业能力笔试', link: '/assessments/professional-skills' },
       { text: '05 AI 视频面试', link: '/assessments/ai-video-interview' },
       { text: '06 AI 实操与 AI Coding', link: '/assessments/ai-practical' },
+      { text: '07 游戏化测评与任务模拟', link: '/assessments/game-based-simulations' },
       { text: '三轮质量审查记录', link: '/assessments/QUALITY_AUDIT' }
     ]
   },

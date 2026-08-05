@@ -20,10 +20,12 @@ matrix[0][1] = 7
 print(matrix)
 ```
 
-- A. `[[0, 7, 0], [0, 0, 0]]`
-- B. `[[0, 7, 0], [0, 7, 0]]`
-- C. `[[7, 0, 0], [7, 0, 0]]`
-D. 抛出异常
+<ol class="assessment-options" type="A">
+  <li><code>[[0, 7, 0], [0, 0, 0]]</code></li>
+  <li><code>[[0, 7, 0], [0, 7, 0]]</code></li>
+  <li><code>[[7, 0, 0], [7, 0, 0]]</code></li>
+  <li>抛出异常</li>
+</ol>
 
 ### 答案
 
@@ -56,10 +58,12 @@ LIMIT 20;
 
 以下哪个索引通常最匹配该查询？
 
-- A. `(create_time, user_id)`
-- B. `(status, create_time)`
-- C. `(user_id, status, create_time)`
-D. 分别为三个字段建立单列索引
+<ol class="assessment-options" type="A">
+  <li><code>(create_time, user_id)</code></li>
+  <li><code>(status, create_time)</code></li>
+  <li><code>(user_id, status, create_time)</code></li>
+  <li>分别为三个字段建立单列索引</li>
+</ol>
 
 ### 答案
 
@@ -80,10 +84,12 @@ C
 在不保证“读、加、写”整体原子的运行环境中，多个线程共享整数 `count`，每个线程
 执行 `count += 1`。为什么最终结果可能小于预期？
 
-- A. 整数一定会溢出
-- B. 读、加、写组成的复合操作可能交错，产生丢失更新
-- C. 操作系统会随机删除变量
-D. CPU 不支持整数加法
+<ol class="assessment-options" type="A">
+  <li>整数一定会溢出</li>
+  <li>读、加、写组成的复合操作可能交错，产生丢失更新</li>
+  <li>操作系统会随机删除变量</li>
+  <li>CPU 不支持整数加法</li>
+</ol>
 
 ### 答案
 
@@ -127,10 +133,12 @@ WHERE event_time >= '2026-08-01 00:00:00'
 
 实验组购买转化率为 10.4%，对照组为 10.0%。能否仅凭这两个数字宣布实验有效？
 
-- A. 可以，因为实验组更高
-- B. 可以，因为提高了 0.4 个百分点
-- C. 不可以，还需要样本量、随机化情况和不确定性分析
-D. 不可以，因为提升不足 1 个百分点
+<ol class="assessment-options" type="A">
+  <li>可以，因为实验组更高</li>
+  <li>可以，因为提高了 0.4 个百分点</li>
+  <li>不可以，还需要样本量、随机化情况和不确定性分析</li>
+  <li>不可以，因为提升不足 1 个百分点</li>
+</ol>
 
 ### 答案
 
@@ -178,10 +186,12 @@ C
 
 哪个项目分数最高？
 
-- A. A
-- B. B
-- C. C
-D. 三者相同
+<ol class="assessment-options" type="A">
+  <li>A</li>
+  <li>B</li>
+  <li>C</li>
+  <li>三者相同</li>
+</ol>
 
 ### 答案
 
@@ -201,10 +211,12 @@ A 的分数为 1.6，B 为 2.7，C 为 0.75。这个公式只能作为初筛。�
 一项活动带来 50 万元新增收入，对应可变成本为 32 万元，活动新增固定成本为
 6 万元。忽略税费，活动带来的增量利润是多少？
 
-- A. 12 万元
-- B. 18 万元
-- C. 44 万元
-D. 50 万元
+<ol class="assessment-options" type="A">
+  <li>12 万元</li>
+  <li>18 万元</li>
+  <li>44 万元</li>
+  <li>50 万元</li>
+</ol>
 
 ### 答案
 
