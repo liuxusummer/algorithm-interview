@@ -1,6 +1,6 @@
 # 算法面试讲解站
 
-这是一个面向技术面试的算法学习与讲解网站。项目重点不是堆积题目数量，而是为每道题保留一条可检查的推理链：
+这是一个面向技术求职的算法学习与讲解网站。项目重点不是堆积题目数量，而是为每道题保留一条可检查的推理链：
 
 [在线访问](https://liuxusummer.github.io/algorithm-interview/)
 
@@ -9,6 +9,9 @@
 [NLP · LLM · Agent 算法岗专题](./modules/nlp-llm-agent/README)从 Transformer、
 预训练和后训练出发，覆盖 RAG、推理系统与生产级 Agent 的运行时、评估、
 安全和协议协作。
+
+[大厂测评](./assessments/README)覆盖网申后的通用认知、性格与动机、情景判断、
+专业能力、AI 视频面试和 AI 实操，提供原创代表题与逐题解析。
 
 ```text
 读懂约束 → 给出暴力方案 → 找到优化抓手
@@ -48,6 +51,7 @@ pnpm docs:preview
 | `modules/` | 算法模式、NLP/LLM/Agent 与计算机基础专题 |
 | `problems/` | 单题拆解与统一题解模板 |
 | `written-tests/` | 大厂笔试场次、ACM 模式题解与完整 Python 程序 |
+| `assessments/` | 大厂在线测评分类、原创代表题、答案与应试方法 |
 | `tracks/` | 高频题单与岗位训练路径 |
 | `notes/` | 个人复盘和口述练习模板 |
 | `progress/` | 学习进度、复习计划和通关记录 |

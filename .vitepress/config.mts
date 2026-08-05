@@ -8,7 +8,7 @@ export default defineConfig({
   lang: 'zh-CN',
   title: '解题现场',
   titleTemplate: ':title · 解题现场',
-  description: '面向技术面试的算法题拆解、计算机基础问答、模式归纳与复盘网站',
+  description: '面向大厂求职的算法题拆解、笔试真题、在线测评与面试复盘网站',
   cleanUrls: true,
   markdown: {
     math: true
@@ -48,6 +48,7 @@ export default defineConfig({
       { text: '专题模块', link: '/modules/01-complexity/README' },
       { text: 'AI 算法岗', link: '/modules/nlp-llm-agent/README' },
       { text: '面试真题', link: '/modules/company-interview-questions/README' },
+      { text: '大厂测评', link: '/assessments/README' },
       { text: '笔试真题', link: '/written-tests/README' },
       { text: '题目拆解', link: '/problems/README' },
       {

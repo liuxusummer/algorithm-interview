@@ -440,6 +440,20 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
     ]
   },
   {
+    text: '大厂测评',
+    collapsed: true,
+    items: [
+      { text: '章节说明与训练路线', link: '/assessments/README' },
+      { text: '01 通用认知能力', link: '/assessments/cognitive-ability' },
+      { text: '02 性格与职业动机', link: '/assessments/personality-motivation' },
+      { text: '03 情景判断', link: '/assessments/situational-judgement' },
+      { text: '04 专业能力笔试', link: '/assessments/professional-skills' },
+      { text: '05 AI 视频面试', link: '/assessments/ai-video-interview' },
+      { text: '06 AI 实操与 AI Coding', link: '/assessments/ai-practical' },
+      { text: '三轮质量审查记录', link: '/assessments/QUALITY_AUDIT' }
+    ]
+  },
+  {
     text: '面试手撕题',
     collapsed: true,
     items: [
