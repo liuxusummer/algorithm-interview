@@ -290,6 +290,23 @@ export const huaweiWrittenTests = [
     ]
   },
   {
+    "id": "HW-WRITTEN-AI-20260805",
+    "company": "华为",
+    "role": "AI岗",
+    "date": "2026-08-05",
+    "year": "2026",
+    "href": "/written-tests/huawei-ai-20260805",
+    "difficulty": "中等",
+    "topics": [
+      "DBSCAN 点分类模拟 + 曼哈顿距离",
+      "动态规划 + 每层最小值与异 Agent 次小值"
+    ],
+    "questions": [
+      "基站空间重叠区域识别",
+      "多 Agent 协作任务调度"
+    ]
+  },
+  {
     "id": "HW-WRITTEN-DEV-20260408",
     "company": "华为",
     "role": "研发岗",
