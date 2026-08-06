@@ -11,7 +11,22 @@ const cases = [
   'meituan-repository-change.md',
   'meituan-customer-service.md',
   'microsoft-load-balancer.md',
-  'codebase-debugging.md'
+  'codebase-debugging.md',
+  'nowcoder-batch-migration-scheduler.md',
+  'nowcoder-crdt-store.md',
+  'nowcoder-payroll-calculator.md',
+  'nowcoder-snake-debugging.md',
+  'nowcoder-saas-renewal-prediction.md',
+  'nowcoder-parking-tui.md',
+  'nowcoder-hospital-queue-tui.md',
+  'nowcoder-2048-variant.md',
+  'nowcoder-online-ordering.md',
+  'nowcoder-tob-event-planning.md',
+  'nowcoder-camp-coloring-api.md',
+  'nowcoder-camp-coloring-java-biz.md',
+  'nowcoder-contact-prefix-api.md',
+  'nowcoder-contacts-api.md',
+  'nowcoder-werewolf-intelligence-api.md'
 ]
 
 const requiredPatterns = [

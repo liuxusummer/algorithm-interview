@@ -464,7 +464,28 @@ export const sidebar: DefaultTheme.SidebarItem[] = [
       { text: '03 真实仓库需求变更', link: '/ai-coding/meituan-repository-change' },
       { text: '04 智能客服 MVP', link: '/ai-coding/meituan-customer-service' },
       { text: '05 最小负载调度器', link: '/ai-coding/microsoft-load-balancer' },
-      { text: '06 多文件代码库排错', link: '/ai-coding/codebase-debugging' }
+      { text: '06 多文件代码库排错', link: '/ai-coding/codebase-debugging' },
+      {
+        text: '牛客公开题单（15）',
+        collapsed: true,
+        items: [
+          { text: '07 批量任务迁移调度', link: '/ai-coding/nowcoder-batch-migration-scheduler' },
+          { text: '08 CRDT 数据类型存储', link: '/ai-coding/nowcoder-crdt-store' },
+          { text: '09 薪资计算器', link: '/ai-coding/nowcoder-payroll-calculator' },
+          { text: '10 贪吃蛇引擎排错', link: '/ai-coding/nowcoder-snake-debugging' },
+          { text: '11 SaaS 续约预测', link: '/ai-coding/nowcoder-saas-renewal-prediction' },
+          { text: '12 停车场多端 TUI', link: '/ai-coding/nowcoder-parking-tui' },
+          { text: '13 医院叫号多端 TUI', link: '/ai-coding/nowcoder-hospital-queue-tui' },
+          { text: '14 2048 变体规则推断', link: '/ai-coding/nowcoder-2048-variant' },
+          { text: '15 在线点餐系统', link: '/ai-coding/nowcoder-online-ordering' },
+          { text: '16 ToB 企业活动策划', link: '/ai-coding/nowcoder-tob-event-planning' },
+          { text: '17 阵营涂色 API', link: '/ai-coding/nowcoder-camp-coloring-api' },
+          { text: '18 阵营涂色 Java Biz', link: '/ai-coding/nowcoder-camp-coloring-java-biz' },
+          { text: '19 通讯录前缀查询 API', link: '/ai-coding/nowcoder-contact-prefix-api' },
+          { text: '20 通讯录系统 API', link: '/ai-coding/nowcoder-contacts-api' },
+          { text: '21 狼人杀情报甄别 API', link: '/ai-coding/nowcoder-werewolf-intelligence-api' }
+        ]
+      }
     ]
   },
   {

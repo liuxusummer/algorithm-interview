@@ -72,6 +72,103 @@ description: 用真实工程任务训练需求拆解、代码库理解、Prompt 
   </a>
 </div>
 
+## 牛客公开题单训练档案
+
+下面 15 个案例来自牛客 AI Coding 公开题单在 2026 年 8 月展示的题目卡片。公开页只披露任务摘要、标签、时长与语言，没有公开完整仓库和全部规则；因此这些页面保留公开考点，用新的训练约束讲解需求澄清、分轮 Prompt、AI 输出审查和验收方法。
+
+<div class="ai-coding-case-grid">
+  <a href="./nowcoder-batch-migration-scheduler">
+    <span>CASE 07 · 公开卡片训练版</span>
+    <h3>批量任务迁移调度引擎</h3>
+    <p>先证明可行性单调，再拆出匹配判定器、见证验证和 5,000 规模复杂度预算。</p>
+    <small>调度 · Hall 定理 · 匹配见证</small>
+  </a>
+  <a href="./nowcoder-crdt-store">
+    <span>CASE 08 · 公开卡片训练版</span>
+    <h3>CRDT 数据类型存储</h3>
+    <p>用交换、结合、幂等性质审查四类 CRDT，重点处理唯一标签和稳定冲突决胜。</p>
+    <small>分布式系统 · 最终一致性 · 性质测试</small>
+  </a>
+  <a href="./nowcoder-payroll-calculator">
+    <span>CASE 09 · 公开卡片训练版</span>
+    <h3>薪资计算器</h3>
+    <p>把累计预扣、社保、加班和舍入拆成可版本化、可解释、可对账的金额流水线。</p>
+    <small>业务规则 · 金额精度 · 边界金样</small>
+  </a>
+  <a href="./nowcoder-snake-debugging">
+    <span>CASE 10 · 公开卡片训练版</span>
+    <h3>贪吃蛇引擎排错</h3>
+    <p>用确定性轨迹定位 tick 时序、碰撞、增长、随机食物和重复定时器缺陷。</p>
+    <small>游戏引擎 · Debug · 状态机</small>
+  </a>
+  <a href="./nowcoder-saas-renewal-prediction">
+    <span>CASE 11 · 公开卡片训练版</span>
+    <h3>SaaS 客户续约预测</h3>
+    <p>从标签时间和客户穿越入手审查泄漏，用可信切分、简单基线和消融面对隐藏集。</p>
+    <small>数据科学 · 时间切分 · 隐藏 Holdout</small>
+  </a>
+  <a href="./nowcoder-parking-tui">
+    <span>CASE 12 · 公开卡片训练版</span>
+    <h3>停车场管理系统</h3>
+    <p>三个终端共享权威状态，练习联合状态机、幂等命令、断线恢复和并发不变量。</p>
+    <small>多端 TUI · 网络通信 · 幂等</small>
+  </a>
+  <a href="./nowcoder-hospital-queue-tui">
+    <span>CASE 13 · 公开卡片训练版</span>
+    <h3>医院叫号系统</h3>
+    <p>围绕多诊室并发叫号、队列公平性、只读候诊屏、审计与隐私设计交付证据。</p>
+    <small>共享队列 · 并发裁决 · 审计</small>
+  </a>
+  <a href="./nowcoder-2048-variant">
+    <span>CASE 14 · 公开卡片训练版</span>
+    <h3>2048 变体规则推断</h3>
+    <p>从动画建立观察账本，用区分实验、单行决策表、不变量与变形测试确认规则。</p>
+    <small>规格推断 · 游戏逻辑 · 变形测试</small>
+  </a>
+  <a href="./nowcoder-online-ordering">
+    <span>CASE 15 · 公开卡片训练版</span>
+    <h3>在线点餐系统 Web 版</h3>
+    <p>先固定 VIP、起送和配送费的计算顺序，再做前后端契约、购物车状态与纵向闭环。</p>
+    <small>Web 产品 · 价格规则 · 契约测试</small>
+  </a>
+  <a href="./nowcoder-tob-event-planning">
+    <span>CASE 16 · 公开卡片训练版</span>
+    <h3>ToB 企业活动策划</h3>
+    <p>把空泛活动方案压实为目标树、受众旅程、运行手册、风险演练和复盘指标。</p>
+    <small>写作任务 · 行业沙龙 · 落地执行</small>
+  </a>
+  <a href="./nowcoder-camp-coloring-api">
+    <span>CASE 17 · 公开卡片训练版</span>
+    <h3>阵营涂色 API 服务</h3>
+    <p>从棋盘观察轨迹推断投放、移动和吞并规则，再定义原子 HTTP 命令与性质测试。</p>
+    <small>观察式题面 · API · 状态转换</small>
+  </a>
+  <a href="./nowcoder-camp-coloring-java-biz">
+    <span>CASE 18 · 公开卡片训练版</span>
+    <h3>阵营涂色 Java Biz</h3>
+    <p>在控制层锁定条件下做契约考古、领域变化集、更新模式审查和最小 Diff 验证。</p>
+    <small>Java 骨架 · Biz 层 · 锁定接口</small>
+  </a>
+  <a href="./nowcoder-contact-prefix-api">
+    <span>CASE 19 · 公开卡片训练版</span>
+    <h3>通讯录前缀查询 API</h3>
+    <p>从号码规范化和批量语义出发选择索引，再用慢基线差分验证增删计数。</p>
+    <small>前缀索引 · 批处理 · 差分测试</small>
+  </a>
+  <a href="./nowcoder-contacts-api">
+    <span>CASE 20 · 公开卡片训练版</span>
+    <h3>通讯录系统 API</h3>
+    <p>维护联系人主记录与分类、首字母、号码前缀三个派生索引的一致性。</p>
+    <small>CRUD · 多索引 · 更新事务</small>
+  </a>
+  <a href="./nowcoder-werewolf-intelligence-api">
+    <span>CASE 21 · 公开卡片训练版</span>
+    <h3>狼人杀情报甄别 API</h3>
+    <p>拒绝用游戏常识补题，练习规则证据、批量回放、版本化判定和历史审计。</p>
+    <small>规则推断 · 在线判定 · 审计历史</small>
+  </a>
+</div>
+
 ## 一次完整作答应该留下什么
 
 <div class="ai-coding-delivery-matrix" role="table" aria-label="AI Coding 完整作答流程">
@@ -142,6 +239,9 @@ description: 用真实工程任务训练需求拆解、代码库理解、Prompt 
     <p>每条案例先说明信息来自哪里，再决定能还原到什么程度。点击卡片可以回到公开记录核对。</p>
   </header>
   <div class="ai-coding-sources__grid">
+    <a href="https://aicoding.nowcoder.com/questionlist" target="_blank" rel="noreferrer">
+      <span>公开题单 · 牛客</span><strong>15 道 AI Coding 训练档案</strong><small>NOWCODER ↗</small>
+    </a>
     <a href="https://www.nowcoder.com/discuss/865336111655051264?sourceSSR=subject" target="_blank" rel="noreferrer">
       <span>公开记录 · 蚂蚁</span><strong>安全邮箱 AI Coding</strong><small>NOWCODER ↗</small>
     </a>
