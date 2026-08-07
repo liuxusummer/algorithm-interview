@@ -4,7 +4,7 @@
 
 [在线访问](https://liuxusummer.github.io/algorithm-interview/)
 
-[大厂真题数据分析](./ANALYSIS)基于 123 道高频面试题与 110 场真实笔试，整理出现次数、难度分布、算法频次和公司侧重点。
+[大厂真题数据分析](./ANALYSIS)基于 123 道高频面试题与 111 场真实笔试，整理出现次数、难度分布、算法频次和公司侧重点。
 
 [NLP · LLM · Agent 算法岗专题](./modules/nlp-llm-agent/README)从 Transformer、
 预训练和后训练出发，覆盖 RAG、推理系统与生产级 Agent 的运行时、评估、

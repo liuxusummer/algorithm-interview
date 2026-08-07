@@ -486,6 +486,25 @@ export const remainingWrittenTests = [
     ]
   },
   {
+    "id": "BAIDU-ALGO-20260806",
+    "company": "百度",
+    "role": "算法岗",
+    "date": "2026-08-06",
+    "year": "2026",
+    "href": "/written-tests/baidu-algo-20260806",
+    "difficulty": "中等",
+    "topics": [
+      "极差与区间合并贪心",
+      "异或、按位与与二进制进位",
+      "置换环、KMP 与质因数分解"
+    ],
+    "questions": [
+      "平衡度划分",
+      "最小爆发值",
+      "旋转跳跃"
+    ]
+  },
+  {
     "id": "NIO-GENERAL-20260419",
     "company": "蔚来",
     "role": "通用岗",

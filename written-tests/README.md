@@ -16,9 +16,9 @@ title: 大厂笔试真题
   </div>
   <div class="written-test-hero__ticket" aria-label="当前收录统计">
     <span>EXAM ARCHIVE</span>
-    <strong>110</strong>
+    <strong>111</strong>
     <small>场真实笔试</small>
-    <strong>320</strong>
+    <strong>323</strong>
     <small>道算法题</small>
     <strong>02</strong>
     <small>场含 AI Coding</small>
@@ -39,7 +39,7 @@ title: 大厂笔试真题
 
 ## 真题数据分析
 
-本站对全部 **110 场笔试、320 道算法题**做了统一统计，包含难度分布、算法频次、常见算法组合、公司侧重点、岗位差异和四周备考计划。
+本站对全部 **111 场笔试、323 道算法题**做了统一统计，包含难度分布、算法频次、常见算法组合、公司侧重点、岗位差异和四周备考计划。
 
 [查看《大厂笔试真题数据分析》 →](./ANALYSIS)
 
@@ -63,7 +63,7 @@ AI Coding 已经从“补全一个函数”转向“在限定时间内交付一�
 
 | 项目 | 统一要求 |
 |---|---|
-| 输入 | 与原场次保持一致；108 场非 AI Coding 笔试均提供完整 `stdin` 读取流程 |
+| 输入 | 与原场次保持一致；109 场非 AI Coding 笔试均提供完整 `stdin` 读取流程 |
 | 输出 | 严格按题面逐行 `print()`，需要批量输出时使用 `"\\n".join(...)` |
 | 入口 | 单测题调用一次 `solve()`；多测题先读取 `T`，再逐组调用 |
 | 类型 | 根据数据范围主动判断是否需要 64 位整数或大整数 |
